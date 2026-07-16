@@ -57,10 +57,11 @@
     padding:10px 16px;border-radius:20px;cursor:pointer;transition:background .15s,transform .15s;
   }
   .react-btn:hover{transform:translateY(-1px);}
-  .react-btn .react-icon{font-size:16px;}
+  .react-btn .react-icon{fill:var(--wine-dark);display:inline-flex;}
   .react-btn .react-count{font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:0.7;}
-  .react-btn[aria-pressed="true"].react-like{background:var(--rose);}
-  .react-btn[aria-pressed="true"].react-dislike{background:var(--blush);}
+  .react-btn[aria-pressed="true"]{background:var(--wine);border-color:var(--wine-dark);color:var(--cream);}
+  .react-btn[aria-pressed="true"] .react-icon{fill:var(--cream);}
+  .react-btn[aria-pressed="true"] .react-count{color:var(--cream);opacity:0.85;}
 </style>
 </head>
 <body>
@@ -82,10 +83,10 @@
     <p class="reactions-label mono">Esse artigo te ajudou?</p>
     <div class="reactions-buttons">
       <button type="button" class="react-btn react-like" data-type="like" aria-pressed="false">
-        <span class="react-icon">👍</span><span class="react-text">Curti</span><span class="react-count">0</span>
+        <svg class="react-icon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg><span class="react-text">Curti</span><span class="react-count">0</span>
       </button>
       <button type="button" class="react-btn react-dislike" data-type="dislike" aria-pressed="false">
-        <span class="react-icon">👎</span><span class="react-text">Não curti</span><span class="react-count">0</span>
+        <svg class="react-icon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><span class="react-text">Não curti</span><span class="react-count">0</span>
       </button>
     </div>
   </div>
