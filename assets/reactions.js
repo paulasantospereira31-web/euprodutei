@@ -39,15 +39,25 @@
       }
     }
 
+    function trackVote(type, action) {
+      if (typeof gtag !== 'function') return;
+      gtag('event', type === 'like' ? 'curtir_artigo' : 'nao_curtir_artigo', {
+        artigo: slug,
+        acao: action,
+      });
+    }
+
     function vote(type) {
       var counts = store[slug];
       if (currentVote === type) {
         counts[type] = Math.max(0, counts[type] - 1);
         currentVote = null;
+        trackVote(type, 'remover');
       } else {
         if (currentVote) counts[currentVote] = Math.max(0, counts[currentVote] - 1);
         counts[type] += 1;
         currentVote = type;
+        trackVote(type, 'adicionar');
       }
       save();
       render();
