@@ -47,6 +47,20 @@
   footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
   .footer-back{font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--wine);}
   .footer-sig{font-size:13px;color:var(--wine-dark);opacity:0.6;}
+  .reactions{margin-top:48px;padding-top:32px;border-top:1px solid var(--paper-line);}
+  .reactions-label{color:var(--wine);opacity:0.7;margin-bottom:14px;}
+  .reactions-buttons{display:flex;gap:12px;flex-wrap:wrap;}
+  .react-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--beige);border:1.3px solid var(--wine-dark);color:var(--wine-dark);
+    font-family:'Inter',sans-serif;font-weight:600;font-size:14px;
+    padding:10px 16px;border-radius:20px;cursor:pointer;transition:background .15s,transform .15s;
+  }
+  .react-btn:hover{transform:translateY(-1px);}
+  .react-btn .react-icon{font-size:16px;}
+  .react-btn .react-count{font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:0.7;}
+  .react-btn[aria-pressed="true"].react-like{background:var(--rose);}
+  .react-btn[aria-pressed="true"].react-dislike{background:var(--blush);}
 </style>
 </head>
 <body>
@@ -64,6 +78,17 @@
 <p>Mas, sendo brutais com os fatos, NUNCA com as pessoas.</p>
 <p>Quando não se tem maturidade e clareza do problema, é fácil acabar misturando tudo. O feedback vira sobre quem a pessoa é, não sobre o que ela fez.</p>
   </div>
+  <div class="reactions" data-article="chorei-feedback">
+    <p class="reactions-label mono">Esse artigo te ajudou?</p>
+    <div class="reactions-buttons">
+      <button type="button" class="react-btn react-like" data-type="like" aria-pressed="false">
+        <span class="react-icon">👍</span><span class="react-text">Curti</span><span class="react-count">0</span>
+      </button>
+      <button type="button" class="react-btn react-dislike" data-type="dislike" aria-pressed="false">
+        <span class="react-icon">👎</span><span class="react-text">Não curti</span><span class="react-count">0</span>
+      </button>
+    </div>
+  </div>
 </div>
 <footer>
   <div class="wrap">
@@ -71,5 +96,6 @@
     <span class="footer-sig">Eu Produtei — por Paula Rodrigues</span>
   </div>
 </footer>
+<script src="../assets/reactions.js" defer></script>
 </body>
 </html>
