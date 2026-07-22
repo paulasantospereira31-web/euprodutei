@@ -236,6 +236,19 @@ arquivos de `articles/`.
   (não é um arquivo de imagem separado em `/assets`). Isso deixa o
   `index.html` com ~70 KB majoritariamente por causa dessa imagem
   embutida.
+- **Título "Quem é 👀 essa tal de Paula?"** usa a classe
+  `h2.collage-title`: mesma fonte (Anton) e mesma técnica de contorno
+  (`text-shadow` em 8 direções + sombra) já usada no título adesivo de
+  Indicações (`h2.sticker-title`, seção 3.5), mas aplicada **palavra
+  por palavra** em vez de linha por linha. Cada
+  palavra é um `<span class="cw cw-wine">` ou `<span class="cw
+  cw-rose">`, com `transform:rotate(...) translateY(...)` inline
+  definido individualmente por palavra (rotações entre -3 e 3 graus,
+  deslocamento vertical pequeno e alternado), criando o efeito de
+  "colagem". O emoji 👀 usa `cw-emoji` (mesma rotação inline, mas
+  `text-shadow:none` — só o texto tem contorno). Para editar esse
+  título no futuro, cada palavra precisa ser ajustada manualmente (não
+  há geração automática de rotação via JS).
 
 ## 4. Deploy contínuo
 
