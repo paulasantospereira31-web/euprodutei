@@ -285,9 +285,23 @@
     background:var(--cream);border:1px solid var(--paper-line);
     padding:16px 18px;margin-bottom:12px;border-radius:2px;
     box-shadow:2px 2px 0 rgba(58,20,32,0.05);
+    display:flex;gap:16px;
+  }
+  .rec-card .rec-cover{
+    width:76px;height:108px;object-fit:cover;border-radius:2px;flex-shrink:0;
+    box-shadow:2px 2px 0 rgba(58,20,32,0.15);
   }
   .rec-card .rec-title{font-family:'Fraunces',serif;font-weight:600;font-size:15.5px;color:var(--wine-dark);}
   .rec-card .rec-meta{font-size:12.5px;color:var(--wine-dark);opacity:0.6;margin-top:3px;}
+  .rec-card .rec-author{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--rose);margin-top:2px;margin-bottom:8px;
+  }
+  .rec-card .rec-desc{font-size:13.5px;line-height:1.55;color:var(--wine-dark);opacity:0.85;margin:0;}
+  @media(max-width:480px){
+    .rec-card{flex-direction:column;}
+    .rec-card .rec-cover{width:88px;height:125px;}
+  }
   .rec-empty{
     border:1.5px dashed var(--rose);padding:20px;text-align:center;
     font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;
@@ -462,7 +476,22 @@
     <div class="rec-grid">
       <div class="rec-col">
         <h3>Livros</h3>
-        <div class="rec-empty">primeira indicação em breve</div>
+        <div class="rec-card">
+          <img class="rec-cover" src="assets/books/inspirado.jpg" alt="Capa do livro Inspirado, de Marty Cagan">
+          <div>
+            <div class="rec-title">Inspirado</div>
+            <div class="rec-author">Marty Cagan</div>
+            <p class="rec-desc">Se eu tivesse que indicar apenas um livro para quem quer entender Produto de verdade, seria este. Marty Cagan explica como grandes equipes descobrem, validam e constroem produtos que geram valor para clientes e para o negócio. Uma leitura indispensável para qualquer PM.</p>
+          </div>
+        </div>
+        <div class="rec-card">
+          <img class="rec-cover" src="assets/books/jornada-transicao-produtos.jpg" alt="Capa do livro Jornada da Transição para Produtos">
+          <div>
+            <div class="rec-title">Jornada da Transição para Produtos</div>
+            <div class="rec-author">Antonio Muniz e coautores</div>
+            <p class="rec-desc">Uma leitura prática para quem está entrando no universo de Produto ou quer consolidar seus conhecimentos. O livro reúne diferentes perspectivas de profissionais do mercado e conecta teoria com experiências reais, tornando a transição para Product Manager muito mais clara.</p>
+          </div>
+        </div>
       </div>
       <div class="rec-col">
         <h3>Podcasts</h3>

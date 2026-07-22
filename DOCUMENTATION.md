@@ -44,7 +44,10 @@ euprodutei/
 ├── index.html                  # Página inicial (home) — única página com todas as seções
 ├── assets/
 │   ├── reactions.js             # JS compartilhado do widget de curtir/não curtir
-│   └── search.js                # JS da busca de artigos (só carregado por index.html)
+│   ├── search.js                # JS da busca de artigos (só carregado por index.html)
+│   └── books/                   # Capas dos livros indicados na seção Indicações
+│       ├── inspirado.jpg
+│       └── jornada-transicao-produtos.jpg
 └── articles/                   # Uma página HTML por artigo (sem template/gerador — cada
     │                            # arquivo é escrito à mão e duplica o <head>/CSS do index)
     ├── chorei-feedback.html
@@ -194,8 +197,17 @@ arquivos de `articles/`.
   artigos — hoje só tem 1 item, hardcoded no HTML (`<a class="ml-item">`),
   sem lógica de "mais lido de verdade" (não é calculado a partir de
   dados reais de acesso).
-- `#indicacoes`: seção de livros/podcasts, hoje vazia com um placeholder
-  ("primeira indicação em breve" em `.rec-empty`) para cada coluna.
+- `#indicacoes`: seção de livros/podcasts. A coluna "Livros" já tem 2
+  indicações reais, cada uma em um `.rec-card` (capa `<img class="rec-cover">`
+  + `.rec-title` + `.rec-author` + `.rec-desc`) — layout hardcoded no
+  HTML, sem CMS/dados externos. A coluna "Podcasts" ainda mostra o
+  placeholder original ("primeira indicação em breve" em `.rec-empty`),
+  já que ainda não há nenhuma indicação de podcast.
+- Ao adicionar uma nova indicação de livro (ou o primeiro podcast): (1)
+  salvar a capa em `assets/books/` (ou uma pasta equivalente para
+  podcasts), (2) copiar o padrão de um `.rec-card` existente dentro do
+  `.rec-col` correspondente, (3) remover o `.rec-empty` daquela coluna
+  se for a primeira indicação dela.
 
 ### 3.6 Seção Sobre
 
