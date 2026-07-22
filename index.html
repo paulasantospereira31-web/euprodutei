@@ -193,20 +193,29 @@
   .filter-pill:hover{background:var(--blush);}
   #f-todos:checked ~ .filter-row label[for="f-todos"],
   #f-produto:checked ~ .filter-row label[for="f-produto"],
-  #f-discovery:checked ~ .filter-row label[for="f-discovery"],
-  #f-ia:checked ~ .filter-row label[for="f-ia"],
-  #f-dia-a-dia:checked ~ .filter-row label[for="f-dia-a-dia"],
-  #f-comunicacao:checked ~ .filter-row label[for="f-comunicacao"]{
+  #f-comunicacao:checked ~ .filter-row label[for="f-comunicacao"],
+  #f-lideranca:checked ~ .filter-row label[for="f-lideranca"]{
     background:var(--wine);color:var(--cream);
+  }
+
+  /* visibilidade condicional: o filtro só aparece se existir ao menos
+     um artigo publicado com essa categoria */
+  .filter-pill[for="f-produto"],
+  .filter-pill[for="f-comunicacao"],
+  .filter-pill[for="f-lideranca"]{
+    display:none;
+  }
+  #artigos:has(.article-row[data-category="produto"]) .filter-pill[for="f-produto"],
+  #artigos:has(.article-row[data-category="comunicacao"]) .filter-pill[for="f-comunicacao"],
+  #artigos:has(.article-row[data-category="lideranca"]) .filter-pill[for="f-lideranca"]{
+    display:inline-block;
   }
 
   /* articles */
   .article-list{margin-top:8px;display:flex;flex-direction:column;}
   #f-produto:checked ~ .article-list .article-row:not([data-category="produto"]),
-  #f-discovery:checked ~ .article-list .article-row:not([data-category="discovery"]),
-  #f-ia:checked ~ .article-list .article-row:not([data-category="ia"]),
-  #f-dia-a-dia:checked ~ .article-list .article-row:not([data-category="dia-a-dia"]),
-  #f-comunicacao:checked ~ .article-list .article-row:not([data-category="comunicacao"]){
+  #f-comunicacao:checked ~ .article-list .article-row:not([data-category="comunicacao"]),
+  #f-lideranca:checked ~ .article-list .article-row:not([data-category="lideranca"]){
     display:none;
   }
   .article-row{
@@ -345,18 +354,14 @@
 
     <input type="radio" name="catfilter" id="f-todos" class="filter-radio" checked>
     <input type="radio" name="catfilter" id="f-produto" class="filter-radio">
-    <input type="radio" name="catfilter" id="f-discovery" class="filter-radio">
-    <input type="radio" name="catfilter" id="f-ia" class="filter-radio">
-    <input type="radio" name="catfilter" id="f-dia-a-dia" class="filter-radio">
     <input type="radio" name="catfilter" id="f-comunicacao" class="filter-radio">
+    <input type="radio" name="catfilter" id="f-lideranca" class="filter-radio">
 
     <div class="filter-row">
       <label class="filter-pill" for="f-todos">Todos</label>
       <label class="filter-pill" for="f-produto">Produto</label>
-      <label class="filter-pill" for="f-discovery">Discovery</label>
-      <label class="filter-pill" for="f-ia">IA em produto</label>
-      <label class="filter-pill" for="f-dia-a-dia">Dia a dia</label>
       <label class="filter-pill" for="f-comunicacao">Comunicação</label>
+      <label class="filter-pill" for="f-lideranca">Liderança</label>
     </div>
 
             <div class="article-list">
@@ -370,20 +375,20 @@
         <div class="art-arrow">→</div>
       </a>
 
-      <a class="article-row" href="articles/decepcionar-quase-toda-semana.html" data-category="dia-a-dia">
+      <a class="article-row" href="articles/decepcionar-quase-toda-semana.html" data-category="lideranca">
         <div class="art-date">JUL 2026</div>
         <div>
-          <span class="art-tag">Dia a dia</span>
+          <span class="art-tag">Liderança</span>
           <div class="art-title">Trabalhar com produto é decepcionar alguém quase toda semana</div>
           <div class="art-excerpt">O mais difícil não é construir a solução certa, isso é a parte fácil. Complicado mesmo é convencer todo mundo de qual é o problema certo.</div>
         </div>
         <div class="art-arrow">→</div>
       </a>
 
-      <a class="article-row" href="articles/feedback-opiniao-fato.html" data-category="dia-a-dia">
+      <a class="article-row" href="articles/feedback-opiniao-fato.html" data-category="comunicacao">
         <div class="art-date">JUL 2026</div>
         <div>
-          <span class="art-tag">Dia a dia</span>
+          <span class="art-tag">Comunicação</span>
           <div class="art-title">Feedback baseado em opinião pessoal não muda nada</div>
           <div class="art-excerpt">"Achei que você foi meio ríspido" não leva a lugar nenhum. Fato é o que a pessoa consegue trabalhar em cima.</div>
         </div>
@@ -400,10 +405,10 @@
         <div class="art-arrow">→</div>
       </a>
 
-      <a class="article-row" href="articles/perguntas-produtivo.html" data-category="dia-a-dia">
+      <a class="article-row" href="articles/perguntas-produtivo.html" data-category="produto">
         <div class="art-date">JUL 2026</div>
         <div>
-          <span class="art-tag">Dia a dia</span>
+          <span class="art-tag">Produto</span>
           <div class="art-title">Perguntas que valem mais do que "você foi produtivo hoje?"</div>
           <div class="art-excerpt">Reunião não é sinal de improdutividade. A pergunta melhor é: o meu dia moveu alguma coisa pra frente?</div>
         </div>

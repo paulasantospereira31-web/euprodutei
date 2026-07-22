@@ -42,7 +42,8 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
 euprodutei/
 ├── index.html                  # Página inicial (home) — única página com todas as seções
 ├── assets/
-│   └── reactions.js            # JS compartilhado do widget de curtir/não curtir
+│   ├── reactions.js             # JS compartilhado do widget de curtir/não curtir
+│   └── search.js                # JS da busca de artigos (só carregado por index.html)
 └── articles/                   # Uma página HTML por artigo (sem template/gerador — cada
     │                            # arquivo é escrito à mão e duplica o <head>/CSS do index)
     ├── chorei-feedback.html
@@ -129,16 +130,64 @@ arquivos de `articles/`.
   `<input type="radio" name="catfilter">` ocultos (`.filter-radio`) mais
   seletores `:checked ~` no CSS que escondem `.article-row` cujo
   `data-category` não bate com o filtro selecionado.
-- As categorias existentes hoje: `produto`, `discovery`, `ia`,
-  `dia-a-dia`, `comunicacao` — atribuídas via `data-category="..."` em
-  cada link de artigo dentro de `.article-list`.
+- As categorias existentes hoje: `produto`, `comunicacao`, `lideranca`
+  — atribuídas via `data-category="..."` em cada link de artigo dentro
+  de `.article-list`. (Categorias antigas — `discovery`, `ia`,
+  `dia-a-dia` — foram descontinuadas: `discovery` e `ia` viraram parte
+  de `produto`; os 3 artigos que estavam em `dia-a-dia` foram
+  redistribuídos individualmente entre `produto`, `comunicacao` e
+  `lideranca`, conforme o tema de cada um.)
+- **Visibilidade condicional dos filtros**: cada `label.filter-pill`
+  (exceto "Todos", que é sempre visível) começa com `display:none` e só
+  volta a `display:inline-block` se existir, em algum lugar dentro de
+  `#artigos`, um `.article-row[data-category="..."]` correspondente —
+  verificado via seletor CSS `:has()`
+  (`#artigos:has(.article-row[data-category="produto"]) .filter-pill[for="f-produto"]`).
+  Isso é 100% CSS, sem JavaScript: assim que o primeiro artigo de uma
+  categoria nova (ex.: `lideranca`) for publicado com o
+  `data-category` certo, o botão de filtro correspondente aparece
+  sozinho — e se todos os artigos de uma categoria forem removidos, o
+  filtro correspondente volta a desaparecer sozinho.
 - Ao adicionar um novo artigo, é preciso: (1) criar o HTML do artigo,
   (2) adicionar um `<a class="article-row" data-category="...">`
-  apontando pra ele em `index.html`, e (3) se for uma categoria nova,
-  adicionar o `<input>` e o `<label class="filter-pill">`
-  correspondentes.
+  apontando pra ele em `index.html`. Se for uma categoria já existente
+  (`produto`, `comunicacao` ou `lideranca`), o filtro correspondente já
+  existe e aparece automaticamente. Se for uma categoria **nova** (além
+  dessas 3), é preciso também adicionar o `<input type="radio">`, o
+  `<label class="filter-pill">` e as 3 regras de CSS (estado ativo,
+  visibilidade condicional via `:has()`, e a regra que esconde
+  `.article-row` de outras categorias) seguindo o padrão das demais.
 
-### 3.4 "Mais lidos" e "Indicações"
+### 3.4 Busca de artigos
+
+- **Onde vive**: `assets/search.js`, referenciado só por `index.html`
+  (não existe busca nas páginas individuais de artigo). Input de busca
+  em `#article-search`, dentro da seção `#artigos`.
+- **Como funciona**: ao digitar, o script busca o termo tanto no
+  título quanto no **corpo completo** de cada artigo. Como o texto
+  completo não está na home, o script faz `fetch()` do HTML de cada
+  artigo (mesma origem, sem necessidade de servidor/API) na primeira
+  busca, guarda o texto em memória (cache simples, só dura enquanto a
+  página está aberta) e reutiliza nas buscas seguintes.
+- A busca ignora acentuação (compara removendo diacríticos com
+  `normalize('NFD')`), então "voce" encontra "você".
+- O termo encontrado é destacado com `<mark class="search-hit">`,
+  estilizado na cor `--rose`, dentro de um trecho (snippet) do corpo do
+  artigo ao redor do ponto onde o termo aparece.
+- Quando há termo de busca ativo, a lista normal (`.article-list`) e os
+  filtros de categoria (`.filter-row`) ficam ocultos, e os resultados
+  aparecem em `#search-results`. Limpar o campo de busca volta ao modo
+  normal (lista + filtros). Se nenhum artigo bater com o termo, mostra
+  a mensagem "Nenhum resultado encontrado. Tente utilizar outra palavra
+  ou termo relacionado." em vez da lista.
+- **Nota técnica**: existe uma regra global `[hidden]{display:none
+  !important;}` no CSS, necessária porque `.article-list` e
+  `.filter-row` definem `display:flex` via classe, que teria
+  especificidade maior que o `display:none` que o navegador aplica por
+  padrão ao atributo HTML `hidden` — sem essa regra, o atributo
+  `hidden` não escondia esses elementos.
+
+### 3.5 "Mais lidos" e "Indicações"
 
 - `.mais-lidos`: lista estática de destaques dentro da seção de
   artigos — hoje só tem 1 item, hardcoded no HTML (`<a class="ml-item">`),
@@ -147,7 +196,7 @@ arquivos de `articles/`.
 - `#indicacoes`: seção de livros/podcasts, hoje vazia com um placeholder
   ("primeira indicação em breve" em `.rec-empty`) para cada coluna.
 
-### 3.5 Seção Sobre
+### 3.6 Seção Sobre
 
 - Bio de Paula Rodrigues em `index.html#sobre`, com foto embutida
   diretamente como `data:image/jpeg;base64,...` dentro do próprio HTML
