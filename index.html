@@ -28,6 +28,7 @@
     --paper-line: rgba(58,20,32,0.06);
   }
   *{box-sizing:border-box;}
+  [hidden]{display:none !important;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
@@ -133,6 +134,8 @@
   .section-beige{background:var(--beige);}
   .eyebrow{color:var(--wine);font-weight:500;margin-bottom:10px;}
   .section-title{font-size:clamp(26px,4vw,36px);font-weight:600;color:var(--wine-dark);margin-bottom:14px;}
+  #artigos .section-title{margin-bottom:4px;}
+  #artigos .section-sub{margin-top:0;}
   .section-sub{max-width:52ch;color:var(--wine-dark);opacity:0.72;font-size:15.5px;}
 
   /* about */
@@ -165,6 +168,18 @@
   .ml-row{display:flex;flex-wrap:wrap;gap:6px 18px;}
   .ml-item{font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--wine-dark);border-bottom:1px solid transparent;}
   .ml-item:hover{border-color:var(--wine-dark);}
+
+  /* busca */
+  .search-row{margin-top:24px;}
+  .search-input{
+    width:100%;font-family:'Inter',sans-serif;font-size:15px;color:var(--wine-dark);
+    background:var(--cream);border:1.3px solid var(--wine);border-radius:20px;
+    padding:11px 18px;outline:none;transition:border-color .15s;
+  }
+  .search-input::placeholder{color:var(--wine);opacity:0.55;}
+  .search-input:focus{border-color:var(--wine-dark);}
+  mark.search-hit{background:none;color:var(--rose);font-weight:700;}
+  .search-empty{color:var(--wine-dark);opacity:0.72;font-size:15px;padding:20px 0;}
 
   /* filter pills — CSS only, via hidden radios */
   .filter-radio{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}
@@ -324,6 +339,10 @@
       </div>
     </div>
 
+    <div class="search-row">
+      <input type="search" id="article-search" class="search-input" placeholder="Buscar por palavra ou termo..." aria-label="Buscar artigos">
+    </div>
+
     <input type="radio" name="catfilter" id="f-todos" class="filter-radio" checked>
     <input type="radio" name="catfilter" id="f-produto" class="filter-radio">
     <input type="radio" name="catfilter" id="f-discovery" class="filter-radio">
@@ -392,6 +411,7 @@
       </a>
 
     </div>
+    <div id="search-results" class="article-list" hidden></div>
   </div>
 </section>
 
@@ -443,5 +463,6 @@
   </div>
 </section>
 
+<script src="assets/search.js" defer></script>
 </body>
 </html>
