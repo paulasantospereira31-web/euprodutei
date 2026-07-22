@@ -14,7 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eu Produtei — Paula Rodrigues</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Anton&display=swap" rel="stylesheet">
 <style>
   :root{
     --wine:#5C2333;
@@ -137,6 +137,35 @@
   #artigos .section-title{margin-bottom:4px;}
   #artigos .section-sub{margin-top:0;}
   .section-sub{max-width:52ch;color:var(--wine-dark);opacity:0.72;font-size:15.5px;}
+
+  /* título adesivo (Indicações) */
+  h2.sticker-title{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    font-size:clamp(30px,5.5vw,46px);
+    line-height:1.1;
+    letter-spacing:0.5px;
+    margin:0 0 20px;
+    color:var(--wine);
+  }
+  h2.sticker-title .sticker-line{
+    display:inline-block;
+    text-shadow:
+      -3px -3px 0 var(--cream),
+       3px -3px 0 var(--cream),
+      -3px  3px 0 var(--cream),
+       3px  3px 0 var(--cream),
+      -3px  0   0 var(--cream),
+       3px  0   0 var(--cream),
+       0   -3px 0 var(--cream),
+       0    3px 0 var(--cream),
+       0    5px 0 rgba(0,0,0,0.18);
+    transform:rotate(-1.5deg);
+    margin-bottom:6px;
+  }
+  h2.sticker-title .sticker-line.sticker-mid{transform:rotate(1deg);}
+  h2.sticker-title .sticker-accent{color:var(--rose);}
 
   /* about */
   .about-grid{
@@ -423,8 +452,12 @@
 <section id="indicacoes" class="section-beige">
   <div class="wrap">
     <div class="eyebrow mono">Indicações</div>
-    <h2 class="section-title">Livros e podcasts que estão me formando</h2>
-    <p class="section-sub">Essa seção cresce aos poucos — vai junto com o que eu realmente estou lendo e ouvindo.</p>
+    <h2 class="sticker-title">
+      <span class="sticker-line">Livros e podcasts</span><br>
+      <span class="sticker-line sticker-mid">que, <span class="sticker-accent">como PM</span>,</span><br>
+      <span class="sticker-line">eu sempre indico</span>
+    </h2>
+    <p class="section-sub">Essa coleção está sempre em construção. Ela acompanha o que estou lendo, ouvindo e aprendendo ao longo da jornada em Produto.</p>
 
     <div class="rec-grid">
       <div class="rec-col">

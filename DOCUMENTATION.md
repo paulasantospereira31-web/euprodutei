@@ -13,7 +13,8 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
   etc. Não existe `package.json`, `node_modules` nem qualquer bundler
   (Webpack/Vite/Parcel).
 - **Fontes**: Google Fonts carregado via `<link>` no `<head>` de cada
-  página (Fraunces, Inter, IBM Plex Mono).
+  página (Fraunces, Inter, IBM Plex Mono). `index.html` também carrega
+  Anton, usada só no título "adesivo" da seção Indicações.
 - **Analytics**: Google Analytics 4 (gtag.js), com o Measurement ID
   `G-XF33JMSZ0X`, instalado manualmente (copiado/colado) no `<head>` de
   **todas** as páginas — `index.html` e os 5 artigos.
