@@ -291,6 +291,7 @@
     width:76px;height:108px;object-fit:cover;border-radius:2px;flex-shrink:0;
     box-shadow:2px 2px 0 rgba(58,20,32,0.15);
   }
+  .rec-card .rec-cover-square{width:88px;height:88px;}
   .rec-card .rec-title{font-family:'Fraunces',serif;font-weight:600;font-size:15.5px;color:var(--wine-dark);}
   .rec-card .rec-meta{font-size:12.5px;color:var(--wine-dark);opacity:0.6;margin-top:3px;}
   .rec-card .rec-author{
@@ -301,6 +302,7 @@
   @media(max-width:480px){
     .rec-card{flex-direction:column;}
     .rec-card .rec-cover{width:88px;height:125px;}
+    .rec-card .rec-cover-square{width:100px;height:100px;}
   }
   .rec-empty{
     border:1.5px dashed var(--rose);padding:20px;text-align:center;
@@ -495,7 +497,22 @@
       </div>
       <div class="rec-col">
         <h3>Podcasts</h3>
-        <div class="rec-empty">primeira indicação em breve</div>
+        <div class="rec-card">
+          <img class="rec-cover rec-cover-square" src="assets/podcasts/mulheres-de-produto-cover.jpg" alt="Capa do podcast Mulheres de Produto">
+          <div>
+            <div class="rec-title">Mulheres de Produto</div>
+            <div class="rec-author">De Mulheres de Produto</div>
+            <p class="rec-desc">O Mulheres de Produto vai muito além de falar sobre a profissão. Os episódios abordam carreira, liderança, gestão, desenvolvimento profissional e os desafios de construir produtos em diferentes contextos. O que mais gosto é a diversidade de histórias e perspectivas compartilhadas por mulheres que vivem Produto na prática. É um podcast que inspira, ensina e amplia a forma como enxergamos a profissão.</p>
+          </div>
+        </div>
+        <div class="rec-card">
+          <img class="rec-cover rec-cover-square" src="assets/podcasts/product-gurus-cover.jpg" alt="Capa do podcast Product Guru's">
+          <div>
+            <div class="rec-title">Product Guru's</div>
+            <div class="rec-author">De Paulo Chiodi</div>
+            <p class="rec-desc">Se você quer aprofundar seus conhecimentos em Produto, esse é um podcast que vale a pena acompanhar. Os episódios exploram temas como Product Discovery, Product Strategy, priorização, métricas, experimentação, liderança, cultura de produto e gestão de times. As conversas são conduzidas por profissionais experientes, que compartilham desafios reais, aprendizados e práticas aplicáveis ao dia a dia de Product Managers, Product Owners e líderes de Produto.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

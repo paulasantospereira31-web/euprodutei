@@ -45,9 +45,14 @@ euprodutei/
 ├── assets/
 │   ├── reactions.js             # JS compartilhado do widget de curtir/não curtir
 │   ├── search.js                # JS da busca de artigos (só carregado por index.html)
-│   └── books/                   # Capas dos livros indicados na seção Indicações
-│       ├── inspirado.jpg
-│       └── jornada-transicao-produtos.jpg
+│   ├── books/                   # Capas dos livros indicados na seção Indicações
+│   │   ├── inspirado.jpg
+│   │   └── jornada-transicao-produtos.jpg
+│   └── podcasts/                # Capas dos podcasts indicados na seção Indicações
+│       ├── mulheres-de-produto.webp        # imagem original (share card do Spotify, não usada diretamente)
+│       ├── mulheres-de-produto-cover.jpg   # recorte quadrado da capa, usado no site
+│       ├── product-gurus.webp              # imagem original (share card do Spotify, não usada diretamente)
+│       └── product-gurus-cover.jpg         # recorte quadrado da capa, usado no site
 └── articles/                   # Uma página HTML por artigo (sem template/gerador — cada
     │                            # arquivo é escrito à mão e duplica o <head>/CSS do index)
     ├── chorei-feedback.html
@@ -197,16 +202,31 @@ arquivos de `articles/`.
   artigos — hoje só tem 1 item, hardcoded no HTML (`<a class="ml-item">`),
   sem lógica de "mais lido de verdade" (não é calculado a partir de
   dados reais de acesso).
-- `#indicacoes`: seção de livros/podcasts. A coluna "Livros" já tem 2
-  indicações reais, cada uma em um `.rec-card` (capa `<img class="rec-cover">`
-  + `.rec-title` + `.rec-author` + `.rec-desc`) — layout hardcoded no
-  HTML, sem CMS/dados externos. A coluna "Podcasts" ainda mostra o
-  placeholder original ("primeira indicação em breve" em `.rec-empty`),
-  já que ainda não há nenhuma indicação de podcast.
-- Ao adicionar uma nova indicação de livro (ou o primeiro podcast): (1)
-  salvar a capa em `assets/books/` (ou uma pasta equivalente para
-  podcasts), (2) copiar o padrão de um `.rec-card` existente dentro do
-  `.rec-col` correspondente, (3) remover o `.rec-empty` daquela coluna
+- `#indicacoes`: seção de livros/podcasts. As colunas "Livros" e
+  "Podcasts" já têm 2 indicações reais cada, todas em `.rec-card`
+  (capa + `.rec-title` + `.rec-author` + `.rec-desc`) — layout
+  hardcoded no HTML, sem CMS/dados externos. Não sobrou nenhum
+  `.rec-empty` nessa seção; a classe continua no CSS caso uma coluna
+  nova precise dela no futuro.
+  - Capas de livro usam a classe `.rec-cover` (proporção retrato,
+    76×108 no desktop / 88×125 no mobile).
+  - Capas de podcast usam `.rec-cover.rec-cover-square` (proporção
+    quadrada, 88×88 no desktop / 100×100 no mobile) — a segunda classe
+    só sobrescreve `width`/`height` do `.rec-cover` base.
+  - **Nota sobre as imagens de podcast**: os arquivos que chegaram
+    (`mulheres-de-produto.webp`, `product-gurus.webp`) eram os cards de
+    compartilhamento completos do Spotify (retrato, com fundo colorido
+    e texto), não a capa quadrada isolada. Antes de usar, a capa
+    quadrada foi recortada de dentro de cada imagem (via script Python
+    com Pillow, identificando a borda do quadrado por análise de
+    pixel) e salva como `*-cover.jpg` — são esses arquivos `-cover.jpg`
+    que o site realmente usa; os `.webp` originais ficaram no repo só
+    de referência.
+- Ao adicionar uma nova indicação: (1) salvar a capa em `assets/books/`
+  ou `assets/podcasts/` (usando uma imagem já recortada no formato
+  certo — retrato para livro, quadrada para podcast), (2) copiar o
+  padrão de um `.rec-card` existente dentro do `.rec-col`
+  correspondente, (3) remover o `.rec-empty` daquela coluna
   se for a primeira indicação dela.
 
 ### 3.6 Seção Sobre
