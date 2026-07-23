@@ -204,12 +204,21 @@ arquivos de `articles/`.
   artigos — hoje só tem 1 item, hardcoded no HTML (`<a class="ml-item">`),
   sem lógica de "mais lido de verdade" (não é calculado a partir de
   dados reais de acesso).
-- `#indicacoes`: seção de livros/podcasts. As colunas "Livros" e
+- `#indicacoes`: seção de livros/podcasts. As subseções "Livros" e
   "Podcasts" já têm 2 indicações reais cada, todas em `.rec-card`
   (capa + `.rec-title` + `.rec-author` + `.rec-desc`) — layout
   hardcoded no HTML, sem CMS/dados externos. Não sobrou nenhum
   `.rec-empty` nessa seção; a classe continua no CSS caso uma coluna
   nova precise dela no futuro.
+  - **Layout (`.rec-grid` e `.rec-cards`)**: no desktop, `.rec-grid`
+    empilha as subseções "Livros" e "Podcasts" em largura total, uma
+    embaixo da outra (`grid-template-columns:1fr`) — não ficam mais
+    lado a lado. Dentro de cada subseção (`.rec-col`), os cards ficam
+    num grid próprio, `.rec-cards` (`grid-template-columns:1fr 1fr`),
+    aproveitando a largura total disponível. No mobile
+    (`max-width:720px`), só `.rec-cards` muda para 1 coluna — a
+    estrutura de `.rec-grid` já era empilhada em qualquer largura,
+    então o mobile não foi alterado por essa mudança.
   - Capas de livro usam a classe `.rec-cover` (proporção retrato,
     76×108 no desktop / 88×125 no mobile).
   - Capas de podcast usam `.rec-cover.rec-cover-square` (proporção

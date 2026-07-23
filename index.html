@@ -320,11 +320,12 @@
   }
 
   /* indicacoes */
-  .rec-grid{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+  .rec-grid{margin-top:40px;display:grid;grid-template-columns:1fr;gap:40px;}
   .rec-col h3{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--wine);margin-bottom:18px;}
+  .rec-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
   .rec-card{
     background:var(--cream);border:1px solid var(--paper-line);
-    padding:16px 18px;margin-bottom:12px;border-radius:2px;
+    padding:16px 18px;border-radius:2px;
     box-shadow:2px 2px 0 rgba(58,20,32,0.05);
     display:flex;gap:16px;
   }
@@ -372,7 +373,7 @@
     .avatar{width:96px;height:96px;font-size:32px;}
     .article-row{grid-template-columns:1fr;gap:8px;}
     .art-arrow{display:none;}
-    .rec-grid{grid-template-columns:1fr;}
+    .rec-cards{grid-template-columns:1fr;}
     .link-grid{grid-template-columns:1fr 1fr;}
   }
 </style>
@@ -527,39 +528,43 @@
     <div class="rec-grid">
       <div class="rec-col">
         <h3>Livros</h3>
-        <div class="rec-card">
-          <img class="rec-cover" src="assets/books/inspirado.jpg" alt="Capa do livro Inspirado, de Marty Cagan">
-          <div>
-            <div class="rec-title">Inspirado</div>
-            <div class="rec-author">Marty Cagan</div>
-            <p class="rec-desc">Se eu tivesse que indicar apenas um livro para quem quer entender Produto de verdade, seria este. Marty Cagan explica como grandes equipes descobrem, validam e constroem produtos que geram valor para clientes e para o negócio. Uma leitura indispensável para qualquer PM.</p>
+        <div class="rec-cards">
+          <div class="rec-card">
+            <img class="rec-cover" src="assets/books/inspirado.jpg" alt="Capa do livro Inspirado, de Marty Cagan">
+            <div>
+              <div class="rec-title">Inspirado</div>
+              <div class="rec-author">Marty Cagan</div>
+              <p class="rec-desc">Se eu tivesse que indicar apenas um livro para quem quer entender Produto de verdade, seria este. Marty Cagan explica como grandes equipes descobrem, validam e constroem produtos que geram valor para clientes e para o negócio. Uma leitura indispensável para qualquer PM.</p>
+            </div>
           </div>
-        </div>
-        <div class="rec-card">
-          <img class="rec-cover" src="assets/books/jornada-transicao-produtos.jpg" alt="Capa do livro Jornada da Transição para Produtos">
-          <div>
-            <div class="rec-title">Jornada da Transição para Produtos</div>
-            <div class="rec-author">Antonio Muniz e coautores</div>
-            <p class="rec-desc">Uma leitura prática para quem está entrando no universo de Produto ou quer consolidar seus conhecimentos. O livro reúne diferentes perspectivas de profissionais do mercado e conecta teoria com experiências reais, tornando a transição para Product Manager muito mais clara.</p>
+          <div class="rec-card">
+            <img class="rec-cover" src="assets/books/jornada-transicao-produtos.jpg" alt="Capa do livro Jornada da Transição para Produtos">
+            <div>
+              <div class="rec-title">Jornada da Transição para Produtos</div>
+              <div class="rec-author">Antonio Muniz e coautores</div>
+              <p class="rec-desc">Uma leitura prática para quem está entrando no universo de Produto ou quer consolidar seus conhecimentos. O livro reúne diferentes perspectivas de profissionais do mercado e conecta teoria com experiências reais, tornando a transição para Product Manager muito mais clara.</p>
+            </div>
           </div>
         </div>
       </div>
       <div class="rec-col">
         <h3>Podcasts</h3>
-        <div class="rec-card">
-          <img class="rec-cover rec-cover-square" src="assets/podcasts/mulheres-de-produto-cover.jpg" alt="Capa do podcast Mulheres de Produto">
-          <div>
-            <div class="rec-title">Mulheres de Produto</div>
-            <div class="rec-author">De Mulheres de Produto</div>
-            <p class="rec-desc">O Mulheres de Produto vai muito além de falar sobre a profissão. Os episódios abordam carreira, liderança, gestão, desenvolvimento profissional e os desafios de construir produtos em diferentes contextos. O que mais gosto é a diversidade de histórias e perspectivas compartilhadas por mulheres que vivem Produto na prática. É um podcast que inspira, ensina e amplia a forma como enxergamos a profissão.</p>
+        <div class="rec-cards">
+          <div class="rec-card">
+            <img class="rec-cover rec-cover-square" src="assets/podcasts/mulheres-de-produto-cover.jpg" alt="Capa do podcast Mulheres de Produto">
+            <div>
+              <div class="rec-title">Mulheres de Produto</div>
+              <div class="rec-author">De Mulheres de Produto</div>
+              <p class="rec-desc">O Mulheres de Produto vai muito além de falar sobre a profissão. Os episódios abordam carreira, liderança, gestão, desenvolvimento profissional e os desafios de construir produtos em diferentes contextos. O que mais gosto é a diversidade de histórias e perspectivas compartilhadas por mulheres que vivem Produto na prática. É um podcast que inspira, ensina e amplia a forma como enxergamos a profissão.</p>
+            </div>
           </div>
-        </div>
-        <div class="rec-card">
-          <img class="rec-cover rec-cover-square" src="assets/podcasts/product-gurus-cover.jpg" alt="Capa do podcast Product Guru's">
-          <div>
-            <div class="rec-title">Product Guru's</div>
-            <div class="rec-author">De Paulo Chiodi</div>
-            <p class="rec-desc">Se você quer aprofundar seus conhecimentos em Produto, esse é um podcast que vale a pena acompanhar. Os episódios exploram temas como Product Discovery, Product Strategy, priorização, métricas, experimentação, liderança, cultura de produto e gestão de times. As conversas são conduzidas por profissionais experientes, que compartilham desafios reais, aprendizados e práticas aplicáveis ao dia a dia de Product Managers, Product Owners e líderes de Produto.</p>
+          <div class="rec-card">
+            <img class="rec-cover rec-cover-square" src="assets/podcasts/product-gurus-cover.jpg" alt="Capa do podcast Product Guru's">
+            <div>
+              <div class="rec-title">Product Guru's</div>
+              <div class="rec-author">De Paulo Chiodi</div>
+              <p class="rec-desc">Se você quer aprofundar seus conhecimentos em Produto, esse é um podcast que vale a pena acompanhar. Os episódios exploram temas como Product Discovery, Product Strategy, priorização, métricas, experimentação, liderança, cultura de produto e gestão de times. As conversas são conduzidas por profissionais experientes, que compartilham desafios reais, aprendizados e práticas aplicáveis ao dia a dia de Product Managers, Product Owners e líderes de Produto.</p>
+            </div>
           </div>
         </div>
       </div>
