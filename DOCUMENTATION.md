@@ -48,11 +48,13 @@ euprodutei/
 │   ├── books/                   # Capas dos livros indicados na seção Indicações
 │   │   ├── inspirado.jpg
 │   │   └── jornada-transicao-produtos.jpg
-│   └── podcasts/                # Capas dos podcasts indicados na seção Indicações
-│       ├── mulheres-de-produto.webp        # imagem original (share card do Spotify, não usada diretamente)
-│       ├── mulheres-de-produto-cover.jpg   # recorte quadrado da capa, usado no site
-│       ├── product-gurus.webp              # imagem original (share card do Spotify, não usada diretamente)
-│       └── product-gurus-cover.jpg         # recorte quadrado da capa, usado no site
+│   ├── podcasts/                # Capas dos podcasts indicados na seção Indicações
+│   │   ├── mulheres-de-produto.webp        # imagem original (share card do Spotify, não usada diretamente)
+│   │   ├── mulheres-de-produto-cover.jpg   # recorte quadrado da capa, usado no site
+│   │   ├── product-gurus.webp              # imagem original (share card do Spotify, não usada diretamente)
+│   │   └── product-gurus-cover.jpg         # recorte quadrado da capa, usado no site
+│   └── og/
+│       └── og-image.jpg         # imagem de compartilhamento (Open Graph/Twitter Card), 1200x630
 └── articles/                   # Uma página HTML por artigo (sem template/gerador — cada
     │                            # arquivo é escrito à mão e duplica o <head>/CSS do index)
     ├── chorei-feedback.html
@@ -249,6 +251,39 @@ arquivos de `articles/`.
   `text-shadow:none` — só o texto tem contorno). Para editar esse
   título no futuro, cada palavra precisa ser ajustada manualmente (não
   há geração automática de rotação via JS).
+
+### 3.7 Meta tags para compartilhamento (Open Graph / Twitter Card)
+
+- Todas as 6 páginas (`index.html` + os 5 artigos) têm no `<head>`,
+  logo após o `<title>`: `meta name="description"`, o conjunto completo
+  de `og:*` (`title`, `description`, `image`, `image:width`,
+  `image:height`, `url`, `type`, `site_name`, `locale`) e o conjunto de
+  `twitter:*` (`card`, `title`, `description`, `image`). Isso controla
+  a prévia que aparece ao colar um link do site no LinkedIn, Instagram,
+  WhatsApp, etc.
+- **`index.html`**: `og:title` = "Eu Produtei — A casa de quem vive
+  Produto", `og:type` = `website`, `og:url` =
+  `https://euprodutei.com.br`.
+- **Cada artigo**: título/descrição próprios (reaproveitando o mesmo
+  texto do `<title>` da página e o `.art-excerpt` já usado no card do
+  artigo em `index.html`), `og:type` = `article` (em vez de `website`,
+  por ser tecnicamente mais correto para uma página de post), `og:url`
+  apontando para a URL daquele artigo específico
+  (`https://euprodutei.com.br/articles/<arquivo>.html`).
+- **Imagem** (`assets/og/og-image.jpg`, 1200×630px, formato recomendado
+  pelo Facebook/LinkedIn): mesma imagem para todas as páginas — não há
+  imagem própria por artigo. Foi criada renderizando um HTML próprio
+  (fundo vinho com a textura de pontos do Hero, o carimbo "Dados viram
+  decisões. Decisões viram produto." e "Eu Produtei" em destaque, com
+  as fontes reais do site — Fraunces e IBM Plex Mono — baixadas e
+  embutidas) e tirando um screenshot via Playwright; esse processo de
+  geração não faz parte do site em si e não precisa ser repetido a
+  menos que a imagem precise mudar.
+- Ao criar um novo artigo, é preciso copiar esse bloco de meta tags
+  para o novo arquivo e trocar `og:title`/`twitter:title`,
+  `og:description`/`twitter:description`, `og:url` e o `<meta
+  name="description">` para o título/resumo/URL daquele artigo — não
+  há nenhuma automação que gera isso.
 
 ## 4. Deploy contínuo
 
