@@ -17,7 +17,7 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
   Anton, usada só no título "adesivo" da seção Indicações.
 - **Analytics**: Google Analytics 4 (gtag.js), com o Measurement ID
   `G-XF33JMSZ0X`, instalado manualmente (copiado/colado) no `<head>` de
-  **todas** as páginas — `index.html` e os 5 artigos.
+  **todas** as páginas — `index.html` e os 6 artigos.
 - **Hospedagem/deploy**: repositório GitHub
   (`paulasantospereira31-web/euprodutei`) conectado ao **Netlify**, que
   publica automaticamente a cada push na branch `main`. O domínio
@@ -59,6 +59,7 @@ euprodutei/
     │                            # arquivo é escrito à mão e duplica o <head>/CSS do index)
     ├── chorei-feedback.html
     ├── decepcionar-quase-toda-semana.html
+    ├── dez-minutos-scroll-manha-duvida.html
     ├── feedback-opiniao-fato.html
     ├── gerenciar-produto-nao-e-backlog.html
     └── perguntas-produtivo.html
@@ -73,7 +74,7 @@ Cada página de artigo repete integralmente o bloco `<style>` do
 classes tipográficas), porque não há um arquivo CSS compartilhado nem
 processo de build que permitisse extrair isso — é HTML copiado/colado
 com o conteúdo do artigo trocado. Alterações visuais (ex.: cor de um
-botão) precisam ser replicadas manualmente em `index.html` **e** nos 5
+botão) precisam ser replicadas manualmente em `index.html` **e** nos 6
 arquivos de `articles/`.
 
 ## 3. Funcionalidades implementadas
@@ -82,7 +83,7 @@ arquivos de `articles/`.
 
 **Onde vive**: `assets/reactions.js`, referenciado via
 `<script src="../assets/reactions.js" defer></script>` no final do
-`<body>` de cada um dos 5 artigos (não existe na home).
+`<body>` de cada um dos 6 artigos (não existe na home).
 
 **Como funciona, passo a passo**:
 
@@ -126,7 +127,7 @@ arquivos de `articles/`.
 ### 3.2 Google Analytics (GA4)
 
 - Snippet padrão do `gtag.js` (Measurement ID `G-XF33JMSZ0X`) colado
-  manualmente no `<head>` de **todas** as 6 páginas do site.
+  manualmente no `<head>` de **todas** as 7 páginas do site.
 - Rastreia automaticamente page views (`page_view`) em cada página.
 - Rastreia os eventos customizados `curtir_artigo` e `nao_curtir_artigo`
   disparados pelo `assets/reactions.js` (ver 3.1).
@@ -141,13 +142,14 @@ arquivos de `articles/`.
   `<input type="radio" name="catfilter">` ocultos (`.filter-radio`) mais
   seletores `:checked ~` no CSS que escondem `.article-row` cujo
   `data-category` não bate com o filtro selecionado.
-- As categorias existentes hoje: `produto`, `comunicacao`, `lideranca`
-  — atribuídas via `data-category="..."` em cada link de artigo dentro
-  de `.article-list`. (Categorias antigas — `discovery`, `ia`,
-  `dia-a-dia` — foram descontinuadas: `discovery` e `ia` viraram parte
-  de `produto`; os 3 artigos que estavam em `dia-a-dia` foram
-  redistribuídos individualmente entre `produto`, `comunicacao` e
-  `lideranca`, conforme o tema de cada um.)
+- As categorias existentes hoje: `produto`, `comunicacao`, `lideranca`,
+  `dia-a-dia` — atribuídas via `data-category="..."` em cada link de
+  artigo dentro de `.article-list`. (Categorias antigas `discovery` e
+  `ia` foram descontinuadas e viraram parte de `produto`; já
+  `dia-a-dia` chegou a ser removida — os 3 artigos que estavam nela
+  foram redistribuídos entre `produto`, `comunicacao` e `lideranca` —
+  mas foi **reintroduzida depois** como categoria própria, ao publicar
+  "Dez minutos de scroll, uma manhã inteira de dúvida".)
 - **Visibilidade condicional dos filtros**: cada `label.filter-pill`
   (exceto "Todos", que é sempre visível) começa com `display:none` e só
   volta a `display:inline-block` se existir, em algum lugar dentro de
@@ -263,7 +265,7 @@ arquivos de `articles/`.
 
 ### 3.7 Meta tags para compartilhamento (Open Graph / Twitter Card)
 
-- Todas as 6 páginas (`index.html` + os 5 artigos) têm no `<head>`,
+- Todas as 7 páginas (`index.html` + os 6 artigos) têm no `<head>`,
   logo após o `<title>`: `meta name="description"`, o conjunto completo
   de `og:*` (`title`, `description`, `image`, `image:width`,
   `image:height`, `url`, `type`, `site_name`, `locale`) e o conjunto de

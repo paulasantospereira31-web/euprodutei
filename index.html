@@ -265,7 +265,8 @@
   #f-todos:checked ~ .filter-row label[for="f-todos"],
   #f-produto:checked ~ .filter-row label[for="f-produto"],
   #f-comunicacao:checked ~ .filter-row label[for="f-comunicacao"],
-  #f-lideranca:checked ~ .filter-row label[for="f-lideranca"]{
+  #f-lideranca:checked ~ .filter-row label[for="f-lideranca"],
+  #f-dia-a-dia:checked ~ .filter-row label[for="f-dia-a-dia"]{
     background:var(--wine);color:var(--cream);
   }
 
@@ -273,12 +274,14 @@
      um artigo publicado com essa categoria */
   .filter-pill[for="f-produto"],
   .filter-pill[for="f-comunicacao"],
-  .filter-pill[for="f-lideranca"]{
+  .filter-pill[for="f-lideranca"],
+  .filter-pill[for="f-dia-a-dia"]{
     display:none;
   }
   #artigos:has(.article-row[data-category="produto"]) .filter-pill[for="f-produto"],
   #artigos:has(.article-row[data-category="comunicacao"]) .filter-pill[for="f-comunicacao"],
-  #artigos:has(.article-row[data-category="lideranca"]) .filter-pill[for="f-lideranca"]{
+  #artigos:has(.article-row[data-category="lideranca"]) .filter-pill[for="f-lideranca"],
+  #artigos:has(.article-row[data-category="dia-a-dia"]) .filter-pill[for="f-dia-a-dia"]{
     display:inline-block;
   }
 
@@ -286,7 +289,8 @@
   .article-list{margin-top:8px;display:flex;flex-direction:column;}
   #f-produto:checked ~ .article-list .article-row:not([data-category="produto"]),
   #f-comunicacao:checked ~ .article-list .article-row:not([data-category="comunicacao"]),
-  #f-lideranca:checked ~ .article-list .article-row:not([data-category="lideranca"]){
+  #f-lideranca:checked ~ .article-list .article-row:not([data-category="lideranca"]),
+  #f-dia-a-dia:checked ~ .article-list .article-row:not([data-category="dia-a-dia"]){
     display:none;
   }
   .article-row{
@@ -452,12 +456,14 @@
     <input type="radio" name="catfilter" id="f-produto" class="filter-radio">
     <input type="radio" name="catfilter" id="f-comunicacao" class="filter-radio">
     <input type="radio" name="catfilter" id="f-lideranca" class="filter-radio">
+    <input type="radio" name="catfilter" id="f-dia-a-dia" class="filter-radio">
 
     <div class="filter-row">
       <label class="filter-pill" for="f-todos">Todos</label>
       <label class="filter-pill" for="f-produto">Produto</label>
       <label class="filter-pill" for="f-comunicacao">Comunicação</label>
       <label class="filter-pill" for="f-lideranca">Liderança</label>
+      <label class="filter-pill" for="f-dia-a-dia">Dia a dia</label>
     </div>
 
             <div class="article-list">
@@ -507,6 +513,16 @@
           <span class="art-tag">Produto</span>
           <div class="art-title">Perguntas que valem mais do que "você foi produtivo hoje?"</div>
           <div class="art-excerpt">Reunião não é sinal de improdutividade. A pergunta melhor é: o meu dia moveu alguma coisa pra frente?</div>
+        </div>
+        <div class="art-arrow">→</div>
+      </a>
+
+      <a class="article-row" href="articles/dez-minutos-scroll-manha-duvida.html" data-category="dia-a-dia">
+        <div class="art-date">JUL 2026</div>
+        <div>
+          <span class="art-tag">Dia a dia</span>
+          <div class="art-title">Dez minutos de scroll, uma manhã inteira de dúvida</div>
+          <div class="art-excerpt">Fechei o app sentindo que passei a manhã inteira parada enquanto todo mundo corria. Mas isso é só sensação, não é fato.</div>
         </div>
         <div class="art-arrow">→</div>
       </a>
