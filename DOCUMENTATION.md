@@ -45,6 +45,7 @@ euprodutei/
 ├── assets/
 │   ├── reactions.js             # JS compartilhado do widget de curtir/não curtir
 │   ├── search.js                # JS da busca de artigos (só carregado por index.html)
+│   ├── sort-articles.js         # ordena os artigos por data (só carregado por index.html)
 │   ├── books/                   # Capas dos livros indicados na seção Indicações
 │   │   ├── inspirado.jpg
 │   │   └── jornada-transicao-produtos.jpg
@@ -164,14 +165,46 @@ arquivos de `articles/`.
 - Ao adicionar um novo artigo, é preciso: (1) criar o HTML do artigo,
   (2) adicionar um `<a class="article-row" data-category="...">`
   apontando pra ele em `index.html`. Se for uma categoria já existente
-  (`produto`, `comunicacao` ou `lideranca`), o filtro correspondente já
-  existe e aparece automaticamente. Se for uma categoria **nova** (além
-  dessas 3), é preciso também adicionar o `<input type="radio">`, o
-  `<label class="filter-pill">` e as 3 regras de CSS (estado ativo,
-  visibilidade condicional via `:has()`, e a regra que esconde
-  `.article-row` de outras categorias) seguindo o padrão das demais.
+  (`produto`, `comunicacao`, `lideranca` ou `dia-a-dia`), o filtro
+  correspondente já existe e aparece automaticamente. Se for uma
+  categoria **nova** (além dessas 4), é preciso também adicionar o
+  `<input type="radio">`, o `<label class="filter-pill">` e as 3
+  regras de CSS (estado ativo, visibilidade condicional via `:has()`,
+  e a regra que esconde `.article-row` de outras categorias) seguindo
+  o padrão das demais.
 
-### 3.4 Busca de artigos
+### 3.4 Ordenação dos artigos por data de publicação
+
+- **Onde vive**: `assets/sort-articles.js`, referenciado só por
+  `index.html`, antes de `assets/search.js` no final do `<body>`.
+- **Campo usado como critério de ordenação**: o atributo
+  `data-date="AAAA-MM-DD"` em cada `<a class="article-row">` — **não**
+  é o texto visível `.art-date` (que só mostra "JUL 2026" e não tem
+  granularidade de dia) nem a ordem de inserção no HTML/data de criação
+  do arquivo. `data-date` é um campo próprio, textual, só pra
+  ordenação — parecido em espírito com `data-category`.
+- **Como funciona**: ao carregar a página, o script pega todos os
+  `.article-row[data-date]` dentro da lista de artigos (excluindo o
+  container da busca, que também usa a classe `.article-list`),
+  ordena em ordem decrescente de `data-date` (string ISO, então
+  comparação de texto já ordena cronologicamente) e reinsere os
+  elementos no DOM nessa ordem. Isso acontece **antes** de qualquer
+  filtro por categoria ou busca rodar — como filtro e busca não mudam
+  a ordem relativa dos itens (só escondem os que não combinam ou
+  renderizam uma lista separada), o resultado já sai ordenado em
+  ambos os casos, sem lógica extra de ordenação em `search.js` ou no
+  CSS dos filtros.
+- Artigos com a mesma `data-date` (os 5 originais, todos
+  `2026-07-16`) mantêm a ordem relativa em que aparecem no HTML — o
+  sort é estável (`Array.prototype.sort`), então isso é
+  determinístico, não aleatório.
+- **Ao publicar um novo artigo**: basta adicionar o `data-date` correto
+  (formato `AAAA-MM-DD`) no `<a class="article-row">` dele. Não é
+  preciso reordenar manualmente o HTML — o script já coloca o artigo
+  na posição certa (mais recente primeiro) sozinho, em qualquer
+  navegador, a cada carregamento da página.
+
+### 3.5 Busca de artigos
 
 - **Onde vive**: `assets/search.js`, referenciado só por `index.html`
   (não existe busca nas páginas individuais de artigo). Input de busca
@@ -200,7 +233,7 @@ arquivos de `articles/`.
   padrão ao atributo HTML `hidden` — sem essa regra, o atributo
   `hidden` não escondia esses elementos.
 
-### 3.5 "Mais lidos" e "Indicações"
+### 3.6 "Mais lidos" e "Indicações"
 
 - `.mais-lidos`: lista estática de destaques dentro da seção de
   artigos — hoje só tem 1 item, hardcoded no HTML (`<a class="ml-item">`),
@@ -242,7 +275,7 @@ arquivos de `articles/`.
   correspondente, (3) remover o `.rec-empty` daquela coluna
   se for a primeira indicação dela.
 
-### 3.6 Seção Sobre
+### 3.7 Seção Sobre
 
 - Bio de Paula Rodrigues em `index.html#sobre`, com foto embutida
   diretamente como `data:image/jpeg;base64,...` dentro do próprio HTML
@@ -252,7 +285,7 @@ arquivos de `articles/`.
 - **Título "Quem é 👀 essa tal de Paula?"** usa a classe
   `h2.collage-title`: mesma fonte (Anton) e mesma técnica de contorno
   (`text-shadow` em 8 direções + sombra) já usada no título adesivo de
-  Indicações (`h2.sticker-title`, seção 3.5), mas aplicada **palavra
+  Indicações (`h2.sticker-title`, seção 3.6), mas aplicada **palavra
   por palavra** em vez de linha por linha. Cada
   palavra é um `<span class="cw cw-wine">` ou `<span class="cw
   cw-rose">`, com `transform:rotate(...) translateY(...)` inline
@@ -263,7 +296,7 @@ arquivos de `articles/`.
   título no futuro, cada palavra precisa ser ajustada manualmente (não
   há geração automática de rotação via JS).
 
-### 3.7 Meta tags para compartilhamento (Open Graph / Twitter Card)
+### 3.8 Meta tags para compartilhamento (Open Graph / Twitter Card)
 
 - Todas as 7 páginas (`index.html` + os 6 artigos) têm no `<head>`,
   logo após o `<title>`: `meta name="description"`, o conjunto completo
