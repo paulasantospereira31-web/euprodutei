@@ -58,17 +58,35 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
      mas ainda não aparece na tela.
   2. `nav ul li a:hover` — hover do menu do topo (só em `index.html`;
      as páginas de artigo não têm menu, só o wordmark).
-  3. `.back-link` — o "← Voltar pros artigos" no topo de cada artigo.
-     O sublinhado dele continua sendo a borda `--rose` já existente.
-  4. `.react-btn[aria-pressed="true"]` — estado ativo dos botões de
-     curtir/não curtir (fundo laranja, texto e ícone em `--cream`).
+  3. `.back-link` — o "← Voltar pros artigos" no topo de cada artigo:
+     texto laranja e `border-bottom` laranja (era `--rose` até
+     2026-09-09).
+  4. `.footer-back` — o "← Ver todos os artigos" no rodapé de cada
+     artigo, com exatamente o mesmo tratamento do `.back-link` (texto
+     laranja + `border-bottom` laranja + `padding-bottom:2px`), de
+     propósito: os dois são o mesmo tipo de link de volta e precisam
+     parecer iguais. Antes era só texto bordô, sem sublinhado.
+  5. `.react-btn[aria-pressed="true"]` — estado ativo dos botões de
+     curtir/não curtir: fundo `--cream`, borda e texto/ícone em
+     laranja. O estado inativo continua fundo `--beige` com borda e
+     texto em `--wine-dark`.
 
-  **Contraste do botão ativo**: laranja `#B7622E` com texto `--cream`
-  dá ≈4.03:1. O texto do botão é 14px/peso 600, que não conta como
-  "texto grande" pela WCAG, então fica um pouco abaixo do mínimo AA de
-  4.5:1. Foi uma escolha consciente de identidade visual; se um dia
-  isso precisar ser resolvido, a alternativa que preserva o laranja é
-  aplicá-lo na **borda** do botão ativo em vez do fundo.
+  **Contraste do botão ativo — importante**: laranja `#B7622E` com
+  `--cream` dá **≈4.03:1**, e esse número é o mesmo com o laranja no
+  fundo ou no texto: a razão de contraste da WCAG é simétrica entre as
+  duas cores, então inverter fundo e texto não altera o resultado. A
+  versão de 2026-09-09 (fundo laranja/texto creme) foi trocada por
+  fundo creme/texto laranja, mas o texto continua nos mesmos ≈4.03:1.
+  Como o texto do botão é 14px/peso 600 — não conta como "texto
+  grande" —, isso segue um pouco abaixo do mínimo AA de 4.5:1. O que
+  de fato mudou: a **borda** laranja sobre o creme também mede
+  ≈4.03:1, acima do mínimo de 3:1 que a WCAG pede para o contorno de
+  um componente de interface, ou seja, o *sinal de estado* está
+  adequado; o que ainda não bate a régua é o texto.
+  Para chegar aos 4.5:1 sem sair da identidade, as duas saídas são:
+  (a) manter a borda e o ícone em laranja e escurecer só o texto para
+  `--wine-dark`, ou (b) usar um laranja mais escuro (a partir de
+  ≈`#A85526`) nesse componente específico.
 - **Analytics**: Google Analytics 4 (gtag.js), com o Measurement ID
   `G-XF33JMSZ0X`, instalado manualmente (copiado/colado) no `<head>` de
   **todas** as páginas — `index.html` e os 6 artigos.
