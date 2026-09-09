@@ -27,16 +27,48 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
   idêntica entre Inter e Parkinsans.
 - **Paleta de cores (variáveis CSS)**: definida em `:root`, duplicada em
   cada uma das 7 páginas (mesma lógica de duplicação do resto do CSS,
-  ver seção 2). Além de `--wine`, `--wine-dark`, `--rose`, `--blush`,
-  `--beige`, `--ink`, `--gold` e `--paper-line`, existem dois tons
-  "branco/claro" com papéis diferentes, comentados no CSS: `--cream`
-  (`#FBF5EA`) é um tom auxiliar, usado como fundo de página por ser
-  mais leve para leitura longa — é o que aparece por trás de todo o
-  conteúdo hoje, e não muda. `--off-white-marca` (`#D4CDBE`) é o off
-  white oficial da identidade visual, pensado pra ser usado sobre
-  fundos escuros e em peças de marca — existe como variável desde
-  2026-09-09 mas **ainda não está aplicado a nenhum elemento** do site;
-  é só a cor documentada, pronta pra uso futuro.
+  ver seção 2). As variáveis se dividem em **cores oficiais da
+  identidade visual** e **tons auxiliares do site** — a distinção está
+  registrada também num comentário dentro do próprio CSS de cada
+  página, pra não se perder.
+
+  **Cores oficiais da identidade visual** (só mudam se a identidade
+  mudar):
+
+  | Variável             | Valor     | Onde é usada hoje |
+  |----------------------|-----------|-------------------|
+  | `--wine`             | `#511527` | Bordô oficial. Fundo do hero, wordmark, títulos de seção, "Ver todos os artigos" do rodapé dos artigos, entre outros. |
+  | `--laranja`          | `#B7622E` | Laranja oficial. Quatro usos, listados abaixo. |
+  | `--off-white-marca`  | `#D4CDBE` | Off white oficial, pra fundos escuros e peças de marca. Existe como variável desde 2026-09-09 mas **ainda não está aplicado a nenhum elemento** do site. |
+
+  **Tons auxiliares do site** (decisões de layout/leitura, não fazem
+  parte da identidade): `--wine-dark` (`#3A1420`, texto de corpo e
+  bordas), `--rose` (`#D98C96`), `--blush` (`#F2CFC9`), `--beige`
+  (`#EFE2CE`), `--cream` (`#FBF5EA`, fundo de página — mais leve para
+  leitura longa), `--ink` (`#2A1620`) e `--paper-line`
+  (`rgba(58,20,32,0.06)`, linhas divisórias).
+
+  **Onde o laranja é aplicado** (introduzido em 2026-09-09; a lista é
+  fechada de propósito — o laranja não é usado como fundo de seção,
+  nem no hero, nem em títulos):
+  1. `.art-body a` — links dentro do corpo dos artigos, sempre com
+     `text-decoration:underline`. O sublinhado é obrigatório: a cor
+     sozinha não pode ser o único indicador de que algo é clicável.
+     Hoje nenhum artigo tem link no corpo, então a regra está no CSS
+     mas ainda não aparece na tela.
+  2. `nav ul li a:hover` — hover do menu do topo (só em `index.html`;
+     as páginas de artigo não têm menu, só o wordmark).
+  3. `.back-link` — o "← Voltar pros artigos" no topo de cada artigo.
+     O sublinhado dele continua sendo a borda `--rose` já existente.
+  4. `.react-btn[aria-pressed="true"]` — estado ativo dos botões de
+     curtir/não curtir (fundo laranja, texto e ícone em `--cream`).
+
+  **Contraste do botão ativo**: laranja `#B7622E` com texto `--cream`
+  dá ≈4.03:1. O texto do botão é 14px/peso 600, que não conta como
+  "texto grande" pela WCAG, então fica um pouco abaixo do mínimo AA de
+  4.5:1. Foi uma escolha consciente de identidade visual; se um dia
+  isso precisar ser resolvido, a alternativa que preserva o laranja é
+  aplicá-lo na **borda** do botão ativo em vez do fundo.
 - **Analytics**: Google Analytics 4 (gtag.js), com o Measurement ID
   `G-XF33JMSZ0X`, instalado manualmente (copiado/colado) no `<head>` de
   **todas** as páginas — `index.html` e os 6 artigos.
@@ -264,9 +296,10 @@ arquivos de `articles/`.
 - `#indicacoes`: seção de livros/podcasts. As subseções "Livros" e
   "Podcasts" já têm 2 indicações reais cada, todas em `.rec-card`
   (capa + `.rec-title` + `.rec-author` + `.rec-desc`) — layout
-  hardcoded no HTML, sem CMS/dados externos. Não sobrou nenhum
-  `.rec-empty` nessa seção; a classe continua no CSS caso uma coluna
-  nova precise dela no futuro.
+  hardcoded no HTML, sem CMS/dados externos. Existiu um placeholder
+  tracejado (`.rec-empty`) enquanto as colunas estavam vazias; ele saiu
+  do HTML quando as indicações reais entraram, e a regra CSS órfã foi
+  removida em 2026-09-09 (ver seção 3.9).
   - **Layout (`.rec-grid` e `.rec-cards`)**: no desktop, `.rec-grid`
     empilha as subseções "Livros" e "Podcasts" em largura total, uma
     embaixo da outra (`grid-template-columns:1fr`) — não ficam mais
@@ -294,8 +327,7 @@ arquivos de `articles/`.
   ou `assets/podcasts/` (usando uma imagem já recortada no formato
   certo — retrato para livro, quadrada para podcast), (2) copiar o
   padrão de um `.rec-card` existente dentro do `.rec-col`
-  correspondente, (3) remover o `.rec-empty` daquela coluna
-  se for a primeira indicação dela.
+  correspondente.
 
 ### 3.7 Seção Sobre
 
@@ -350,6 +382,25 @@ arquivos de `articles/`.
   `og:description`/`twitter:description`, `og:url` e o `<meta
   name="description">` para o título/resumo/URL daquele artigo — não
   há nenhuma automação que gera isso.
+
+### 3.9 Limpeza de CSS órfão (2026-09-09)
+
+Como o CSS mora inline em cada página e nada faz "tree shaking", regras
+que deixam de ser usadas ficam paradas no arquivo. Nessa data foram
+removidas do `index.html`, depois de confirmar por busca em todo o repo
+que nenhum HTML e nenhum JS as referenciava:
+
+- `.cardstock` — textura de pontinhos que não estava aplicada a nenhum
+  elemento (o hero tem a própria textura, em outra regra).
+- `.example-flag` — selo "exemplo" que sobrou de uma versão antiga da
+  seção de artigos.
+- `.rec-empty` — placeholder tracejado das colunas de Indicações, sem
+  uso desde que as indicações reais entraram (seção 3.6).
+- A variável `--gold` (`#C79A56`), que só era usada pelo
+  `.example-flag` e não faz parte da identidade visual.
+
+Nenhuma dessas remoções muda a aparência do site — todas eram regras
+sem elemento correspondente no HTML.
 
 ## 4. Deploy contínuo
 

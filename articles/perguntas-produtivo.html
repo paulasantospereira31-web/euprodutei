@@ -32,14 +32,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Parkinsans:wght@300..800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* #FBF5EA (--cream) é tom auxiliar, usado como fundo de página por
-       ser mais leve para leitura longa. #D4CDBE (--off-white-marca) é
-       o off white oficial da identidade visual, usado sobre fundos
-       escuros e nas peças de marca — ainda não aplicado a nenhum
-       elemento aqui. */
-    --wine:#5C2333; --wine-dark:#3A1420; --rose:#D98C96; --blush:#F2CFC9;
-    --beige:#EFE2CE; --cream:#FBF5EA; --ink:#2A1620; --gold:#C79A56;
+    /* Cores oficiais da identidade visual: --wine (bordô), --laranja e
+       --off-white-marca. As demais são tons auxiliares do site.
+       #FBF5EA (--cream) é auxiliar, usado como fundo de página por ser
+       mais leve para leitura longa. #D4CDBE (--off-white-marca) é o off
+       white oficial, para uso sobre fundos escuros e em peças de marca
+       — ainda não aplicado a nenhum elemento aqui. */
+    --wine:#511527; --wine-dark:#3A1420; --rose:#D98C96; --blush:#F2CFC9;
+    --beige:#EFE2CE; --cream:#FBF5EA; --ink:#2A1620;
     --off-white-marca:#D4CDBE;
+    --laranja:#B7622E;
     --paper-line: rgba(58,20,32,0.06);
   }
   *{box-sizing:border-box;}
@@ -53,7 +55,7 @@
   .wordmark{font-family:'Fraunces',serif;font-weight:700;font-size:21px;font-stretch:75%;color:var(--wine);}
   .back-link{
     display:inline-block;margin:36px 0 28px;font-family:'IBM Plex Mono',monospace;
-    font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--wine);
+    font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--laranja);
     border-bottom:1px solid var(--rose);padding-bottom:2px;
   }
   .art-tag{
@@ -67,6 +69,7 @@
     margin-top:16px;margin-bottom:36px;font-stretch:82%;
   }
   .art-body p{margin:0 0 20px;font-size:17px;line-height:1.85;color:var(--wine-dark);}
+  .art-body a{color:var(--laranja);text-decoration:underline;}
   .art-body p.art-q{font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:var(--wine-dark);margin:32px 0 8px;}
   .art-body blockquote{
     margin:30px 0;padding:20px 24px;border-left:3px solid var(--rose);background:var(--beige);
@@ -89,7 +92,7 @@
   .react-btn:hover{transform:translateY(-1px);}
   .react-btn .react-icon{fill:var(--wine-dark);display:inline-flex;}
   .react-btn .react-count{font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:0.7;}
-  .react-btn[aria-pressed="true"]{background:var(--wine);border-color:var(--wine-dark);color:var(--cream);}
+  .react-btn[aria-pressed="true"]{background:var(--laranja);border-color:var(--wine-dark);color:var(--cream);}
   .react-btn[aria-pressed="true"] .react-icon{fill:var(--cream);}
   .react-btn[aria-pressed="true"] .react-count{color:var(--cream);opacity:0.85;}
 </style>
