@@ -67,26 +67,39 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
      propósito: os dois são o mesmo tipo de link de volta e precisam
      parecer iguais. Antes era só texto bordô, sem sublinhado.
   5. `.react-btn[aria-pressed="true"]` — estado ativo dos botões de
-     curtir/não curtir: fundo `--cream`, borda e texto/ícone em
-     laranja. O estado inativo continua fundo `--beige` com borda e
-     texto em `--wine-dark`.
+     curtir/não curtir: fundo `--cream`, **borda e ícone** em laranja,
+     **texto e contador em `--wine-dark`**. O estado inativo continua
+     fundo `--beige` com borda, ícone e texto em `--wine-dark`. Ou
+     seja: no estado ativo o laranja aparece só na borda e no ícone —
+     é ele que sinaliza o estado — e o texto fica escuro por
+     legibilidade. O porquê está logo abaixo.
 
-  **Contraste do botão ativo — importante**: laranja `#B7622E` com
-  `--cream` dá **≈4.03:1**, e esse número é o mesmo com o laranja no
-  fundo ou no texto: a razão de contraste da WCAG é simétrica entre as
-  duas cores, então inverter fundo e texto não altera o resultado. A
-  versão de 2026-09-09 (fundo laranja/texto creme) foi trocada por
-  fundo creme/texto laranja, mas o texto continua nos mesmos ≈4.03:1.
-  Como o texto do botão é 14px/peso 600 — não conta como "texto
-  grande" —, isso segue um pouco abaixo do mínimo AA de 4.5:1. O que
-  de fato mudou: a **borda** laranja sobre o creme também mede
-  ≈4.03:1, acima do mínimo de 3:1 que a WCAG pede para o contorno de
-  um componente de interface, ou seja, o *sinal de estado* está
-  adequado; o que ainda não bate a régua é o texto.
-  Para chegar aos 4.5:1 sem sair da identidade, as duas saídas são:
-  (a) manter a borda e o ícone em laranja e escurecer só o texto para
-  `--wine-dark`, ou (b) usar um laranja mais escuro (a partir de
-  ≈`#A85526`) nesse componente específico.
+  **Contraste do botão ativo**: a razão de contraste da WCAG é
+  **simétrica** entre as duas cores comparadas — trocar o que é fundo
+  e o que é texto não altera o número. Laranja `#B7622E` com `--cream`
+  dá ≈4.03:1 tanto com o laranja no fundo quanto no texto, e como o
+  texto do botão é 14px/peso 600 (não conta como "texto grande"), isso
+  ficava abaixo do mínimo AA de 4.5:1 nas duas versões anteriores. A
+  solução adotada em 2026-09-09 foi tirar o laranja **do texto**, não
+  invertê-lo:
+
+  | Elemento do estado ativo | Cores | Razão | Régua WCAG |
+  |---|---|---|---|
+  | Texto "Curti"/"Não curti" | `--wine-dark` sobre `--cream` | ≈14.9:1 | 4.5:1 (texto) ✅ |
+  | Contador (com `opacity:0.85`) | `--wine-dark` sobre `--cream` | ≈9.7:1 | 4.5:1 (texto) ✅ |
+  | Borda e ícone | `--laranja` sobre `--cream` | ≈4.03:1 | 3:1 (componente de interface) ✅ |
+
+  O contador precisou mudar junto com o texto: em laranja, com o
+  `opacity:0.85` que ele já tinha, a razão efetiva caía para ≈3.2:1.
+
+  Histórico das três versões, porque a razão de ser da atual só faz
+  sentido com ele: (1) fundo laranja + texto creme → 4.03:1;
+  (2) fundo creme + texto laranja → os mesmos 4.03:1, pela simetria
+  acima; (3) atual, fundo creme + borda/ícone laranja + texto escuro →
+  passa em tudo. Se um dia alguém quiser o texto em laranja de novo, o
+  único jeito de passar em AA é escurecer o próprio tom (a partir de
+  ≈`#A85526`), o que significaria usar um laranja diferente do oficial
+  nesse componente.
 - **Analytics**: Google Analytics 4 (gtag.js), com o Measurement ID
   `G-XF33JMSZ0X`, instalado manualmente (copiado/colado) no `<head>` de
   **todas** as páginas — `index.html` e os 6 artigos.
