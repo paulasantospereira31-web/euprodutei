@@ -28,15 +28,22 @@
 <meta name="twitter:description" content="Organizar Jira, priorizar card, cobrar prazo de dev: isso é gestão de tarefa. O papel de quem faz produto é ser dono do porquê, não só do como.">
 <meta name="twitter:image" content="https://euprodutei.com.br/assets/og/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Parkinsans:wght@300..800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root{
+    /* #FBF5EA (--cream) é tom auxiliar, usado como fundo de página por
+       ser mais leve para leitura longa. #D4CDBE (--off-white-marca) é
+       o off white oficial da identidade visual, usado sobre fundos
+       escuros e nas peças de marca — ainda não aplicado a nenhum
+       elemento aqui. */
     --wine:#5C2333; --wine-dark:#3A1420; --rose:#D98C96; --blush:#F2CFC9;
     --beige:#EFE2CE; --cream:#FBF5EA; --ink:#2A1620; --gold:#C79A56;
+    --off-white-marca:#D4CDBE;
     --paper-line: rgba(58,20,32,0.06);
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Parkinsans',sans-serif;font-size:16px;line-height:1.6;}
   h1,.display{font-family:'Fraunces',serif;font-optical-sizing:auto;margin:0;}
   .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;}
   a{color:inherit;text-decoration:none;}
@@ -76,7 +83,7 @@
   .react-btn{
     display:inline-flex;align-items:center;gap:8px;
     background:var(--beige);border:1.3px solid var(--wine-dark);color:var(--wine-dark);
-    font-family:'Inter',sans-serif;font-weight:600;font-size:14px;
+    font-family:'Parkinsans',sans-serif;font-weight:600;font-size:14px;
     padding:10px 16px;border-radius:20px;cursor:pointer;transition:background .15s,transform .15s;
   }
   .react-btn:hover{transform:translateY(-1px);}

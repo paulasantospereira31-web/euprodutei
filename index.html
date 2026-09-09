@@ -28,7 +28,8 @@
 <meta name="twitter:description" content="Um espaço onde as conversas sobre Produto ganham a profundidade que não cabe num post. Descobertas, métricas, decisões difíceis e a verdade nua e crua da vida de quem constrói Produto.">
 <meta name="twitter:image" content="https://euprodutei.com.br/assets/og/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Anton&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Parkinsans:wght@300..800&family=IBM+Plex+Mono:wght@500&family=Anton&display=swap" rel="stylesheet">
 <style>
   :root{
     --wine:#5C2333;
@@ -36,9 +37,15 @@
     --rose:#D98C96;
     --blush:#F2CFC9;
     --beige:#EFE2CE;
+    /* #FBF5EA (--cream) é um tom auxiliar, usado como fundo de página
+       por ser mais leve para leitura longa. #D4CDBE (--off-white-marca)
+       é o off white oficial da identidade visual, usado sobre fundos
+       escuros e nas peças de marca — ainda não aplicado a nenhum
+       elemento aqui. */
     --cream:#FBF5EA;
     --ink:#2A1620;
     --gold:#C79A56;
+    --off-white-marca:#D4CDBE;
     --paper-line: rgba(58,20,32,0.06);
   }
   *{box-sizing:border-box;}
@@ -48,7 +55,7 @@
     margin:0;
     background:var(--cream);
     color:var(--ink);
-    font-family:'Inter',sans-serif;
+    font-family:'Parkinsans',sans-serif;
     font-size:16px;
     line-height:1.6;
   }
@@ -243,7 +250,7 @@
   /* busca */
   .search-row{margin-top:24px;}
   .search-input{
-    width:100%;font-family:'Inter',sans-serif;font-size:15px;color:var(--wine-dark);
+    width:100%;font-family:'Parkinsans',sans-serif;font-size:15px;color:var(--wine-dark);
     background:var(--cream);border:1.3px solid var(--wine);border-radius:20px;
     padding:11px 18px;outline:none;transition:border-color .15s;
   }

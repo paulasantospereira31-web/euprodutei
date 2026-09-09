@@ -1,6 +1,6 @@
 # Documentação técnica — Eu Produtei
 
-> Última atualização: 2026-07-22
+> Última atualização: 2026-09-09
 
 ## 1. Visão geral da stack
 
@@ -13,8 +13,30 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
   etc. Não existe `package.json`, `node_modules` nem qualquer bundler
   (Webpack/Vite/Parcel).
 - **Fontes**: Google Fonts carregado via `<link>` no `<head>` de cada
-  página (Fraunces, Inter, IBM Plex Mono). `index.html` também carrega
-  Anton, usada só no título "adesivo" da seção Indicações.
+  página (Fraunces, Parkinsans, IBM Plex Mono). `index.html` também
+  carrega Anton, usada só no título "adesivo" da seção Indicações.
+  Cada página tem dois `<link rel="preconnect">` (`fonts.googleapis.com`
+  e `fonts.gstatic.com`, este com `crossorigin`) — o par recomendado
+  pelo próprio Google Fonts. **Parkinsans é a fonte de corpo** (texto
+  em `body`, botões de curtir/não curtir, campo de busca); antes disso
+  era Inter, trocada em 2026-09-09. A troca foi só de família — mesmos
+  tamanhos, pesos e entrelinhas de antes — e não exigiu nenhum ajuste
+  de alinhamento: testado renderizando as duas fontes lado a lado com
+  os arquivos reais (baixados do Google Fonts) nos mesmos tamanhos do
+  site, a altura calculada de botão, campo de busca e parágrafo saiu
+  idêntica entre Inter e Parkinsans.
+- **Paleta de cores (variáveis CSS)**: definida em `:root`, duplicada em
+  cada uma das 7 páginas (mesma lógica de duplicação do resto do CSS,
+  ver seção 2). Além de `--wine`, `--wine-dark`, `--rose`, `--blush`,
+  `--beige`, `--ink`, `--gold` e `--paper-line`, existem dois tons
+  "branco/claro" com papéis diferentes, comentados no CSS: `--cream`
+  (`#FBF5EA`) é um tom auxiliar, usado como fundo de página por ser
+  mais leve para leitura longa — é o que aparece por trás de todo o
+  conteúdo hoje, e não muda. `--off-white-marca` (`#D4CDBE`) é o off
+  white oficial da identidade visual, pensado pra ser usado sobre
+  fundos escuros e em peças de marca — existe como variável desde
+  2026-09-09 mas **ainda não está aplicado a nenhum elemento** do site;
+  é só a cor documentada, pronta pra uso futuro.
 - **Analytics**: Google Analytics 4 (gtag.js), com o Measurement ID
   `G-XF33JMSZ0X`, instalado manualmente (copiado/colado) no `<head>` de
   **todas** as páginas — `index.html` e os 6 artigos.
