@@ -17,7 +17,7 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
   - **Arquivos `.woff2` do próprio site**, em `assets/brand/`, com
     `@font-face` declarado no `<style>` de cada página: **Coolvetica**
     (fonte de títulos) e **Vintage Rotter** (script ornamental, um
-    único uso).
+    único componente: a classe `.rose-word`).
   - **Google Fonts** via `<link>` no `<head>`: **Parkinsans** (fonte de
     corpo), **IBM Plex Mono** (etiquetas, datas, textos em caixa alta)
     e **Fraunces**, esta última reduzida a **um único uso** — ver a
@@ -410,21 +410,56 @@ ela herda de graça: mesmo header, mesmo rodapé, mesma coluna de 720px
 | `.section-sub` | Copiada do `index.html` sem alteração, para o subtítulo da página. Os artigos não tinham componente de subtítulo. |
 | `.avatar` e `.avatar img` | Copiadas do `index.html` sem alteração, mais um `margin:0 0 32px` (32px é o valor que o `.reactions` dos artigos já usa no `padding-top`). |
 | `h1.art-title{margin-bottom:14px}` | Só para reproduzir o espaçamento título → subtítulo que o `index.html` já tem entre `.section-title` (margin-bottom 14px) e `.section-sub`. Sem isso o subtítulo caía a 36px do título. |
+| `.rose-word` | Copiada do `index.html`, idêntica, para a palavra "Paula" do primeiro parágrafo. |
+| `.art-q` com tamanho e respiro próprios | Ver "O subtítulo de seção" abaixo. |
 
 **Hierarquia do conteúdo:**
 
 - Título → `h1.art-title` (Coolvetica 400, 42px), igual ao dos artigos.
 - Subtítulo → `p.section-sub`.
 - Foto → `.avatar` (140px no desktop, 96px no mobile).
-- Corpo → `.art-body p`.
+- Corpo → `.art-body p`. O primeiro parágrafo é "Senta aí, pega um café
+  e deixa eu me apresentar. Muito prazer, Paula.", com "Paula" na
+  `.rose-word` (ver abaixo).
 - "Por que existe a Eu Produtei?" → `.art-q`, que é o componente de
-  pergunta/subtítulo dentro do corpo já usado nos artigos.
+  pergunta/subtítulo dentro do corpo já usado nos artigos, aqui com
+  tamanho e respiro próprios (ver abaixo).
 
 Detalhe do `.art-q`: nos artigos o seletor é `.art-body p.art-q`, e
 exige um `<p>`. Nesta página o seletor foi escrito como
 `.art-body .art-q`, com **as mesmas declarações**, só para permitir
 `<h2 class="art-q">` e o subtítulo de seção ter marcação de cabeçalho
 de verdade. A aparência é idêntica; muda só a semântica do HTML.
+
+#### O subtítulo de seção ("Por que existe a Eu Produtei?")
+
+Nasceu herdando o `.art-q` dos artigos (19px, `margin:32px 0 8px`) e
+ficou sutil demais: não separava as duas metades da página. Em
+2026-09-17 passou a:
+
+```css
+.art-body .art-q{
+  font-size:clamp(22px,3vw,26px);
+  margin:56px 0 14px;
+}
+```
+
+De onde vêm os números, todos já usados no projeto:
+
+- **26px** é o piso do clamp do `.section-title` da home
+  (`clamp(26px,4vw,36px)`), ou seja, é o tamanho que o projeto já adota
+  para título de seção. Fica entre o corpo (17px) e o `h1` (42px) sem
+  competir com o título da página.
+- **22px no mobile** (o clamp desce até lá) porque ali o `h1` cai para
+  28px: em 26px fixos os dois ficariam quase do mesmo tamanho.
+- **56px de respiro acima** é o valor que o `footer{margin-top}` deste
+  mesmo CSS já usa. Como o parágrafo anterior tem `margin-bottom:20px`,
+  as margens colapsam e o espaço visível fica nos 56px.
+- **14px abaixo**, o mesmo `margin-bottom` do `.section-title` da home.
+
+**Sem negrito**: a Coolvetica não tem peso acima de 400 (seção 3.11), e
+pedir mais faria o navegador sintetizar negrito falso. A hierarquia aqui
+é feita por tamanho e por espaço em branco.
 
 A página **não tem** widget de curtir/não curtir nem `.art-tag`/
 `.art-date` — não é artigo, não entra na listagem nem na busca (a
@@ -452,10 +487,62 @@ Reaproveita `.about-grid`, `.avatar` e `.about-text p` que já existiam
   (mono, caixa alta, laranja, com sublinhado), com a seta pra frente.
 
 **A palavra "Paula" dessa linha carrega a classe `.rose-word`**, que é
-o **único uso da Vintage Rotter no site** (seção 3.11). Ela morava na
-saudação do antigo bloco `#sobre` ("Oiê, muito prazer, Paula!"); quando
-o bloco saiu, foi movida para a palavra equivalente na chamada, para a
-fonte não ficar declarada sem nenhum uso.
+o **único componente que usa a Vintage Rotter no site** (seção 3.11).
+Ela morava na saudação do antigo bloco `#sobre` ("Oiê, muito prazer,
+Paula!"); quando o bloco saiu, foi movida para a palavra equivalente na
+chamada, para a fonte não ficar declarada sem nenhum uso. A mesma
+classe aparece também no primeiro parágrafo da `quem-escreve.html`.
+
+#### O tamanho da `.rose-word` (1.6em)
+
+A regra é, idêntica nas duas páginas:
+
+```css
+.rose-word{
+  color:var(--rose);font-family:'Vintage Rotter','Brush Script MT',cursive;
+  font-size:1.6em;line-height:1;
+}
+```
+
+Em `1em` (como nasceu, em 2026-09-17) a palavra **lia como falha de
+renderização**, não como destaque, por três motivos somados:
+
+1. **A x-height da Vintage Rotter é 0,450em contra 0,546em da
+   Parkinsans.** No mesmo corpo, a minúscula da script sai **18% mais
+   baixa** que a do texto ao redor. Curiosamente as maiúsculas são quase
+   iguais (0,680 contra 0,690), então o problema é só na minúscula.
+2. **O traço é monolinear e fino**, o que reduz ainda mais a presença
+   visual no mesmo tamanho.
+3. **O rosa sobre o creme dá só 2,38:1** de contraste, contra 14,88:1 do
+   texto ao redor.
+
+O `1.6em` foi escolhido medindo, não estimando: **é o maior tamanho que
+ainda não empurra a entrelinha do parágrafo.** Testado de 1em a 2.1em nos
+dois contextos (16px na home, 17px na página), com `line-height:1` no
+span:
+
+| Tamanho do span | A entrelinha do parágrafo muda? |
+|---|---|
+| 1.5em | não |
+| **1.6em** | **não** (+1px na home, dentro da tolerância) |
+| 1.75em | sim, +3,0px |
+
+O `line-height:1` é parte da solução e **não deve ser removido**: sem
+ele, qualquer tamanho acima de 1em empurra a primeira linha do parágrafo
+de 12 a 16px pra baixo, porque a caixa de linha do span aumentado passa
+a ditar a altura da linha.
+
+A 1.6em a x-height da script fica em 0,72em contra 0,546em do texto ao
+redor, ou seja **32% mais alta** — é isso que faz a palavra ler como
+destaque deliberado, e não como palavra encolhida.
+
+**Ressalva de acessibilidade, registrada de propósito**: aumentar o
+tamanho resolve a percepção, mas **não resolve o contraste**. O rosa
+sobre o creme continua em 2,38:1, abaixo até do mínimo de 3:1 que a WCAG
+pede para texto grande. Como "Paula" é a única aparição do nome nessas
+duas frases, é conteúdo e não enfeite. Manter o rosa foi decisão
+explícita de identidade visual; se um dia isso precisar ser resolvido,
+o caminho é escurecer o tom só nesse componente.
 
 #### O que saiu junto
 
@@ -645,7 +732,7 @@ foram substituídas pela **Coolvetica**, servida do próprio site.
 |---|---|---|---|
 | `Coolvetica-Regular.woff2` | `Coolvetica` | 400 | Fonte de títulos. É a única que recebe `preload`. |
 | `CoolveticaEl-Regular.woff2` | `Coolvetica` | **250** | Declarada e pronta, **sem nenhum uso hoje** (nenhum elemento pede peso 250, então o arquivo nem é baixado). |
-| `VintageRotterPersonalUseOnl-R.woff2` | `Vintage Rotter` | 400 | Um único uso: `.rose-word`, hoje na palavra "Paula" da chamada do Quem escreve na home (ver seção 3.7). |
+| `VintageRotterPersonalUseOnl-R.woff2` | `Vintage Rotter` | 400 | Um único componente, a classe `.rose-word`, aplicada na palavra "Paula" em dois lugares: a chamada na home e o primeiro parágrafo da `quem-escreve.html` (ver seção 3.7). |
 | `Parkinsans-Light.woff2` | — | — | **Não é usado.** A Parkinsans continua vindo do Google Fonts, com a faixa completa de pesos (300..800). O arquivo ficou no repo, mas nenhum `@font-face` aponta pra ele. |
 
 Sobre o nome dos dois arquivos da Coolvetica, que é confuso: ambos

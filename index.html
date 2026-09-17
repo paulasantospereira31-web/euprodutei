@@ -233,8 +233,15 @@
     border-bottom:1px solid var(--laranja);padding-bottom:2px;
   }
   .about-text p{margin:0 0 14px;color:var(--wine-dark);}
-  /* único uso da Vintage Rotter no site — script ornamental, uso pontual */
-  .rose-word{color:var(--rose);font-family:'Vintage Rotter','Brush Script MT',cursive;}
+  /* único uso da Vintage Rotter no site — script ornamental, uso pontual.
+     1.6em porque a x-height dela é 0,450em contra 0,546em da Parkinsans:
+     no mesmo corpo a minúscula sai 18% mais baixa e o traço é fino, então
+     em 1em a palavra lia como falha de renderização. line-height:1 impede
+     que o span aumentado empurre a entrelinha do parágrafo. */
+  .rose-word{
+    color:var(--rose);font-family:'Vintage Rotter','Brush Script MT',cursive;
+    font-size:1.6em;line-height:1;
+  }
 
   /* mais lidos */
   .mais-lidos{

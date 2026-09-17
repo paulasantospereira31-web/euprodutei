@@ -95,6 +95,15 @@
   }
   .art-body p{margin:0 0 20px;font-size:17px;line-height:1.85;color:var(--wine-dark);}
   .art-body a{color:var(--laranja);text-decoration:underline;}
+  /* único uso da Vintage Rotter no site — script ornamental, uso pontual.
+     1.6em porque a x-height dela é 0,450em contra 0,546em da Parkinsans:
+     no mesmo corpo a minúscula sai 18% mais baixa e o traço é fino, então
+     em 1em a palavra lia como falha de renderização. line-height:1 impede
+     que o span aumentado empurre a entrelinha do parágrafo. */
+  .rose-word{
+    color:var(--rose);font-family:'Vintage Rotter','Brush Script MT',cursive;
+    font-size:1.6em;line-height:1;
+  }
   /* Par título + subtítulo, reproduzindo o espaçamento que o index já usa
      entre .section-title (margin-bottom:14px) e .section-sub. */
   h1.art-title{margin-bottom:14px;}
@@ -112,7 +121,12 @@
   .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
   /* mesmas declarações do .art-body p.art-q dos artigos; o seletor aceita
      h2 para o subtítulo de seção ter marcação de cabeçalho de verdade */
-  .art-body .art-q{font-family:'Coolvetica',Helvetica,Arial,sans-serif;font-weight:400;font-size:19px;color:var(--wine-dark);margin:32px 0 8px;}
+  /* Subtítulo de seção. 26px é o piso do clamp do .section-title da home
+     (clamp(26px,4vw,36px)), ou seja, é o tamanho que o projeto já usa para
+     título de seção; fica entre o corpo (17px) e o h1 (42px) sem competir
+     com ele. Os 56px de respiro acima são os mesmos do footer{margin-top}
+     deste CSS. Sem negrito: a Coolvetica não tem peso acima de 400. */
+  .art-body .art-q{font-family:'Coolvetica',Helvetica,Arial,sans-serif;font-weight:400;font-size:clamp(22px,3vw,26px);color:var(--wine-dark);margin:56px 0 14px;}
   .art-body blockquote{
     margin:30px 0;padding:20px 24px;border-left:3px solid var(--rose);background:var(--beige);
     font-family:'Fraunces',serif;font-style:italic;font-size:19px;color:var(--wine);
@@ -162,7 +176,7 @@
   <p class="section-sub">Aqui eu junto tudo que aprendo (e tudo que me faz revirar os olhos) vivendo produto, CLT e o caos organizado do dia a dia.</p>
   <div class="avatar"><img src="assets/paula-rodrigues.jpg" alt="Paula Rodrigues"></div>
   <div class="art-body">
-<p>Oiê, muito prazer. Eu sou a Paula.</p>
+<p>Senta aí, pega um café e deixa eu me apresentar. Muito prazer, <span class="rose-word">Paula</span>.</p>
 <p>Tenho 30 anos e trabalho com produto há mais de sete anos. Já passei por iFood, SulAmérica e Buscapé e hoje sou Product Manager na Allianz Brasil, fazendo a ponte entre negócio e tecnologia pra transformar problemas complicados em soluções que fazem sentido.</p>
 <p>Na prática, meu trabalho é fazer perguntas, conectar pessoas, organizar o caos e tomar decisões sem fingir que existe bola de cristal.</p>
 <p>Meu lema continua sendo o mesmo: transformar dados em decisões e decisões em produto. Porque, no fim das contas, dado aponta caminho, mas quem dá sentido é gente.</p>
