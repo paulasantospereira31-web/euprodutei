@@ -131,6 +131,11 @@ euprodutei/
 │   ├── reactions.js             # JS compartilhado do widget de curtir/não curtir
 │   ├── search.js                # JS da busca de artigos (só carregado por index.html)
 │   ├── sort-articles.js         # ordena os artigos por data (só carregado por index.html)
+│   ├── brand/                   # Arquivos oficiais da marca (ver seção 3.10)
+│   │   ├── EuProdutei_Logotipoprincipal_bordo.svg   # logo horizontal, 1200x400 (proporção 3:1)
+│   │   ├── EuProdutei_Logotiporeduzido_bordo.svg    # logo reduzido, 1000x1000 (quadrado)
+│   │   ├── favicon.svg                              # ícone do site, 1200x1200
+│   │   └── apple-touch-icon.png                     # 180x180, rasterizado a partir do favicon.svg
 │   ├── books/                   # Capas dos livros indicados na seção Indicações
 │   │   ├── inspirado.jpg
 │   │   └── jornada-transicao-produtos.jpg
@@ -432,6 +437,43 @@ que nenhum HTML e nenhum JS as referenciava:
 
 Nenhuma dessas remoções muda a aparência do site — todas eram regras
 sem elemento correspondente no HTML.
+
+### 3.10 Arquivos de marca e favicon
+
+Os arquivos oficiais da marca ficam em **`assets/brand/`** (pasta criada
+em 2026-09-17; os SVGs tinham sido subidos soltos na raiz de `assets/` e
+foram movidos pra lá):
+
+| Arquivo | Dimensões | Proporção | Uso |
+|---|---|---|---|
+| `EuProdutei_Logotipoprincipal_bordo.svg` | 1200×400 | 3:1 | Logo horizontal. Largura mínima definida pelo manual da marca: **200px** — o que dá ~67px de altura. |
+| `EuProdutei_Logotiporeduzido_bordo.svg` | 1000×1000 | 1:1 | Logo reduzido, para espaços estreitos (mobile). |
+| `favicon.svg` | 1200×1200 | 1:1 | Ícone do site. |
+| `apple-touch-icon.png` | 180×180 | 1:1 | Ícone para iOS quando alguém salva o site na tela inicial. |
+
+**Regra do manual da marca**: a proporção original dos logos não pode
+ser alterada. Ou seja, não se define `width` e `height` juntos em cima
+do logo — define-se só a largura e deixa a altura sair sozinha.
+
+**Favicon**: declarado no `<head>` das 7 páginas, logo depois da meta
+`viewport`, em duas linhas:
+
+```html
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+```
+
+Nas páginas de artigo o caminho é relativo (`../assets/brand/...`),
+porque elas ficam um nível abaixo. Não existia favicon antes disso —
+não havia nada antigo pra remover.
+
+O `apple-touch-icon.png` foi gerado **a partir do `favicon.svg`**
+renderizando o SVG no Chromium via Playwright num viewport de 180×180
+com `deviceScaleFactor:1` e tirando screenshot — o mesmo caminho já
+usado pra gerar a imagem de Open Graph (seção 3.8). Não há
+`rsvg-convert`, Inkscape, ImageMagick nem cairosvg neste ambiente. Se o
+`favicon.svg` mudar, o PNG precisa ser gerado de novo; ele não se
+atualiza sozinho.
 
 ## 4. Deploy contínuo
 
