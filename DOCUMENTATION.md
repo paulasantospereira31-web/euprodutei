@@ -47,7 +47,8 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
   | Variável             | Valor     | Onde é usada hoje |
   |----------------------|-----------|-------------------|
   | `--wine`             | `#511527` | Bordô oficial. Fundo do hero, títulos de seção, "Ver todos os artigos" do rodapé dos artigos, entre outros. (O logo do header não usa a variável — é um SVG com a cor embutida no arquivo.) |
-  | `--laranja`          | `#B7622E` | Laranja oficial. Seis usos, listados abaixo. |
+  | `--laranja`          | `#B7622E` | Laranja oficial. Sete usos, listados abaixo. |
+  | `--rosa-escuro`      | `#942F4D` | Rosa escuro oficial. Um uso: a classe `.rose-word` (a palavra "Paula"), ver seção 3.7. Entrou em 2026-09-17 para substituir o `--rose` nesse componente, por contraste. |
   | `--off-white-marca`  | `#D4CDBE` | Off white oficial, pra fundos escuros e peças de marca. Existe como variável desde 2026-09-09 mas **ainda não está aplicado a nenhum elemento** do site. |
 
   **Tons auxiliares do site** (decisões de layout/leitura, não fazem
@@ -79,7 +80,15 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
      (seção 3.7), com o mesmo tratamento do `.back-link`/`.footer-back`.
      É a mesma família de componente: link que leva de uma página a
      outra. A diferença é só a seta, que aponta pra frente.
-  6. `.react-btn[aria-pressed="true"]` — estado ativo dos botões de
+  6. `.art-body .brand` — o nome "Eu Produtei" quando aparece dentro do
+     corpo da `quem-escreve.html` (seção 3.7). Retoma a intenção da
+     antiga `.about-text .brand`, que destacava o nome da marca no
+     texto e era bordô. É a única exceção à regra "o laranja marca
+     navegação ou estado": aqui ele marca **a própria marca**, que é
+     justamente de onde a cor vem. **Não** se aplica ao `.art-q` ("Por
+     que existe a Eu Produtei?"), que fica na cor do corpo por decisão
+     explícita, nem a nomes de empresa no texto.
+  7. `.react-btn[aria-pressed="true"]` — estado ativo dos botões de
      curtir/não curtir: fundo `--cream`, **borda e ícone** em laranja,
      **texto e contador em `--wine-dark`**. O estado inativo continua
      fundo `--beige` com borda, ícone e texto em `--wine-dark`. Ou
@@ -411,6 +420,7 @@ ela herda de graça: mesmo header, mesmo rodapé, mesma coluna de 720px
 | `.avatar` e `.avatar img` | Copiadas do `index.html` sem alteração, mais um `margin:0 0 32px` (32px é o valor que o `.reactions` dos artigos já usa no `padding-top`). |
 | `h1.art-title{margin-bottom:14px}` | Só para reproduzir o espaçamento título → subtítulo que o `index.html` já tem entre `.section-title` (margin-bottom 14px) e `.section-sub`. Sem isso o subtítulo caía a 36px do título. |
 | `.rose-word` | Copiada do `index.html`, idêntica, para a palavra "Paula" do primeiro parágrafo. |
+| `.art-body .brand` | O nome "Eu Produtei" em laranja dentro do corpo. Ver abaixo. |
 | `.art-q` com tamanho e respiro próprios | Ver "O subtítulo de seção" abaixo. |
 
 **Hierarquia do conteúdo:**
@@ -461,6 +471,29 @@ De onde vêm os números, todos já usados no projeto:
 pedir mais faria o navegador sintetizar negrito falso. A hierarquia aqui
 é feita por tamanho e por espaço em branco.
 
+#### O nome da marca no corpo (`.art-body .brand`)
+
+```css
+.art-body .brand{color:var(--laranja);font-weight:600;}
+```
+
+Retoma a intenção da antiga `.about-text .brand` do bloco `#sobre`, que
+destacava o nome "Eu Produtei" no meio do texto e era bordô com peso
+600. A estrutura é a mesma; só a cor mudou para o laranja oficial.
+
+**Onde se aplica hoje: em um lugar só.** Dentro do corpo desta página o
+nome aparece em dois pontos, e só um recebe a classe:
+
+| Onde | Recebe `.brand`? |
+|---|---|
+| "A **Eu Produtei** nasceu pra falar justamente desse meio do caminho." | sim |
+| "Por que existe a Eu Produtei?" (o `.art-q`) | **não**, por decisão explícita: o subtítulo de seção fica na cor do corpo |
+
+Contraste do laranja sobre o creme: 4,03:1. Passa o mínimo de 3:1 e não
+alcança o 4,5:1 de texto normal — mas aqui, diferente da `.rose-word`,
+o nome também aparece em bordô no título da página, no logo e no
+rodapé, então não é a única via de leitura da informação.
+
 A página **não tem** widget de curtir/não curtir nem `.art-tag`/
 `.art-date` — não é artigo, não entra na listagem nem na busca (a
 `search.js` varre os `.article-row` da home, ver seção 3.5, então a
@@ -499,7 +532,7 @@ A regra é, idêntica nas duas páginas:
 
 ```css
 .rose-word{
-  color:var(--rose);font-family:'Vintage Rotter','Brush Script MT',cursive;
+  color:var(--rosa-escuro);font-family:'Vintage Rotter','Brush Script MT',cursive;
   font-size:1.6em;line-height:1;
 }
 ```
@@ -513,8 +546,8 @@ renderização**, não como destaque, por três motivos somados:
    iguais (0,680 contra 0,690), então o problema é só na minúscula.
 2. **O traço é monolinear e fino**, o que reduz ainda mais a presença
    visual no mesmo tamanho.
-3. **O rosa sobre o creme dá só 2,38:1** de contraste, contra 14,88:1 do
-   texto ao redor.
+3. **A cor.** No `--rose` (`#D98C96`) original, o contraste sobre o
+   creme era de só **2,38:1**, contra 14,88:1 do texto ao redor.
 
 O `1.6em` foi escolhido medindo, não estimando: **é o maior tamanho que
 ainda não empurra a entrelinha do parágrafo.** Testado de 1em a 2.1em nos
@@ -536,13 +569,20 @@ A 1.6em a x-height da script fica em 0,72em contra 0,546em do texto ao
 redor, ou seja **32% mais alta** — é isso que faz a palavra ler como
 destaque deliberado, e não como palavra encolhida.
 
-**Ressalva de acessibilidade, registrada de propósito**: aumentar o
-tamanho resolve a percepção, mas **não resolve o contraste**. O rosa
-sobre o creme continua em 2,38:1, abaixo até do mínimo de 3:1 que a WCAG
-pede para texto grande. Como "Paula" é a única aparição do nome nessas
-duas frases, é conteúdo e não enfeite. Manter o rosa foi decisão
-explícita de identidade visual; se um dia isso precisar ser resolvido,
-o caminho é escurecer o tom só nesse componente.
+**A cor foi resolvida junto**, no mesmo dia: o `--rose` (`#D98C96`) deu
+lugar ao **`--rosa-escuro` (`#942F4D`)**, o rosa escuro oficial da
+paleta. Isso importa porque "Paula" é a única aparição do nome nessas
+duas frases — é conteúdo, não ornamento, e precisa ser legível.
+
+| Cor da `.rose-word` | Contraste sobre o creme | 3:1 (texto grande) | 4,5:1 (texto normal) |
+|---|---|---|---|
+| `--rose` `#D98C96` (até 2026-09-17) | 2,38:1 | não passa | não passa |
+| **`--rosa-escuro` `#942F4D` (atual)** | **6,98:1** | passa | passa |
+
+Ou seja, com o rosa escuro o problema deixa de existir: passa até o AA
+de texto normal, sem depender de o texto ser grande. Se algum dia essa
+palavra for para um fundo bege (`--beige`), o rosa escuro ainda dá
+5,93:1 — também passa.
 
 #### O que saiu junto
 

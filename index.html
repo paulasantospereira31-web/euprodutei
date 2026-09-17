@@ -69,6 +69,7 @@
     --ink:#2A1620;
     --off-white-marca:#D4CDBE;
     --laranja:#B7622E;
+    --rosa-escuro:#942F4D;
     --paper-line: rgba(58,20,32,0.06);
   }
   *{box-sizing:border-box;}
@@ -239,7 +240,8 @@
      em 1em a palavra lia como falha de renderização. line-height:1 impede
      que o span aumentado empurre a entrelinha do parágrafo. */
   .rose-word{
-    color:var(--rose);font-family:'Vintage Rotter','Brush Script MT',cursive;
+    /* rosa escuro oficial: 6,98:1 sobre o creme, contra 2,38:1 do --rose */
+    color:var(--rosa-escuro);font-family:'Vintage Rotter','Brush Script MT',cursive;
     font-size:1.6em;line-height:1;
   }
 

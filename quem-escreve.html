@@ -64,6 +64,7 @@
     --beige:#EFE2CE; --cream:#FBF5EA; --ink:#2A1620;
     --off-white-marca:#D4CDBE;
     --laranja:#B7622E;
+    --rosa-escuro:#942F4D;
     --paper-line: rgba(58,20,32,0.06);
   }
   *{box-sizing:border-box;}
@@ -95,13 +96,18 @@
   }
   .art-body p{margin:0 0 20px;font-size:17px;line-height:1.85;color:var(--wine-dark);}
   .art-body a{color:var(--laranja);text-decoration:underline;}
+  /* Retoma a intenção da antiga .about-text .brand do bloco Sobre, que
+     destacava o nome da marca no corpo do texto. Era bordô; agora é o
+     laranja oficial. Não se aplica ao .art-q, que fica na cor do corpo. */
+  .art-body .brand{color:var(--laranja);font-weight:600;}
   /* único uso da Vintage Rotter no site — script ornamental, uso pontual.
      1.6em porque a x-height dela é 0,450em contra 0,546em da Parkinsans:
      no mesmo corpo a minúscula sai 18% mais baixa e o traço é fino, então
      em 1em a palavra lia como falha de renderização. line-height:1 impede
      que o span aumentado empurre a entrelinha do parágrafo. */
   .rose-word{
-    color:var(--rose);font-family:'Vintage Rotter','Brush Script MT',cursive;
+    /* rosa escuro oficial: 6,98:1 sobre o creme, contra 2,38:1 do --rose */
+    color:var(--rosa-escuro);font-family:'Vintage Rotter','Brush Script MT',cursive;
     font-size:1.6em;line-height:1;
   }
   /* Par título + subtítulo, reproduzindo o espaçamento que o index já usa
@@ -186,7 +192,7 @@
 <p>Se tem uma coisa que aprendi é que talento abre portas. O que mantém elas abertas é consistência.</p>
 <h2 class="art-q">Por que existe a Eu Produtei?</h2>
 <p>Porque eu sentia falta de um lugar onde a vida de Product Manager pudesse existir sem pose. Nem todo discovery é genial. Nem todo feedback é fácil. Nem toda sprint termina do jeito que a gente planejou.</p>
-<p>A Eu Produtei nasceu pra falar justamente desse meio do caminho.</p>
+<p>A <span class="brand">Eu Produtei</span> nasceu pra falar justamente desse meio do caminho.</p>
 <p>Aqui tem artigo, reflexão, perrengue de CLT, carreira, livro, podcast, ferramenta útil e aquelas conversas que normalmente acontecem cinco minutos depois que a reunião acaba.</p>
 <p>Se você também vive tentando equilibrar estratégia, Jira, gente, prazo e sanidade mental... pode entrar.</p>
 <p>A casa é nossa.</p>
