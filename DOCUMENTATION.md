@@ -35,7 +35,7 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
   site, a altura calculada de botão, campo de busca e parágrafo saiu
   idêntica entre Inter e Parkinsans.
 - **Paleta de cores (variáveis CSS)**: definida em `:root`, duplicada em
-  cada uma das 7 páginas (mesma lógica de duplicação do resto do CSS,
+  cada uma das 8 páginas (mesma lógica de duplicação do resto do CSS,
   ver seção 2). As variáveis se dividem em **cores oficiais da
   identidade visual** e **tons auxiliares do site** — a distinção está
   registrada também num comentário dentro do próprio CSS de cada
@@ -47,7 +47,7 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
   | Variável             | Valor     | Onde é usada hoje |
   |----------------------|-----------|-------------------|
   | `--wine`             | `#511527` | Bordô oficial. Fundo do hero, títulos de seção, "Ver todos os artigos" do rodapé dos artigos, entre outros. (O logo do header não usa a variável — é um SVG com a cor embutida no arquivo.) |
-  | `--laranja`          | `#B7622E` | Laranja oficial. Quatro usos, listados abaixo. |
+  | `--laranja`          | `#B7622E` | Laranja oficial. Seis usos, listados abaixo. |
   | `--off-white-marca`  | `#D4CDBE` | Off white oficial, pra fundos escuros e peças de marca. Existe como variável desde 2026-09-09 mas **ainda não está aplicado a nenhum elemento** do site. |
 
   **Tons auxiliares do site** (decisões de layout/leitura, não fazem
@@ -66,7 +66,7 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
      Hoje nenhum artigo tem link no corpo, então a regra está no CSS
      mas ainda não aparece na tela.
   2. `nav ul li a:hover` — hover do menu do topo (só em `index.html`;
-     as páginas de artigo não têm menu, só o logo).
+     as outras 7 páginas não têm menu, só o logo).
   3. `.back-link` — o "← Voltar pros artigos" no topo de cada artigo:
      texto laranja e `border-bottom` laranja (era `--rose` até
      2026-09-09).
@@ -75,7 +75,11 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
      laranja + `border-bottom` laranja + `padding-bottom:2px`), de
      propósito: os dois são o mesmo tipo de link de volta e precisam
      parecer iguais. Antes era só texto bordô, sem sublinhado.
-  5. `.react-btn[aria-pressed="true"]` — estado ativo dos botões de
+  5. `.chamada-link` — o link "Quem escreve →" da chamada na home
+     (seção 3.7), com o mesmo tratamento do `.back-link`/`.footer-back`.
+     É a mesma família de componente: link que leva de uma página a
+     outra. A diferença é só a seta, que aponta pra frente.
+  6. `.react-btn[aria-pressed="true"]` — estado ativo dos botões de
      curtir/não curtir: fundo `--cream`, **borda e ícone** em laranja,
      **texto e contador em `--wine-dark`**. O estado inativo continua
      fundo `--beige` com borda, ícone e texto em `--wine-dark`. Ou
@@ -111,7 +115,7 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
   nesse componente.
 - **Analytics**: Google Analytics 4 (gtag.js), com o Measurement ID
   `G-XF33JMSZ0X`, instalado manualmente (copiado/colado) no `<head>` de
-  **todas** as páginas — `index.html` e os 6 artigos.
+  **todas** as páginas — `index.html`, `quem-escreve.html` e os 6 artigos.
 - **Hospedagem/deploy**: repositório GitHub
   (`paulasantospereira31-web/euprodutei`) conectado ao **Netlify**, que
   publica automaticamente a cada push na branch `main`. O domínio
@@ -135,11 +139,14 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
 
 ```
 euprodutei/
-├── index.html                  # Página inicial (home) — única página com todas as seções
+├── index.html                  # Página inicial (home): hero, artigos, indicações, chamada do Quem escreve, contato
+├── quem-escreve.html           # Página do "Quem escreve" (ver seção 3.7). Fica na raiz, e não em
+│                               # articles/, porque é página de nível superior do menu, não artigo
 ├── assets/
 │   ├── reactions.js             # JS compartilhado do widget de curtir/não curtir
 │   ├── search.js                # JS da busca de artigos (só carregado por index.html)
 │   ├── sort-articles.js         # ordena os artigos por data (só carregado por index.html)
+│   ├── paula-rodrigues.jpg      # foto de perfil, 375x500. Era base64 dentro do index.html até 2026-09-17
 │   ├── brand/                   # Arquivos oficiais da marca (logos e favicon: seção 3.10; fontes: seção 3.11)
 │   │   ├── EuProdutei_Logotipoprincipal_bordo.svg   # logo horizontal, 1200x400 (proporção 3:1)
 │   │   ├── EuProdutei_Logotiporeduzido_bordo.svg    # logo reduzido, 1000x1000 (quadrado)
@@ -147,7 +154,7 @@ euprodutei/
 │   │   ├── apple-touch-icon.png                     # 180x180, rasterizado a partir do favicon.svg
 │   │   ├── Coolvetica-Regular.woff2                 # fonte de títulos, peso 400
 │   │   ├── CoolveticaEl-Regular.woff2               # mesma família, peso 250 (ExtraLight) — declarada, sem uso hoje
-│   │   ├── VintageRotterPersonalUseOnl-R.woff2      # script ornamental, peso 400 — um único uso
+│   │   ├── VintageRotterPersonalUseOnl-R.woff2      # script ornamental, peso 400 — um único uso ("Paula", seção 3.7)
 │   │   └── Parkinsans-Light.woff2                   # NÃO USADO: a Parkinsans vem do Google Fonts (ver seção 3.11)
 │   ├── books/                   # Capas dos livros indicados na seção Indicações
 │   │   ├── inspirado.jpg
@@ -231,7 +238,7 @@ arquivos de `articles/`.
 ### 3.2 Google Analytics (GA4)
 
 - Snippet padrão do `gtag.js` (Measurement ID `G-XF33JMSZ0X`) colado
-  manualmente no `<head>` de **todas** as 7 páginas do site.
+  manualmente no `<head>` de **todas** as 8 páginas do site.
 - Rastreia automaticamente page views (`page_view`) em cada página.
 - Rastreia os eventos customizados `curtir_artigo` e `nao_curtir_artigo`
   disparados pelo `assets/reactions.js` (ver 3.1).
@@ -378,30 +385,98 @@ arquivos de `articles/`.
   padrão de um `.rec-card` existente dentro do `.rec-col`
   correspondente.
 
-### 3.7 Seção Sobre
+### 3.7 Quem escreve (página própria + chamada na home)
 
-- Bio de Paula Rodrigues em `index.html#sobre`, com foto embutida
-  diretamente como `data:image/jpeg;base64,...` dentro do próprio HTML
-  (não é um arquivo de imagem separado em `/assets`). Isso deixa o
-  `index.html` com ~70 KB majoritariamente por causa dessa imagem
-  embutida.
-- **Título "Quem é 👀 essa tal de Paula?"** usa a classe
-  `h2.collage-title`: mesma fonte (Anton) e mesma técnica de contorno
-  (`text-shadow` em 8 direções + sombra) já usada no título adesivo de
-  Indicações (`h2.sticker-title`, seção 3.6), mas aplicada **palavra
-  por palavra** em vez de linha por linha. Cada
-  palavra é um `<span class="cw cw-wine">` ou `<span class="cw
-  cw-rose">`, com `transform:rotate(...) translateY(...)` inline
-  definido individualmente por palavra (rotações entre -3 e 3 graus,
-  deslocamento vertical pequeno e alternado), criando o efeito de
-  "colagem". O emoji 👀 usa `cw-emoji` (mesma rotação inline, mas
-  `text-shadow:none` — só o texto tem contorno). Para editar esse
-  título no futuro, cada palavra precisa ser ajustada manualmente (não
-  há geração automática de rotação via JS).
+Até 2026-09-17 a bio ficava num bloco `#sobre` **dentro da home**, com
+um título "colagem" ("Quem é 👀 essa tal de Paula?") e a foto embutida
+como `data:image/jpeg;base64,...` no próprio HTML. Nessa data isso foi
+refatorado: a bio virou **página própria** e na home ficou só uma
+chamada curta.
+
+#### A página `quem-escreve.html`
+
+Fica **na raiz do repositório**, não em `articles/`, porque é página de
+nível superior do menu e não artigo. Por isso os caminhos dela são
+relativos à raiz (`assets/...`), e não `../assets/...` como nos
+artigos.
+
+**O CSS dela é o das páginas de artigo, copiado integralmente**, então
+ela herda de graça: mesmo header, mesmo rodapé, mesma coluna de 720px
+(`.wrap`), mesma tipografia, `.back-link`, `.footer-back`,
+`.art-body p`. Só três coisas foram acrescentadas:
+
+| Acréscimo | Por quê |
+|---|---|
+| `.section-sub` | Copiada do `index.html` sem alteração, para o subtítulo da página. Os artigos não tinham componente de subtítulo. |
+| `.avatar` e `.avatar img` | Copiadas do `index.html` sem alteração, mais um `margin:0 0 32px` (32px é o valor que o `.reactions` dos artigos já usa no `padding-top`). |
+| `h1.art-title{margin-bottom:14px}` | Só para reproduzir o espaçamento título → subtítulo que o `index.html` já tem entre `.section-title` (margin-bottom 14px) e `.section-sub`. Sem isso o subtítulo caía a 36px do título. |
+
+**Hierarquia do conteúdo:**
+
+- Título → `h1.art-title` (Coolvetica 400, 42px), igual ao dos artigos.
+- Subtítulo → `p.section-sub`.
+- Foto → `.avatar` (140px no desktop, 96px no mobile).
+- Corpo → `.art-body p`.
+- "Por que existe a Eu Produtei?" → `.art-q`, que é o componente de
+  pergunta/subtítulo dentro do corpo já usado nos artigos.
+
+Detalhe do `.art-q`: nos artigos o seletor é `.art-body p.art-q`, e
+exige um `<p>`. Nesta página o seletor foi escrito como
+`.art-body .art-q`, com **as mesmas declarações**, só para permitir
+`<h2 class="art-q">` e o subtítulo de seção ter marcação de cabeçalho
+de verdade. A aparência é idêntica; muda só a semântica do HTML.
+
+A página **não tem** widget de curtir/não curtir nem `.art-tag`/
+`.art-date` — não é artigo, não entra na listagem nem na busca (a
+`search.js` varre os `.article-row` da home, ver seção 3.5, então a
+página nova não aparece nos resultados).
+
+O link de voltar é **"← Voltar pra home"** (`index.html`), no topo e no
+rodapé, com o mesmo tratamento dos artigos.
+
+#### A chamada na home (`#quem-escreve`)
+
+Fica **entre Indicações e Contato**, e é a última seção antes do
+rodapé. Como a Indicações é `.section-beige`, a chamada fica no creme,
+mantendo a alternância de fundo das seções.
+
+São três elementos: a foto pequena, uma linha de texto e o link.
+Reaproveita `.about-grid`, `.avatar` e `.about-text p` que já existiam
+(eram do bloco `#sobre`), mais dois acréscimos:
+
+- `.avatar.avatar-sm{width:84px;height:84px;}` — modificador só de
+  tamanho, seguindo o mesmo padrão do `.rec-cover-square` da seção 3.6.
+- `.chamada-grid` — ajusta a grade para a foto de 84px e centraliza
+  verticalmente.
+- `.chamada-link` — mesmo tratamento do `.back-link`/`.footer-back`
+  (mono, caixa alta, laranja, com sublinhado), com a seta pra frente.
+
+**A palavra "Paula" dessa linha carrega a classe `.rose-word`**, que é
+o **único uso da Vintage Rotter no site** (seção 3.11). Ela morava na
+saudação do antigo bloco `#sobre` ("Oiê, muito prazer, Paula!"); quando
+o bloco saiu, foi movida para a palavra equivalente na chamada, para a
+fonte não ficar declarada sem nenhum uso.
+
+#### O que saiu junto
+
+- O `#sobre` e a âncora `#sobre` **não existem mais**. O item de menu
+  que apontava pra lá agora é **"Quem escreve"** e aponta para
+  `quem-escreve.html`. Não sobrou nenhum link nem âncora apontando pro
+  bloco removido.
+- O título colagem `h2.collage-title` (e as regras `.cw`, `.cw-wine`,
+  `.cw-rose`, `.cw-emoji`) foi **removido do CSS**, por decisão de não
+  recriá-lo na página nova.
+- Também saíram as regras que ficaram órfãs com o bloco:
+  `.about-greeting`, `.about-text .brand`,
+  `.about-text .placeholder-note` e `.wine-word` (esta já estava órfã
+  antes).
+- **A foto saiu do base64.** Agora é `assets/paula-rodrigues.jpg`
+  (375×500), referenciada normalmente. Só isso derrubou o
+  `index.html` de **81 KB para 28 KB**.
 
 ### 3.8 Meta tags para compartilhamento (Open Graph / Twitter Card)
 
-- Todas as 7 páginas (`index.html` + os 6 artigos) têm no `<head>`,
+- Todas as 8 páginas (`index.html`, `quem-escreve.html` + os 6 artigos) têm no `<head>`,
   logo após o `<title>`: `meta name="description"`, o conjunto completo
   de `og:*` (`title`, `description`, `image`, `image:width`,
   `image:height`, `url`, `type`, `site_name`, `locale`) e o conjunto de
@@ -472,7 +547,7 @@ do logo — define-se só a largura e deixa a altura sair sozinha.
 
 Até essa data o header mostrava **"Eu Produtei" como texto**, com a
 classe `.wordmark` em Fraunces 21px. Isso foi substituído pelo logo em
-imagem nas 7 páginas. A classe `.wordmark` continua existindo, mas
+imagem nas 8 páginas. A classe `.wordmark` continua existindo, mas
 agora é só o contêiner do `<img>` — perdeu todas as propriedades de
 texto (`font-family`, `font-size`, `font-stretch`, `color`), e a regra
 `.wordmark span{color:var(--rose);}` do `index.html`, que pintava o
@@ -502,7 +577,7 @@ SVG, pela regra do manual acima):
 
 Pontos que valem registro, porque são decisões e não acaso:
 
-- **O logo é link para a home nas 7 páginas.** Nos artigos ele já era
+- **O logo é link para a home nas 8 páginas.** Nos artigos ele já era
   (`../index.html`); no `index.html` ele era uma `<div>` sem link e
   virou `<a href="index.html">` em 2026-09-17, pra ficar clicável em
   todo lugar. O `alt` é `"Eu Produtei"` em todas.
@@ -525,6 +600,9 @@ Pontos que valem registro, porque são decisões e não acaso:
   | Artigo desktop | 74,59px | **107,66px** |
   | Artigo mobile | 74,59px | **81px** |
 
+  A `quem-escreve.html`, criada depois (seção 3.7), usa o mesmo header
+  das páginas de artigo, então vale para ela a mesma linha "Artigo".
+
   Note que **o mobile também cresceu**, ainda que pouco: o logo
   reduzido tem 40px de altura e a linha de texto que ele substituiu
   tinha 33,59px — ou seja, 6,41px a mais. É contraintuitivo porque
@@ -535,7 +613,7 @@ Pontos que valem registro, porque são decisões e não acaso:
   ficam fixos no topo durante toda a rolagem. Os artigos não têm
   sticky, o header deles rola junto com a página.
 
-**Favicon**: declarado no `<head>` das 7 páginas, logo depois da meta
+**Favicon**: declarado no `<head>` das 8 páginas, logo depois da meta
 `viewport`, em duas linhas:
 
 ```html
@@ -567,7 +645,7 @@ foram substituídas pela **Coolvetica**, servida do próprio site.
 |---|---|---|---|
 | `Coolvetica-Regular.woff2` | `Coolvetica` | 400 | Fonte de títulos. É a única que recebe `preload`. |
 | `CoolveticaEl-Regular.woff2` | `Coolvetica` | **250** | Declarada e pronta, **sem nenhum uso hoje** (nenhum elemento pede peso 250, então o arquivo nem é baixado). |
-| `VintageRotterPersonalUseOnl-R.woff2` | `Vintage Rotter` | 400 | Um único uso: `.rose-word`. |
+| `VintageRotterPersonalUseOnl-R.woff2` | `Vintage Rotter` | 400 | Um único uso: `.rose-word`, hoje na palavra "Paula" da chamada do Quem escreve na home (ver seção 3.7). |
 | `Parkinsans-Light.woff2` | — | — | **Não é usado.** A Parkinsans continua vindo do Google Fonts, com a faixa completa de pesos (300..800). O arquivo ficou no repo, mas nenhum `@font-face` aponta pra ele. |
 
 Sobre o nome dos dois arquivos da Coolvetica, que é confuso: ambos
@@ -585,7 +663,7 @@ Os `@font-face` ficam no topo do `<style>` de cada página, antes do
 caminho é relativo (`../assets/brand/...`).
 
 O `preload` fica no `<head>`, **só para a Coolvetica 400** — é a única
-fonte local usada em todas as 7 páginas e aparece acima da dobra:
+fonte local usada em todas as 8 páginas e aparece acima da dobra:
 
 ```html
 <link rel="preload" href="assets/brand/Coolvetica-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -648,7 +726,7 @@ exceção precisa** — a Fraunces é pedida apenas no eixo itálico:
 Antes, o pedido incluía Fraunces em 400, 600, 700 e 900 não-itálicos
 (todos agora sem uso) e a Anton. **Se algum dia alguém aplicar Fraunces
 não-itálica em qualquer elemento, precisa reincluir o peso no `<link>`,
-senão o navegador vai sintetizar.** As 7 páginas usam o mesmo `<link>`,
+senão o navegador vai sintetizar.** As 8 páginas usam o mesmo `<link>`,
 idêntico.
 
 #### Ajuste de métrica que foi necessário: `11ch` → `14ch`
@@ -702,7 +780,7 @@ fontes:
 | `h2.sticker-title` (Indicações) | 336,4px | 409,4px | **+21,7%** |
 | `.rec-title` (indicações) | 73,3px | 57,7px | −21,3% |
 | `.about-greeting` | 261,0px | 214,7px | −17,7% |
-| `h2.collage-title` (Sobre) | 353,3px | 410,5px | **+16,2%** |
+| `h2.collage-title` (título colagem do antigo bloco Sobre, removido em 2026-09-17) | 353,3px | 410,5px | **+16,2%** |
 | `.art-title` (lista) | 472,0px | 400,4px | −15,2% |
 | `.section-title` | 496,6px | 423,0px | −14,8% |
 | `h1.art-title` (artigos) | 1205,4px | 1032,5px | −14,3% |

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XF33JMSZ0X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XF33JMSZ0X');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<title>Quem escreve — Eu Produtei</title>
+<meta name="description" content="Aqui eu junto tudo que aprendo (e tudo que me faz revirar os olhos) vivendo produto, CLT e o caos organizado do dia a dia.">
+<meta property="og:title" content="Quem escreve — Eu Produtei">
+<meta property="og:description" content="Aqui eu junto tudo que aprendo (e tudo que me faz revirar os olhos) vivendo produto, CLT e o caos organizado do dia a dia.">
+<meta property="og:image" content="https://euprodutei.com.br/assets/og/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://euprodutei.com.br/quem-escreve.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Eu Produtei">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Quem escreve — Eu Produtei">
+<meta name="twitter:description" content="Aqui eu junto tudo que aprendo (e tudo que me faz revirar os olhos) vivendo produto, CLT e o caos organizado do dia a dia.">
+<meta name="twitter:image" content="https://euprodutei.com.br/assets/og/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="assets/brand/Coolvetica-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Parkinsans:wght@300..800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  /* Fontes da marca, servidas do próprio site (ver seção 3.11 da documentação).
+     Coolvetica em dois pesos: 250 (arquivo El, ExtraLight) e 400.
+     Não existe peso acima de 400 — nenhum elemento deve pedir mais que isso,
+     senão o navegador sintetiza negrito falso. */
+  @font-face{
+    font-family:'Coolvetica';
+    src:url('assets/brand/CoolveticaEl-Regular.woff2') format('woff2');
+    font-weight:250;font-style:normal;font-display:swap;
+  }
+  @font-face{
+    font-family:'Coolvetica';
+    src:url('assets/brand/Coolvetica-Regular.woff2') format('woff2');
+    font-weight:400;font-style:normal;font-display:swap;
+  }
+  @font-face{
+    font-family:'Vintage Rotter';
+    src:url('assets/brand/VintageRotterPersonalUseOnl-R.woff2') format('woff2');
+    font-weight:400;font-style:normal;font-display:swap;
+  }
+  :root{
+    /* Cores oficiais da identidade visual: --wine (bordô), --laranja e
+       --off-white-marca. As demais são tons auxiliares do site.
+       #FBF5EA (--cream) é auxiliar, usado como fundo de página por ser
+       mais leve para leitura longa. #D4CDBE (--off-white-marca) é o off
+       white oficial, para uso sobre fundos escuros e em peças de marca
+       — ainda não aplicado a nenhum elemento aqui. */
+    --wine:#511527; --wine-dark:#3A1420; --rose:#D98C96; --blush:#F2CFC9;
+    --beige:#EFE2CE; --cream:#FBF5EA; --ink:#2A1620;
+    --off-white-marca:#D4CDBE;
+    --laranja:#B7622E;
+    --paper-line: rgba(58,20,32,0.06);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Parkinsans',sans-serif;font-size:16px;line-height:1.6;}
+  h1,.display{font-family:'Coolvetica',Helvetica,Arial,sans-serif;font-optical-sizing:auto;margin:0;}
+  .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:720px;margin:0 auto;padding:0 24px;}
+  nav{background:var(--beige);border-bottom:1px solid var(--paper-line);padding:20px 0;}
+  nav .wrap{display:flex;align-items:center;}
+  .wordmark{display:flex;align-items:center;}
+  /* só a largura é definida; a altura sai da proporção original do SVG,
+     que o manual da marca proíbe alterar (ver seção 3.10 da documentação) */
+  .wordmark img{display:block;width:200px;height:auto;}
+  .back-link{
+    display:inline-block;margin:36px 0 28px;font-family:'IBM Plex Mono',monospace;
+    font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--laranja);
+    border-bottom:1px solid var(--laranja);padding-bottom:2px;
+  }
+  .art-tag{
+    display:inline-block;transform:rotate(-3deg);background:var(--blush);color:var(--wine-dark);
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
+    padding:4px 9px;border:1px solid var(--wine-dark);
+  }
+  .art-date{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--wine);opacity:0.65;margin-left:10px;}
+  h1.art-title{
+    font-size:clamp(28px,5vw,42px);font-weight:400;line-height:1.15;color:var(--wine-dark);
+    margin-top:16px;margin-bottom:36px;font-stretch:82%;
+  }
+  .art-body p{margin:0 0 20px;font-size:17px;line-height:1.85;color:var(--wine-dark);}
+  .art-body a{color:var(--laranja);text-decoration:underline;}
+  /* Par título + subtítulo, reproduzindo o espaçamento que o index já usa
+     entre .section-title (margin-bottom:14px) e .section-sub. */
+  h1.art-title{margin-bottom:14px;}
+  .section-sub{max-width:52ch;color:var(--wine-dark);opacity:0.72;font-size:15.5px;margin:0 0 28px;}
+  /* .avatar e .avatar img copiadas do index.html, sem alteração; o único
+     acréscimo é a margem de baixo, usando os 32px que o projeto já usa
+     no padding-top do bloco .reactions dos artigos. */
+  .avatar{
+    width:140px;height:140px;border-radius:4px;
+    overflow:hidden;
+    transform:rotate(-2deg);
+    box-shadow:5px 5px 0 rgba(58,20,32,0.12);
+    margin:0 0 32px;
+  }
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
+  /* mesmas declarações do .art-body p.art-q dos artigos; o seletor aceita
+     h2 para o subtítulo de seção ter marcação de cabeçalho de verdade */
+  .art-body .art-q{font-family:'Coolvetica',Helvetica,Arial,sans-serif;font-weight:400;font-size:19px;color:var(--wine-dark);margin:32px 0 8px;}
+  .art-body blockquote{
+    margin:30px 0;padding:20px 24px;border-left:3px solid var(--rose);background:var(--beige);
+    font-family:'Fraunces',serif;font-style:italic;font-size:19px;color:var(--wine);
+  }
+  .art-body blockquote cite{display:block;margin-top:10px;font-family:'IBM Plex Mono',monospace;font-style:normal;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;opacity:0.7;}
+  footer{margin-top:56px;padding:40px 0 60px;border-top:1px solid var(--paper-line);}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+  .footer-back{
+    display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;
+    text-transform:uppercase;letter-spacing:.06em;color:var(--laranja);
+    border-bottom:1px solid var(--laranja);padding-bottom:2px;
+  }
+  .footer-sig{font-size:13px;color:var(--wine-dark);opacity:0.6;}
+  .reactions{margin-top:48px;padding-top:32px;border-top:1px solid var(--paper-line);}
+  .reactions-label{color:var(--wine);opacity:0.7;margin-bottom:14px;}
+  .reactions-buttons{display:flex;gap:12px;flex-wrap:wrap;}
+  .react-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--beige);border:1.3px solid var(--wine-dark);color:var(--wine-dark);
+    font-family:'Parkinsans',sans-serif;font-weight:600;font-size:14px;
+    padding:10px 16px;border-radius:20px;cursor:pointer;transition:background .15s,transform .15s;
+  }
+  .react-btn:hover{transform:translateY(-1px);}
+  .react-btn .react-icon{fill:var(--wine-dark);display:inline-flex;}
+  .react-btn .react-count{font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:0.7;}
+  .react-btn[aria-pressed="true"]{background:var(--cream);border-color:var(--laranja);color:var(--wine-dark);}
+  .react-btn[aria-pressed="true"] .react-icon{fill:var(--laranja);}
+  .react-btn[aria-pressed="true"] .react-count{color:var(--wine-dark);opacity:0.85;}
+  @media(max-width:720px){
+    .wordmark img{width:40px;}
+    .avatar{width:96px;height:96px;}
+  }
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a href="index.html" class="wordmark">
+    <picture>
+      <source media="(max-width:720px)" srcset="assets/brand/EuProdutei_Logotiporeduzido_bordo.svg">
+      <img src="assets/brand/EuProdutei_Logotipoprincipal_bordo.svg" alt="Eu Produtei">
+    </picture>
+  </a>
+</div></nav>
+<div class="wrap">
+  <a href="index.html" class="back-link">&larr; Voltar pra home</a>
+  <h1 class="art-title">Essa página podia ser uma reunião. Preferi escrever.</h1>
+  <p class="section-sub">Aqui eu junto tudo que aprendo (e tudo que me faz revirar os olhos) vivendo produto, CLT e o caos organizado do dia a dia.</p>
+  <div class="avatar"><img src="assets/paula-rodrigues.jpg" alt="Paula Rodrigues"></div>
+  <div class="art-body">
+<p>Oiê, muito prazer. Eu sou a Paula.</p>
+<p>Tenho 30 anos e trabalho com produto há mais de sete anos. Já passei por iFood, SulAmérica e Buscapé e hoje sou Product Manager na Allianz Brasil, fazendo a ponte entre negócio e tecnologia pra transformar problemas complicados em soluções que fazem sentido.</p>
+<p>Na prática, meu trabalho é fazer perguntas, conectar pessoas, organizar o caos e tomar decisões sem fingir que existe bola de cristal.</p>
+<p>Meu lema continua sendo o mesmo: transformar dados em decisões e decisões em produto. Porque, no fim das contas, dado aponta caminho, mas quem dá sentido é gente.</p>
+<p>A inteligência artificial também faz parte da minha rotina. Não como botão mágico que resolve tudo, mas como uma parceira de trabalho pra organizar informação, explorar possibilidades, desafiar ideias e pensar melhor junto com o time.</p>
+<p>Sou formada em Administração e, porque aparentemente eu tenho dificuldade de dizer "já chega", faço um MBA em Gestão de Projetos, Metodologias Ágeis e Inteligência Artificial pela PUCRS, além de uma pós-graduação em Product Management.</p>
+<p>Fora do trabalho, sou carioca da gema, casada, mãe do Gabriel, mãe de pet e uma pessoa que descobriu, completamente sem querer, que gosta de correr. Hoje divido meu tempo entre backlog, boletos, musculação e aquela eterna tentativa de convencer meu relógio que cinco da manhã deveria ser crime.</p>
+<p>Se tem uma coisa que aprendi é que talento abre portas. O que mantém elas abertas é consistência.</p>
+<h2 class="art-q">Por que existe a Eu Produtei?</h2>
+<p>Porque eu sentia falta de um lugar onde a vida de Product Manager pudesse existir sem pose. Nem todo discovery é genial. Nem todo feedback é fácil. Nem toda sprint termina do jeito que a gente planejou.</p>
+<p>A Eu Produtei nasceu pra falar justamente desse meio do caminho.</p>
+<p>Aqui tem artigo, reflexão, perrengue de CLT, carreira, livro, podcast, ferramenta útil e aquelas conversas que normalmente acontecem cinco minutos depois que a reunião acaba.</p>
+<p>Se você também vive tentando equilibrar estratégia, Jira, gente, prazo e sanidade mental... pode entrar.</p>
+<p>A casa é nossa.</p>
+  </div>
+</div>
+<footer>
+  <div class="wrap">
+    <a href="index.html" class="footer-back">&larr; Voltar pra home</a>
+    <span class="footer-sig">Eu Produtei — por Paula Rodrigues</span>
+  </div>
+</footer>
+</body>
+</html>
