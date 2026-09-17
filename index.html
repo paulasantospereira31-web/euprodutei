@@ -59,12 +59,17 @@
     --rose:#D98C96;
     --blush:#F2CFC9;
     --beige:#EFE2CE;
-    /* Cores oficiais da identidade visual: --wine (bordô), --laranja e
-       --off-white-marca. As demais são tons auxiliares do site.
-       #FBF5EA (--cream) é auxiliar, usado como fundo de página por ser
-       mais leve para leitura longa. #D4CDBE (--off-white-marca) é o off
-       white oficial, para uso sobre fundos escuros e em peças de marca —
-       ainda não aplicado a nenhum elemento aqui. */
+    /* Cores oficiais da identidade visual: --wine (bordô), --laranja,
+       --off-white-marca e --pessego. As demais são tons auxiliares do
+       site. #FBF5EA (--cream) é auxiliar, usado como fundo de página
+       por ser mais leve para leitura longa. #D4CDBE (--off-white-marca)
+       é o off white oficial, para uso sobre fundos escuros e em peças
+       de marca — ainda não aplicado a nenhum elemento aqui. #D9A27F
+       (--pessego) é o pêssego oficial, reservado para peças de marca —
+       testado duas vezes como cor de seção em 2026-09-17 (fundo da
+       seção Indicações, depois fundo dos cards) e revertido nas duas,
+       também sem uso hoje. Ver seção 3.6 da documentação antes de
+       reaplicá-lo. */
     --cream:#FBF5EA;
     --ink:#2A1620;
     --off-white-marca:#D4CDBE;
@@ -319,11 +324,8 @@
   .rec-grid{margin-top:40px;display:grid;grid-template-columns:1fr;gap:40px;}
   .rec-col h3{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--wine);margin-bottom:18px;}
   .rec-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-  /* fundo pêssego (2026-09-17): --rec-author fica em 3,40:1 aqui, abaixo
-     de 4,5:1 — ver seção 3.6 da documentação, decisão pendente do dono
-     do produto, cor não alterada por conta própria. */
   .rec-card{
-    background:var(--pessego);border:1px solid var(--paper-line);
+    background:var(--cream);border:1px solid var(--paper-line);
     padding:16px 18px;border-radius:2px;
     box-shadow:2px 2px 0 rgba(58,20,32,0.05);
     display:flex;gap:16px;
@@ -337,9 +339,7 @@
   .rec-card .rec-meta{font-size:12.5px;color:var(--wine-dark);opacity:0.6;margin-top:3px;}
   .rec-card .rec-author{
     font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
-    /* rosa escuro, mesmo assim: 3,40:1 sobre o fundo pêssego do card,
-       abaixo do mínimo de 4,5:1 (sobre o creme antigo dava 6,98:1). Ver
-       comentário do .rec-card acima. */
+    /* rosa escuro: 6,98:1 sobre o creme, contra 2,38:1 do --rose */
     color:var(--rosa-escuro);margin-top:2px;margin-bottom:8px;
   }
   .rec-card .rec-desc{font-size:13.5px;line-height:1.55;color:var(--wine-dark);opacity:0.85;margin:0;}
