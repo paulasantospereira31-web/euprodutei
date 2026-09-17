@@ -31,8 +31,28 @@
 <meta name="twitter:image" content="https://euprodutei.com.br/assets/og/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Parkinsans:wght@300..800&family=IBM+Plex+Mono:wght@500&family=Anton&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/brand/Coolvetica-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Parkinsans:wght@300..800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
+  /* Fontes da marca, servidas do próprio site (ver seção 3.11 da documentação).
+     Coolvetica em dois pesos: 250 (arquivo El, ExtraLight) e 400.
+     Não existe peso acima de 400 — nenhum elemento deve pedir mais que isso,
+     senão o navegador sintetiza negrito falso. */
+  @font-face{
+    font-family:'Coolvetica';
+    src:url('assets/brand/CoolveticaEl-Regular.woff2') format('woff2');
+    font-weight:250;font-style:normal;font-display:swap;
+  }
+  @font-face{
+    font-family:'Coolvetica';
+    src:url('assets/brand/Coolvetica-Regular.woff2') format('woff2');
+    font-weight:400;font-style:normal;font-display:swap;
+  }
+  @font-face{
+    font-family:'Vintage Rotter';
+    src:url('assets/brand/VintageRotterPersonalUseOnl-R.woff2') format('woff2');
+    font-weight:400;font-style:normal;font-display:swap;
+  }
   :root{
     --wine:#511527;
     --wine-dark:#3A1420;
@@ -63,7 +83,7 @@
     line-height:1.6;
   }
   h1,h2,h3,.display{
-    font-family:'Fraunces',serif;
+    font-family:'Coolvetica',Helvetica,Arial,sans-serif;
     font-optical-sizing:auto;
     font-stretch:78%;
     margin:0;
@@ -135,9 +155,13 @@
   }
   .hero h1{
     font-size:clamp(34px,6vw,58px);
-    font-weight:700;
+    font-weight:400;
     line-height:1.08;
-    max-width:11ch;
+    /* 14ch, não 11ch: a unidade ch é a largura do "0" da fonte, e o zero da
+       Coolvetica é bem mais estreito que o da Fraunces (28,39px contra
+       39,58px a 58px). Com 11ch a caixa caía de 435px para 312px e o título
+       quebrava em 3 linhas em vez de 2. 14ch devolve os ~435px de antes. */
+    max-width:14ch;
     color:var(--cream);
   }
   .hero .lede{
@@ -153,14 +177,14 @@
   section{padding:76px 0;}
   .section-beige{background:var(--beige);}
   .eyebrow{color:var(--wine);font-weight:500;margin-bottom:10px;}
-  .section-title{font-size:clamp(26px,4vw,36px);font-weight:600;color:var(--wine-dark);margin-bottom:14px;}
+  .section-title{font-size:clamp(26px,4vw,36px);font-weight:400;color:var(--wine-dark);margin-bottom:14px;}
   #artigos .section-title{margin-bottom:4px;}
   #artigos .section-sub{margin-top:0;}
   .section-sub{max-width:52ch;color:var(--wine-dark);opacity:0.72;font-size:15.5px;}
 
   /* título adesivo (Indicações) */
   h2.sticker-title{
-    font-family:'Anton',sans-serif;
+    font-family:'Coolvetica',Helvetica,Arial,sans-serif;
     font-weight:400;
     text-transform:uppercase;
     font-size:clamp(30px,5.5vw,46px);
@@ -189,7 +213,7 @@
 
   /* título colagem (Sobre) */
   h2.collage-title{
-    font-family:'Anton',sans-serif;
+    font-family:'Coolvetica',Helvetica,Arial,sans-serif;
     font-weight:400;
     text-transform:uppercase;
     font-size:clamp(30px,5.5vw,46px);
@@ -226,10 +250,11 @@
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
   .about-text p{margin:0 0 14px;color:var(--wine-dark);}
-  .about-greeting{font-size:22px;font-weight:600;color:var(--wine-dark);margin:0 0 18px;}
+  .about-greeting{font-size:22px;font-weight:400;color:var(--wine-dark);margin:0 0 18px;}
   .about-text .brand{color:var(--wine);font-weight:600;}
   .wine-word{color:var(--wine);}
-  .rose-word{color:var(--rose);}
+  /* único uso da Vintage Rotter no site — script ornamental, uso pontual */
+  .rose-word{color:var(--rose);font-family:'Vintage Rotter','Brush Script MT',cursive;}
   .about-text .placeholder-note{
     font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
     color:var(--wine);opacity:0.6;margin-top:10px;
@@ -242,7 +267,7 @@
   }
   .ml-label{color:var(--wine-dark);opacity:0.65;margin-bottom:8px;}
   .ml-row{display:flex;flex-wrap:wrap;gap:6px 18px;}
-  .ml-item{font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--wine-dark);border-bottom:1px solid transparent;}
+  .ml-item{font-family:'Coolvetica',Helvetica,Arial,sans-serif;font-weight:400;font-size:15px;color:var(--wine-dark);border-bottom:1px solid transparent;}
   .ml-item:hover{border-color:var(--wine-dark);}
 
   /* busca */
@@ -312,7 +337,7 @@
     font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
     padding:4px 9px;margin-bottom:8px;border:1px solid var(--wine-dark);
   }
-  .art-title{font-family:'Fraunces',serif;font-weight:600;font-size:19px;font-stretch:80%;color:var(--wine-dark);line-height:1.3;}
+  .art-title{font-family:'Coolvetica',Helvetica,Arial,sans-serif;font-weight:400;font-size:19px;font-stretch:80%;color:var(--wine-dark);line-height:1.3;}
   .art-excerpt{margin-top:6px;font-size:14.5px;color:var(--wine-dark);opacity:0.7;max-width:56ch;}
   .art-arrow{font-size:22px;color:var(--rose);}
   .art-full{margin-top:16px;padding-top:16px;border-top:1px dashed var(--paper-line);}
@@ -323,7 +348,7 @@
     font-family:'Fraunces',serif;font-style:italic;font-size:15.5px;color:var(--wine);
   }
   .art-full blockquote cite{display:block;margin-top:6px;font-family:'IBM Plex Mono',monospace;font-style:normal;font-size:11px;text-transform:uppercase;letter-spacing:.05em;opacity:0.7;}
-  .art-full .art-q{font-family:'Fraunces',serif;font-weight:600;font-size:15.5px;color:var(--wine-dark);margin:0 0 6px;}
+  .art-full .art-q{font-family:'Coolvetica',Helvetica,Arial,sans-serif;font-weight:400;font-size:15.5px;color:var(--wine-dark);margin:0 0 6px;}
 
   /* indicacoes */
   .rec-grid{margin-top:40px;display:grid;grid-template-columns:1fr;gap:40px;}
@@ -340,7 +365,7 @@
     box-shadow:2px 2px 0 rgba(58,20,32,0.15);
   }
   .rec-card .rec-cover-square{width:88px;height:88px;}
-  .rec-card .rec-title{font-family:'Fraunces',serif;font-weight:600;font-size:15.5px;color:var(--wine-dark);}
+  .rec-card .rec-title{font-family:'Coolvetica',Helvetica,Arial,sans-serif;font-weight:400;font-size:15.5px;color:var(--wine-dark);}
   .rec-card .rec-meta{font-size:12.5px;color:var(--wine-dark);opacity:0.6;margin-top:3px;}
   .rec-card .rec-author{
     font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
@@ -364,7 +389,7 @@
   }
   .link-card:hover{border-color:var(--rose);transform:translateY(-2px);}
   .link-card .mono{color:var(--rose);}
-  .link-card .link-title{font-family:'Fraunces',serif;font-weight:600;font-size:17px;margin-top:6px;}
+  .link-card .link-title{font-family:'Coolvetica',Helvetica,Arial,sans-serif;font-weight:400;font-size:17px;margin-top:6px;}
   .footer-bottom{margin-top:56px;padding-top:24px;border-top:1px solid rgba(251,245,234,0.15);
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;opacity:0.6;}
 

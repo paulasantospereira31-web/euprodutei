@@ -1,6 +1,6 @@
 # Documentação técnica — Eu Produtei
 
-> Última atualização: 2026-09-09
+> Última atualização: 2026-09-17
 
 ## 1. Visão geral da stack
 
@@ -12,9 +12,18 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
 - **Frameworks/bibliotecas**: nenhum. Não há React, Vue, Tailwind, jQuery
   etc. Não existe `package.json`, `node_modules` nem qualquer bundler
   (Webpack/Vite/Parcel).
-- **Fontes**: Google Fonts carregado via `<link>` no `<head>` de cada
-  página (Fraunces, Parkinsans, IBM Plex Mono). `index.html` também
-  carrega Anton, usada só no título "adesivo" da seção Indicações.
+- **Fontes**: desde 2026-09-17 as fontes vêm de **duas origens**, e o
+  detalhamento completo está na **seção 3.11**:
+  - **Arquivos `.woff2` do próprio site**, em `assets/brand/`, com
+    `@font-face` declarado no `<style>` de cada página: **Coolvetica**
+    (fonte de títulos) e **Vintage Rotter** (script ornamental, um
+    único uso).
+  - **Google Fonts** via `<link>` no `<head>`: **Parkinsans** (fonte de
+    corpo), **IBM Plex Mono** (etiquetas, datas, textos em caixa alta)
+    e **Fraunces**, esta última reduzida a **um único uso** — ver a
+    exceção na seção 3.11. **Anton foi removida** em 2026-09-17, junto
+    com os pesos não-itálicos da Fraunces.
+
   Cada página tem dois `<link rel="preconnect">` (`fonts.googleapis.com`
   e `fonts.gstatic.com`, este com `crossorigin`) — o par recomendado
   pelo próprio Google Fonts. **Parkinsans é a fonte de corpo** (texto
@@ -131,11 +140,15 @@ euprodutei/
 │   ├── reactions.js             # JS compartilhado do widget de curtir/não curtir
 │   ├── search.js                # JS da busca de artigos (só carregado por index.html)
 │   ├── sort-articles.js         # ordena os artigos por data (só carregado por index.html)
-│   ├── brand/                   # Arquivos oficiais da marca (ver seção 3.10)
+│   ├── brand/                   # Arquivos oficiais da marca (logos e favicon: seção 3.10; fontes: seção 3.11)
 │   │   ├── EuProdutei_Logotipoprincipal_bordo.svg   # logo horizontal, 1200x400 (proporção 3:1)
 │   │   ├── EuProdutei_Logotiporeduzido_bordo.svg    # logo reduzido, 1000x1000 (quadrado)
 │   │   ├── favicon.svg                              # ícone do site, 1200x1200
-│   │   └── apple-touch-icon.png                     # 180x180, rasterizado a partir do favicon.svg
+│   │   ├── apple-touch-icon.png                     # 180x180, rasterizado a partir do favicon.svg
+│   │   ├── Coolvetica-Regular.woff2                 # fonte de títulos, peso 400
+│   │   ├── CoolveticaEl-Regular.woff2               # mesma família, peso 250 (ExtraLight) — declarada, sem uso hoje
+│   │   ├── VintageRotterPersonalUseOnl-R.woff2      # script ornamental, peso 400 — um único uso
+│   │   └── Parkinsans-Light.woff2                   # NÃO USADO: a Parkinsans vem do Google Fonts (ver seção 3.11)
 │   ├── books/                   # Capas dos livros indicados na seção Indicações
 │   │   ├── inspirado.jpg
 │   │   └── jornada-transicao-produtos.jpg
@@ -541,6 +554,195 @@ usado pra gerar a imagem de Open Graph (seção 3.8). Não há
 `rsvg-convert`, Inkscape, ImageMagick nem cairosvg neste ambiente. Se o
 `favicon.svg` mudar, o PNG precisa ser gerado de novo; ele não se
 atualiza sozinho.
+
+### 3.11 Fontes da marca (desde 2026-09-17)
+
+Até 2026-09-17 os títulos usavam **Fraunces** (serifada, do Google
+Fonts) e **Anton** (só nos dois títulos "adesivo"/"colagem"). As duas
+foram substituídas pela **Coolvetica**, servida do próprio site.
+
+#### Os arquivos e o que cada um é
+
+| Arquivo em `assets/brand/` | Família declarada | `font-weight` | Situação |
+|---|---|---|---|
+| `Coolvetica-Regular.woff2` | `Coolvetica` | 400 | Fonte de títulos. É a única que recebe `preload`. |
+| `CoolveticaEl-Regular.woff2` | `Coolvetica` | **250** | Declarada e pronta, **sem nenhum uso hoje** (nenhum elemento pede peso 250, então o arquivo nem é baixado). |
+| `VintageRotterPersonalUseOnl-R.woff2` | `Vintage Rotter` | 400 | Um único uso: `.rose-word`. |
+| `Parkinsans-Light.woff2` | — | — | **Não é usado.** A Parkinsans continua vindo do Google Fonts, com a faixa completa de pesos (300..800). O arquivo ficou no repo, mas nenhum `@font-face` aponta pra ele. |
+
+Sobre o nome dos dois arquivos da Coolvetica, que é confuso: ambos
+terminam em `-Regular`, mas a tabela `name` de cada um deixa claro quem
+é quem. O `CoolveticaEl-Regular` declara internamente
+`Typographic Family: Coolvetica` e `Typographic Subfamily: ExtraLight`,
+com `usWeightClass` **250** — por isso ele foi declarado em 250, e não
+em 300: é o número que o próprio arquivo carrega. O
+`Coolvetica-Regular` é `Coolvetica / Regular`, `usWeightClass` 400.
+
+#### Declaração
+
+Os `@font-face` ficam no topo do `<style>` de cada página, antes do
+`:root`, com `font-display:swap` nos três. Nas páginas de artigo o
+caminho é relativo (`../assets/brand/...`).
+
+O `preload` fica no `<head>`, **só para a Coolvetica 400** — é a única
+fonte local usada em todas as 7 páginas e aparece acima da dobra:
+
+```html
+<link rel="preload" href="assets/brand/Coolvetica-Regular.woff2" as="font" type="font/woff2" crossorigin>
+```
+
+O atributo `crossorigin` é obrigatório aqui **mesmo sendo o mesmo
+domínio**: fontes são buscadas em modo CORS anônimo, e sem ele o
+navegador baixaria o arquivo duas vezes.
+
+**Fallbacks** definidos em cada família:
+
+- `'Coolvetica',Helvetica,Arial,sans-serif` — a Coolvetica é uma sans
+  geométrica, então o fallback é sans (e não mais `serif`, como era no
+  tempo da Fraunces).
+- `'Vintage Rotter','Brush Script MT',cursive` — script.
+
+#### Regra: nada acima do peso 400
+
+**Nem a Coolvetica nem a Vintage Rotter têm peso acima de 400**, e a
+Coolvetica também **não tem itálico**. Se algum elemento pedir peso
+maior ou `font-style:italic` nessas famílias, o navegador **sintetiza**
+negrito ou itálico artificial — engorda ou inclina as letras
+mecanicamente, e o resultado borra o contorno. Isso é proibido neste
+projeto.
+
+Por isso, em 2026-09-17, **nove elementos que usavam Fraunces acima de
+400 foram baixados para 400**: o `h1` do hero e o `h1.art-title` dos
+artigos (eram 700); e `.section-title`, `.about-greeting`,
+`.art-title`, `.art-q`, `.link-title`, `.rec-title` e `.ml-item` (eram
+600). **A hierarquia dos títulos passou a ser feita só por tamanho.**
+Os dois títulos que usavam Anton já estavam em 400 e não precisaram de
+nada.
+
+Atenção ao mexer: os pesos 500/600/700 que ainda existem no CSS
+(`nav ul li a`, `.stamp`, `.hero .lede strong`, `.eyebrow`,
+`.about-text .brand`, `mark.search-hit`, `.react-btn`) são todos de
+elementos em **Parkinsans**, que tem a faixa 300..800 no Google Fonts —
+esses estão corretos e não devem ser mexidos.
+
+#### A exceção deliberada: Fraunces nos `blockquote`
+
+**A Fraunces continua no `<link>` do Google Fonts de propósito, e não
+por sobra.** Ela tem exatamente **um uso**: os `blockquote` (a citação
+do Marty Cagan no `index.html` e as citações dentro dos artigos), que
+são **Fraunces itálico**. Foi uma decisão consciente de manter a
+serifada itálica só nas citações, porque:
+
+1. A Coolvetica não tem itálico, e usá-la ali significaria itálico
+   sintético — justamente o que este projeto não aceita.
+2. A citação ganha em se distinguir do resto: é a única voz que não é
+   da autora do site.
+
+Por isso o `<link>` do Google Fonts foi **reduzido a só o que essa
+exceção precisa** — a Fraunces é pedida apenas no eixo itálico:
+
+```
+?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Parkinsans:wght@300..800&family=IBM+Plex+Mono:wght@500&display=swap
+```
+
+Antes, o pedido incluía Fraunces em 400, 600, 700 e 900 não-itálicos
+(todos agora sem uso) e a Anton. **Se algum dia alguém aplicar Fraunces
+não-itálica em qualquer elemento, precisa reincluir o peso no `<link>`,
+senão o navegador vai sintetizar.** As 7 páginas usam o mesmo `<link>`,
+idêntico.
+
+#### Ajuste de métrica que foi necessário: `11ch` → `14ch`
+
+A troca foi só de família — nenhum tamanho, entrelinha ou escala
+tipográfica mudou. Mas **um ajuste foi inevitável**, e é importante
+entender por quê para não o desfazer por engano.
+
+O `.hero h1` tinha `max-width:11ch`. A unidade `ch` é **a largura do
+caractere "0" da fonte em uso**, então ela muda quando a fonte muda:
+
+| | largura de `1ch` a 58px | `11ch` resultava em |
+|---|---|---|
+| Fraunces 700 | 39,58px | 435,4px |
+| Coolvetica 400 | 28,39px | **312,3px** |
+
+Com a caixa caindo de 435px para 312px, o título quebrava em **3
+linhas** ("A casa de / quem vive / Produto") em vez das 2 originais, e o
+hero crescia. A linha "A casa de quem" precisa de 381,9px em
+Coolvetica; `14ch` dá 397,5px e ainda é estreito demais para caber "A
+casa de quem vive" (492,3px). Ou seja, **`14ch` reproduz exatamente o
+comportamento de antes** — 2 linhas, e o hero voltou aos mesmos
+542,6px. Foi o único ajuste feito.
+
+As outras três `max-width` em `ch` do projeto (`.hero .lede` 46ch,
+`.section-sub` 52ch, `.art-excerpt` 56ch) estão em elementos
+**Parkinsans**, cuja fonte não mudou — não precisaram de nada.
+
+#### `font-stretch` virou letra morta (e já era antes)
+
+Os títulos têm `font-stretch` entre 78% e 82% (`h1,h2,h3,.display`,
+`.art-title`, `h1.art-title`). Esses valores **não têm nenhum efeito**
+na Coolvetica, que não é fonte variável e não tem eixo de largura.
+
+O que vale registrar, porque é contraintuitivo: **eles já não tinham
+efeito antes da troca**. A Fraunces do Google Fonts tem só os eixos
+`opsz` e `wght` — **não tem eixo `wdth`** —, e a Anton não é variável.
+Ou seja, esse `font-stretch` nunca fez nada em nenhuma das três fontes.
+Foi mantido no CSS por decisão de não alterar nada além das famílias,
+mas pode ser removido com segurança numa limpeza futura.
+
+#### Diferença de largura, medida com as fontes reais
+
+Como o texto passa a ser desenhado por outra fonte, a mesma frase ocupa
+outra largura. Medido no mesmo tamanho, com os arquivos reais das três
+fontes:
+
+| Elemento | Antes | Depois | Diferença |
+|---|---|---|---|
+| `.link-title` (cards de contato) | 74,8px | 56,8px | **−24,1%** |
+| `h2.sticker-title` (Indicações) | 336,4px | 409,4px | **+21,7%** |
+| `.rec-title` (indicações) | 73,3px | 57,7px | −21,3% |
+| `.about-greeting` | 261,0px | 214,7px | −17,7% |
+| `h2.collage-title` (Sobre) | 353,3px | 410,5px | **+16,2%** |
+| `.art-title` (lista) | 472,0px | 400,4px | −15,2% |
+| `.section-title` | 496,6px | 423,0px | −14,8% |
+| `h1.art-title` (artigos) | 1205,4px | 1032,5px | −14,3% |
+| `.ml-item` (Mais lidos) | 428,7px | 368,8px | −14,0% |
+| `.art-q` | 559,4px | 487,3px | −12,9% |
+| `.hero h1` | 778,5px | 702,2px | −9,8% |
+
+O padrão: onde havia **Fraunces**, o texto **encurtou** 10–24%; onde
+havia **Anton**, **esticou** 16–22% — a Anton é bem mais condensada que
+a Coolvetica. Nenhuma dessas diferenças vem de `font-stretch` (que,
+como dito acima, nunca funcionou); é só a largura natural das letras de
+cada fonte.
+
+Reflexos de layout, todos verificados no navegador: nenhum título mudou
+de número de linhas no desktop, e no mobile (390px) os
+`.section-title` passaram a caber em **1 linha** em vez de 2 — por serem
+mais estreitos, a página encurtou ~90px. A `.about-greeting` ficou 2px
+mais alta, porque a Vintage Rotter dentro dela tem caixa de linha um
+pouco maior que a da Coolvetica.
+
+#### Como verificar isso localmente
+
+O Chromium deste ambiente **não alcança `fonts.googleapis.com`**. Um
+screenshot local, sem contornar isso, mostra Parkinsans, IBM Plex Mono e
+Fraunces em fallback do sistema — e comparar dois screenshots assim
+compara fallbacks, não as fontes reais. Para medir ou fotografar de
+verdade: baixar os `.woff2` do Google Fonts via `curl` com
+`User-Agent` de navegador (aí funciona, porque o proxy libera o curl),
+servi-los localmente e interceptar a requisição a
+`fonts.googleapis.com` no Playwright, devolvendo um CSS local que
+aponta pros arquivos baixados (com `Access-Control-Allow-Origin: *`,
+senão o CORS de fonte bloqueia).
+
+#### Nota sobre licença
+
+O nome interno do arquivo da Vintage Rotter é **"Vintage Rotter
+Personal Use Onl"** — ou seja, a fonte se identifica como de uso
+pessoal. O euprodutei.com.br é um site pessoal, mas é público e é uma
+marca; vale confirmar a licença com quem forneceu o arquivo antes de
+tratar esse uso como definitivo.
 
 ## 4. Deploy contínuo
 

@@ -31,8 +31,28 @@
 <meta name="twitter:image" content="https://euprodutei.com.br/assets/og/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Parkinsans:wght@300..800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/brand/Coolvetica-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Parkinsans:wght@300..800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
+  /* Fontes da marca, servidas do próprio site (ver seção 3.11 da documentação).
+     Coolvetica em dois pesos: 250 (arquivo El, ExtraLight) e 400.
+     Não existe peso acima de 400 — nenhum elemento deve pedir mais que isso,
+     senão o navegador sintetiza negrito falso. */
+  @font-face{
+    font-family:'Coolvetica';
+    src:url('../assets/brand/CoolveticaEl-Regular.woff2') format('woff2');
+    font-weight:250;font-style:normal;font-display:swap;
+  }
+  @font-face{
+    font-family:'Coolvetica';
+    src:url('../assets/brand/Coolvetica-Regular.woff2') format('woff2');
+    font-weight:400;font-style:normal;font-display:swap;
+  }
+  @font-face{
+    font-family:'Vintage Rotter';
+    src:url('../assets/brand/VintageRotterPersonalUseOnl-R.woff2') format('woff2');
+    font-weight:400;font-style:normal;font-display:swap;
+  }
   :root{
     /* Cores oficiais da identidade visual: --wine (bordô), --laranja e
        --off-white-marca. As demais são tons auxiliares do site.
@@ -48,7 +68,7 @@
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--cream);color:var(--ink);font-family:'Parkinsans',sans-serif;font-size:16px;line-height:1.6;}
-  h1,.display{font-family:'Fraunces',serif;font-optical-sizing:auto;margin:0;}
+  h1,.display{font-family:'Coolvetica',Helvetica,Arial,sans-serif;font-optical-sizing:auto;margin:0;}
   .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;}
   a{color:inherit;text-decoration:none;}
   .wrap{max-width:720px;margin:0 auto;padding:0 24px;}
@@ -70,12 +90,12 @@
   }
   .art-date{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--wine);opacity:0.65;margin-left:10px;}
   h1.art-title{
-    font-size:clamp(28px,5vw,42px);font-weight:700;line-height:1.15;color:var(--wine-dark);
+    font-size:clamp(28px,5vw,42px);font-weight:400;line-height:1.15;color:var(--wine-dark);
     margin-top:16px;margin-bottom:36px;font-stretch:82%;
   }
   .art-body p{margin:0 0 20px;font-size:17px;line-height:1.85;color:var(--wine-dark);}
   .art-body a{color:var(--laranja);text-decoration:underline;}
-  .art-body p.art-q{font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:var(--wine-dark);margin:32px 0 8px;}
+  .art-body p.art-q{font-family:'Coolvetica',Helvetica,Arial,sans-serif;font-weight:400;font-size:19px;color:var(--wine-dark);margin:32px 0 8px;}
   .art-body blockquote{
     margin:30px 0;padding:20px 24px;border-left:3px solid var(--rose);background:var(--beige);
     font-family:'Fraunces',serif;font-style:italic;font-size:19px;color:var(--wine);
