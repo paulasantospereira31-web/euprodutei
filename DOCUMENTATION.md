@@ -49,7 +49,7 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
   | `--wine`             | `#511527` | Bordô oficial. Fundo do hero, `.eyebrow`, `.section-sub`, "Ver todos os artigos" do rodapé dos artigos, entre outros. (O logo do header não usa a variável — é um SVG com a cor embutida no arquivo.) |
   | `--laranja`          | `#B7622E` | Laranja oficial. Sete usos, listados abaixo. |
   | `--rosa-escuro`      | `#942F4D` | Rosa escuro oficial. Dois usos, os dois herdados do `--rose` por causa de contraste: a classe `.rose-word` (a palavra "Paula", seção 3.7) e o `.rec-author` (nomes de autor nos cards de Indicações, seção 3.6). |
-  | `--pessego`          | `#D9A27F` | Pêssego oficial. Um uso: fundo da seção Indicações (`.section-pessego`), ver seção 3.6. Entrou em 2026-09-17 no lugar do bege. |
+  | `--pessego`          | `#D9A27F` | Pêssego oficial. Um uso: fundo dos `.rec-card` da seção Indicações, ver seção 3.6. Entrou em 2026-09-17; passou primeiro pelo fundo da seção inteira, depois foi realocado para dentro dos cards no mesmo dia. |
   | `--off-white-marca`  | `#D4CDBE` | Off white oficial, pra fundos escuros e peças de marca. Existe como variável desde 2026-09-09 mas **ainda não está aplicado a nenhum elemento** do site. |
 
   **Tons auxiliares do site** (decisões de layout/leitura, não fazem
@@ -366,82 +366,91 @@ arquivos de `articles/`.
   tracejado (`.rec-empty`) enquanto as colunas estavam vazias; ele saiu
   do HTML quando as indicações reais entraram, e a regra CSS órfã foi
   removida em 2026-09-09 (ver seção 3.9).
-  - **Fundo pêssego (desde 2026-09-17)**: a seção usa
-    `.section-pessego{background:var(--pessego)}` (`#D9A27F`). Antes era
-    `.section-beige` (`#EFE2CE`); como a Indicações era a **única** seção
-    que ainda usava aquela classe (a outra, `#sobre`, saiu em
-    2026-09-17), a `.section-beige` foi substituída e não duplicada —
-    ela não existe mais. A variável `--beige` continua em uso em outros
-    lugares (nav das páginas de artigo, fundo de `blockquote`, estado
-    inativo dos botões de curtir).
-  - Os `.rec-card` **já tinham** `background:var(--cream)` desde que
-    foram criados. Não foi preciso mudar nada neles: como o creme é bem
-    mais claro que o pêssego, os cards passaram a se destacar **mais**
-    do que se destacavam do bege. A separação card/fundo saiu de 1,18:1
-    (praticamente invisível) para 2,05:1.
+  - **Fundo bege da seção, cor pêssego nos cards (histórico
+    2026-09-17)**: no mesmo dia houve duas versões. Primeiro a seção
+    inteira passou a `.section-pessego{background:var(--pessego)}`
+    (`#D9A27F`), no lugar do bege — e nessa versão os `.rec-card`
+    continuaram creme. Depois, ainda no mesmo dia, essa decisão foi
+    revertida: **a seção voltou a `.section-beige` (`#EFE2CE`)**, e o
+    pêssego foi realocado para dentro dos `.rec-card`, que até então
+    eram `background:var(--cream)`.
+
+    Isso significa que `.section-beige` foi removida e recriada no
+    mesmo dia. A classe é idêntica à original
+    (`background:var(--beige)`), e a Indicações voltou a ser a única
+    seção que a usa — a mesma situação de antes de 2026-09-17.
+  - Os `.rec-card` deixaram de ser creme e passaram a
+    `background:var(--pessego)`. Consequência visual: como o pêssego é
+    mais escuro que o bege da seção ao redor, os cards continuam se
+    destacando do fundo (1,74:1 de separação — mais sutil que os 2,05:1
+    que o creme dava sobre o pêssego na versão anterior, mas ainda bem
+    mais que os 1,18:1 do creme sobre o bege original), só que por
+    serem mais escuros em vez de mais claros — o oposto do efeito que
+    o creme tinha.
   - **Título e subtítulo (desde 2026-09-17)**: o título é
     "Esses eu empresto. (Na teoria.)" num `h2.section-title` comum,
     exatamente o mesmo componente do "De produteira pra produteira" da
     seção Artigos. Antes era um título "adesivo" com contorno, sombra e
     rotação (`h2.sticker-title`), removido junto com suas 4 regras de
-    CSS (ver seção 3.9).
-  - **Contraste dentro da seção**: a troca do bege pelo pêssego escureceu
-    o fundo, então todos os textos perderam contraste. Medido:
+    CSS (ver seção 3.9). Essa parte da mudança **não foi revertida**
+    junto com a cor de fundo.
+  - **Contraste dentro da seção, no estado atual** (fundo bege na
+    seção, pêssego nos cards):
 
-    | Texto | Fundo | Antes (bege) | Depois (pêssego) | Régua |
-    |---|---|---|---|---|
-    | `.eyebrow` ("INDICAÇÕES") | seção | 11,06:1 | 6,34:1 | 4,5:1 ✅ |
-    | `.section-title` | seção | 11,06:1 | 7,25:1 | 3:1 (texto grande) ✅ |
-    | `.section-sub` (hoje `--wine`, sem opacity) | seção | 5,75:1 | **6,34:1** | 4,5:1 ✅ |
-    | `.rec-col h3` ("LIVROS"/"PODCASTS") | seção | 11,06:1 | 6,34:1 | 4,5:1 ✅ |
-    | `.rec-title` | card creme | 14,88:1 | 14,88:1 | 4,5:1 ✅ |
-    | `.rec-author` (hoje `--rosa-escuro`) | card creme | 2,38:1 | **6,98:1** | 4,5:1 ✅ |
-    | `.rec-desc` (`--wine-dark` com `opacity:0.85`) | card creme | 9,66:1 | 9,66:1 | 4,5:1 ✅ |
+    | Texto | Fundo | Contraste | Régua |
+    |---|---|---|---|
+    | `.eyebrow` ("INDICAÇÕES") | bege da seção | 11,06:1 | 4,5:1 ✅ |
+    | `.section-title` | bege da seção | 12,64:1 | 3:1 (texto grande) ✅ |
+    | `.section-sub` (`--wine`, sem opacity) | bege da seção | 11,06:1 | 4,5:1 ✅ |
+    | `.rec-col h3` ("LIVROS"/"PODCASTS") | bege da seção | 11,06:1 | 4,5:1 ✅ |
+    | `.rec-title` | card pêssego | 7,25:1 | 4,5:1 ✅ |
+    | `.rec-desc` (`--wine-dark` com `opacity:0.85`) | card pêssego | 5,49:1 | 4,5:1 ✅ |
+    | `.rec-author` (`--rosa-escuro`) | card pêssego | **3,40:1** | 4,5:1 **❌** |
 
-    Os dois valores marcados em negrito mudaram **depois** da troca de
-    fundo, num segundo passo no mesmo dia, porque com o pêssego eles não
-    passavam:
-
-    - **`.section-sub`**: a `opacity:0.72` saiu do componente e a cor
-      passou a ser explícita, `var(--wine)`. Detalhes abaixo, porque isso
-      afeta o site inteiro, não só esta seção.
-    - **`.rec-author`**: os nomes de autor saíram do `--rose` (2,38:1,
-      que já era o valor **antes** de qualquer mudança aqui, por estarem
-      sobre o creme do card) para o `--rosa-escuro` que já existia,
-      chegando a 6,98:1. Continua sendo um rosa, só que legível.
+    **`.rec-author` não passa no fundo pêssego dos cards.** Sobre o
+    creme (o fundo que os cards tinham até esta mudança) o mesmo
+    `--rosa-escuro` dava 6,98:1 — o problema é só do fundo novo. Isso
+    ficou registrado como **decisão pendente**, sinalizada em comentário
+    no CSS ao lado de `.rec-card` e de `.rec-author`: nenhuma cor nova
+    foi criada nem a `--rosa-escuro` foi trocada por conta própria,
+    porque não existe, entre as cores já oficiais do projeto, nenhuma
+    que seja rosa e passe 4,5:1 sobre o pêssego (ver seção 3.9 sobre o
+    histórico desse mesmo tipo de decisão com o `.section-sub`).
   - **O componente `.section-sub` mudou para o site inteiro** (não só
-    aqui), em 2026-09-17. Era
+    aqui), em 2026-09-17, e **essa parte não foi revertida**: era
     `color:var(--wine-dark);opacity:0.72;` e passou a
-    `color:var(--wine);` sem opacity. O motivo: a opacidade era o que
-    dava ao subtítulo o ar de texto secundário, mas ela **depende do
-    fundo** — sobre o creme claro entregava 6,30:1, e sobre o pêssego
-    caía para 4,12:1. Cor explícita não tem esse problema.
+    `color:var(--wine);` sem opacity. O motivo histórico: durante a
+    versão em que a seção Indicações tinha fundo pêssego, a opacidade
+    dava só 4,12:1 ali — abaixo do mínimo. Cor explícita resolve isso e
+    não depende do fundo, então mesmo com a Indicações de volta ao
+    bege, a mudança ficou (ela também deixava o subtítulo mais fraco em
+    qualquer fundo, não só no pêssego).
 
     Por que `--wine` e não `--wine-dark`: entre as variáveis do projeto
-    que passam 4,5:1 nos dois fundos onde o subtítulo aparece, `--wine`
-    é a mais clara. As alternativas ficariam mais pesadas ainda
-    (`--wine-dark` 14,88:1 no creme, `--ink` 15,68:1), e as mais claras
-    não passam sobre o pêssego (`--rosa-escuro` 3,40:1, `--laranja`
-    1,96:1).
+    que passam 4,5:1 nos fundos onde o subtítulo aparece, `--wine` é a
+    mais clara. As alternativas ficariam mais pesadas ainda
+    (`--wine-dark` 14,88:1 no creme, `--ink` 15,68:1).
 
-    | Onde aparece | Fundo | Antes | Depois |
-    |---|---|---|---|
-    | `#artigos` ("Sem enfeite, sem polimento...") | creme | 6,30:1 | **13,02:1** |
-    | `#indicacoes` ("Essa lista muda junto comigo...") | pêssego | 4,12:1 | **6,34:1** |
-    | `quem-escreve.html` (subtítulo da página) | creme | 6,30:1 | **13,02:1** |
+    | Onde aparece | Fundo | Contraste |
+    |---|---|---|
+    | `#artigos` ("Sem enfeite, sem polimento...") | creme | 13,02:1 |
+    | `#indicacoes` ("Essa lista muda junto comigo...") | bege | 11,06:1 |
+    | `quem-escreve.html` (subtítulo da página) | creme | 13,02:1 |
 
-    **Consequência assumida**: sobre o creme o subtítulo ficou cerca de
-    duas vezes mais escuro do que era. A hierarquia entre título e
-    subtítulo agora é feita **por tamanho e por família** (título em
+    **Consequência assumida**: sobre o creme e o bege o subtítulo ficou
+    mais escuro do que era antes de 2026-09-17 (a `opacity:0.72`
+    original dava 6,30:1 sobre o creme). A hierarquia entre título e
+    subtítulo é feita **por tamanho e por família** (título em
     Coolvetica 36px, subtítulo em Parkinsans 15,5px) e por um tom de
     bordô diferente, não mais por desbotamento.
 
     Atenção: a regra `.search-empty` (mensagem de "nenhum resultado" da
     busca, seção 3.5) **ainda usa `opacity:0.72`**. Ela não foi tocada
     porque só aparece sobre o creme, onde dá 6,30:1 e passa.
-  - A regra `.rec-meta` continua no CSS **sem nenhum elemento usando**.
-    Se um dia for usada, atenção: em `opacity:0.6` sobre o creme ela dá
-    4,30:1, abaixo de 4,5:1.
+  - A regra `.rec-meta` continua no CSS **sem nenhum elemento usando**,
+    e não foi tocada nesta mudança. Se um dia for usada, atenção: em
+    `opacity:0.6` ela dá 4,30:1 sobre o creme e 3,17:1 sobre o pêssego —
+    abaixo de 4,5:1 nos dois fundos.
   - **Layout (`.rec-grid` e `.rec-cards`)**: no desktop, `.rec-grid`
     empilha as subseções "Livros" e "Podcasts" em largura total, uma
     embaixo da outra (`grid-template-columns:1fr`) — não ficam mais
@@ -582,7 +591,7 @@ rodapé, com o mesmo tratamento dos artigos.
 #### A chamada na home (`#quem-escreve`)
 
 Fica **entre Indicações e Contato**, e é a última seção antes do
-rodapé. Como a Indicações tem fundo pêssego (`.section-pessego`), a chamada fica no creme,
+rodapé. Como a Indicações tem fundo bege (`.section-beige`), a chamada fica no creme,
 mantendo a alternância de fundo das seções.
 
 São três elementos: a foto pequena, uma linha de texto e o link.
@@ -741,8 +750,9 @@ hora para não virarem sobra.
   (contorno em `text-shadow` de 8 direções, sombra e rotação por linha).
   Era o único uso dessa técnica que sobrava; a versão palavra a palavra,
   do título colagem da seção Sobre, já tinha saído em 2026-09-17.
-- `.section-beige` — a Indicações era a última seção a usá-la, e passou
-  a `.section-pessego`.
+- `.section-beige` — a Indicações era a última seção a usá-la e passou a
+  `.section-pessego`; a classe foi recriada, idêntica, no mesmo dia,
+  quando a decisão de fundo da seção foi revertida (ver seção 3.6).
 
 ### 3.10 Arquivos de marca e favicon
 

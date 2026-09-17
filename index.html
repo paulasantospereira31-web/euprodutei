@@ -177,16 +177,18 @@
 
   /* section shell */
   section{padding:76px 0;}
-  .section-pessego{background:var(--pessego);}
+  .section-beige{background:var(--beige);}
   .eyebrow{color:var(--wine);font-weight:500;margin-bottom:10px;}
   .section-title{font-size:clamp(26px,4vw,36px);font-weight:400;color:var(--wine-dark);margin-bottom:14px;}
   #artigos .section-title{margin-bottom:4px;}
   #artigos .section-sub{margin-top:0;}
   /* Sem opacity: a cor é explícita. A opacity:0.72 que existia até
-     2026-09-17 deixava o subtítulo em 4,12:1 sobre o pêssego da
-     Indicações, abaixo do mínimo de 4,5:1. --wine é a variável mais
-     clara do projeto que passa nos dois fundos onde o subtítulo
-     aparece: 6,34:1 no pêssego e 13,02:1 no creme. */
+     2026-09-17 chegou a deixar o subtítulo em 4,12:1 quando a seção
+     Indicações teve fundo pêssego por um tempo, abaixo do mínimo de
+     4,5:1 (a Indicações voltou a ser bege depois, mas a correção da
+     opacity ficou — ela também deixava o subtítulo mais fraco em
+     qualquer fundo). Hoje: 11,06:1 sobre o bege e 13,02:1 sobre o
+     creme, com --wine. */
   .section-sub{max-width:52ch;color:var(--wine);font-size:15.5px;}
 
 
@@ -317,8 +319,11 @@
   .rec-grid{margin-top:40px;display:grid;grid-template-columns:1fr;gap:40px;}
   .rec-col h3{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--wine);margin-bottom:18px;}
   .rec-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  /* fundo pêssego (2026-09-17): --rec-author fica em 3,40:1 aqui, abaixo
+     de 4,5:1 — ver seção 3.6 da documentação, decisão pendente do dono
+     do produto, cor não alterada por conta própria. */
   .rec-card{
-    background:var(--cream);border:1px solid var(--paper-line);
+    background:var(--pessego);border:1px solid var(--paper-line);
     padding:16px 18px;border-radius:2px;
     box-shadow:2px 2px 0 rgba(58,20,32,0.05);
     display:flex;gap:16px;
@@ -332,7 +337,9 @@
   .rec-card .rec-meta{font-size:12.5px;color:var(--wine-dark);opacity:0.6;margin-top:3px;}
   .rec-card .rec-author{
     font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
-    /* rosa escuro: 6,98:1 sobre o creme do card, contra 2,38:1 do --rose */
+    /* rosa escuro, mesmo assim: 3,40:1 sobre o fundo pêssego do card,
+       abaixo do mínimo de 4,5:1 (sobre o creme antigo dava 6,98:1). Ver
+       comentário do .rec-card acima. */
     color:var(--rosa-escuro);margin-top:2px;margin-bottom:8px;
   }
   .rec-card .rec-desc{font-size:13.5px;line-height:1.55;color:var(--wine-dark);opacity:0.85;margin:0;}
@@ -495,7 +502,7 @@
   </div>
 </section>
 
-<section id="indicacoes" class="section-pessego">
+<section id="indicacoes" class="section-beige">
   <div class="wrap">
     <div class="eyebrow mono">Indicações</div>
     <h2 class="section-title">Esses eu empresto. (Na teoria.)</h2>
