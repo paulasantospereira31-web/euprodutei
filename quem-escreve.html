@@ -114,7 +114,12 @@
   /* Par título + subtítulo, reproduzindo o espaçamento que o index já usa
      entre .section-title (margin-bottom:14px) e .section-sub. */
   h1.art-title{margin-bottom:14px;}
-  .section-sub{max-width:52ch;color:var(--wine-dark);opacity:0.72;font-size:15.5px;margin:0 0 28px;}
+  /* Sem opacity: a cor é explícita. A opacity:0.72 que existia até
+     2026-09-17 deixava o subtítulo em 4,12:1 sobre o pêssego da
+     Indicações, abaixo do mínimo de 4,5:1. --wine é a variável mais
+     clara do projeto que passa nos dois fundos onde o subtítulo
+     aparece: 6,34:1 no pêssego e 13,02:1 no creme. */
+  .section-sub{max-width:52ch;color:var(--wine);font-size:15.5px;margin:0 0 28px;}
   /* .avatar e .avatar img copiadas do index.html, sem alteração; o único
      acréscimo é a margem de baixo, usando os 32px que o projeto já usa
      no padding-top do bloco .reactions dos artigos. */

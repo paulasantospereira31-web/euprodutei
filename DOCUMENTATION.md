@@ -46,9 +46,9 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
 
   | Variável             | Valor     | Onde é usada hoje |
   |----------------------|-----------|-------------------|
-  | `--wine`             | `#511527` | Bordô oficial. Fundo do hero, títulos de seção, "Ver todos os artigos" do rodapé dos artigos, entre outros. (O logo do header não usa a variável — é um SVG com a cor embutida no arquivo.) |
+  | `--wine`             | `#511527` | Bordô oficial. Fundo do hero, `.eyebrow`, `.section-sub`, "Ver todos os artigos" do rodapé dos artigos, entre outros. (O logo do header não usa a variável — é um SVG com a cor embutida no arquivo.) |
   | `--laranja`          | `#B7622E` | Laranja oficial. Sete usos, listados abaixo. |
-  | `--rosa-escuro`      | `#942F4D` | Rosa escuro oficial. Um uso: a classe `.rose-word` (a palavra "Paula"), ver seção 3.7. Entrou em 2026-09-17 para substituir o `--rose` nesse componente, por contraste. |
+  | `--rosa-escuro`      | `#942F4D` | Rosa escuro oficial. Dois usos, os dois herdados do `--rose` por causa de contraste: a classe `.rose-word` (a palavra "Paula", seção 3.7) e o `.rec-author` (nomes de autor nos cards de Indicações, seção 3.6). |
   | `--pessego`          | `#D9A27F` | Pêssego oficial. Um uso: fundo da seção Indicações (`.section-pessego`), ver seção 3.6. Entrou em 2026-09-17 no lugar do bege. |
   | `--off-white-marca`  | `#D4CDBE` | Off white oficial, pra fundos escuros e peças de marca. Existe como variável desde 2026-09-09 mas **ainda não está aplicado a nenhum elemento** do site. |
 
@@ -392,19 +392,53 @@ arquivos de `articles/`.
     |---|---|---|---|---|
     | `.eyebrow` ("INDICAÇÕES") | seção | 11,06:1 | 6,34:1 | 4,5:1 ✅ |
     | `.section-title` | seção | 11,06:1 | 7,25:1 | 3:1 (texto grande) ✅ |
-    | `.section-sub` (`--wine-dark` com `opacity:0.72`) | seção | 5,75:1 | **4,12:1** | 4,5:1 ❌ |
+    | `.section-sub` (hoje `--wine`, sem opacity) | seção | 5,75:1 | **6,34:1** | 4,5:1 ✅ |
     | `.rec-col h3` ("LIVROS"/"PODCASTS") | seção | 11,06:1 | 6,34:1 | 4,5:1 ✅ |
     | `.rec-title` | card creme | 14,88:1 | 14,88:1 | 4,5:1 ✅ |
-    | `.rec-author` (`--rose`) | card creme | 2,38:1 | **2,38:1** | 4,5:1 ❌ |
+    | `.rec-author` (hoje `--rosa-escuro`) | card creme | 2,38:1 | **6,98:1** | 4,5:1 ✅ |
     | `.rec-desc` (`--wine-dark` com `opacity:0.85`) | card creme | 9,66:1 | 9,66:1 | 4,5:1 ✅ |
 
-    **Dois pontos em aberto, mantidos de propósito à espera de decisão:**
-    o `.section-sub` caiu abaixo de 4,5:1 por causa do fundo novo (a
-    `opacity:0.72` do componente é o que o derruba; sem ela daria
-    7,25:1), e o `.rec-author` em `--rose` já estava em 2,38:1 **antes**
-    desta mudança, por estar sobre o creme do card, que não mudou. Se um
-    dia o autor precisar passar, o `--rosa-escuro` já existente daria
-    6,98:1 no mesmo lugar.
+    Os dois valores marcados em negrito mudaram **depois** da troca de
+    fundo, num segundo passo no mesmo dia, porque com o pêssego eles não
+    passavam:
+
+    - **`.section-sub`**: a `opacity:0.72` saiu do componente e a cor
+      passou a ser explícita, `var(--wine)`. Detalhes abaixo, porque isso
+      afeta o site inteiro, não só esta seção.
+    - **`.rec-author`**: os nomes de autor saíram do `--rose` (2,38:1,
+      que já era o valor **antes** de qualquer mudança aqui, por estarem
+      sobre o creme do card) para o `--rosa-escuro` que já existia,
+      chegando a 6,98:1. Continua sendo um rosa, só que legível.
+  - **O componente `.section-sub` mudou para o site inteiro** (não só
+    aqui), em 2026-09-17. Era
+    `color:var(--wine-dark);opacity:0.72;` e passou a
+    `color:var(--wine);` sem opacity. O motivo: a opacidade era o que
+    dava ao subtítulo o ar de texto secundário, mas ela **depende do
+    fundo** — sobre o creme claro entregava 6,30:1, e sobre o pêssego
+    caía para 4,12:1. Cor explícita não tem esse problema.
+
+    Por que `--wine` e não `--wine-dark`: entre as variáveis do projeto
+    que passam 4,5:1 nos dois fundos onde o subtítulo aparece, `--wine`
+    é a mais clara. As alternativas ficariam mais pesadas ainda
+    (`--wine-dark` 14,88:1 no creme, `--ink` 15,68:1), e as mais claras
+    não passam sobre o pêssego (`--rosa-escuro` 3,40:1, `--laranja`
+    1,96:1).
+
+    | Onde aparece | Fundo | Antes | Depois |
+    |---|---|---|---|
+    | `#artigos` ("Sem enfeite, sem polimento...") | creme | 6,30:1 | **13,02:1** |
+    | `#indicacoes` ("Essa lista muda junto comigo...") | pêssego | 4,12:1 | **6,34:1** |
+    | `quem-escreve.html` (subtítulo da página) | creme | 6,30:1 | **13,02:1** |
+
+    **Consequência assumida**: sobre o creme o subtítulo ficou cerca de
+    duas vezes mais escuro do que era. A hierarquia entre título e
+    subtítulo agora é feita **por tamanho e por família** (título em
+    Coolvetica 36px, subtítulo em Parkinsans 15,5px) e por um tom de
+    bordô diferente, não mais por desbotamento.
+
+    Atenção: a regra `.search-empty` (mensagem de "nenhum resultado" da
+    busca, seção 3.5) **ainda usa `opacity:0.72`**. Ela não foi tocada
+    porque só aparece sobre o creme, onde dá 6,30:1 e passa.
   - A regra `.rec-meta` continua no CSS **sem nenhum elemento usando**.
     Se um dia for usada, atenção: em `opacity:0.6` sobre o creme ela dá
     4,30:1, abaixo de 4,5:1.

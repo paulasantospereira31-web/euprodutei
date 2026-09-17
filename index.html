@@ -182,7 +182,12 @@
   .section-title{font-size:clamp(26px,4vw,36px);font-weight:400;color:var(--wine-dark);margin-bottom:14px;}
   #artigos .section-title{margin-bottom:4px;}
   #artigos .section-sub{margin-top:0;}
-  .section-sub{max-width:52ch;color:var(--wine-dark);opacity:0.72;font-size:15.5px;}
+  /* Sem opacity: a cor é explícita. A opacity:0.72 que existia até
+     2026-09-17 deixava o subtítulo em 4,12:1 sobre o pêssego da
+     Indicações, abaixo do mínimo de 4,5:1. --wine é a variável mais
+     clara do projeto que passa nos dois fundos onde o subtítulo
+     aparece: 6,34:1 no pêssego e 13,02:1 no creme. */
+  .section-sub{max-width:52ch;color:var(--wine);font-size:15.5px;}
 
 
 
@@ -327,7 +332,8 @@
   .rec-card .rec-meta{font-size:12.5px;color:var(--wine-dark);opacity:0.6;margin-top:3px;}
   .rec-card .rec-author{
     font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
-    color:var(--rose);margin-top:2px;margin-bottom:8px;
+    /* rosa escuro: 6,98:1 sobre o creme do card, contra 2,38:1 do --rose */
+    color:var(--rosa-escuro);margin-top:2px;margin-bottom:8px;
   }
   .rec-card .rec-desc{font-size:13.5px;line-height:1.55;color:var(--wine-dark);opacity:0.85;margin:0;}
   @media(max-width:480px){
