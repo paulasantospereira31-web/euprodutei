@@ -54,7 +54,10 @@
   .wrap{max-width:720px;margin:0 auto;padding:0 24px;}
   nav{background:var(--beige);border-bottom:1px solid var(--paper-line);padding:20px 0;}
   nav .wrap{display:flex;align-items:center;}
-  .wordmark{font-family:'Fraunces',serif;font-weight:700;font-size:21px;font-stretch:75%;color:var(--wine);}
+  .wordmark{display:flex;align-items:center;}
+  /* só a largura é definida; a altura sai da proporção original do SVG,
+     que o manual da marca proíbe alterar (ver seção 3.10 da documentação) */
+  .wordmark img{display:block;width:200px;height:auto;}
   .back-link{
     display:inline-block;margin:36px 0 28px;font-family:'IBM Plex Mono',monospace;
     font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--laranja);
@@ -101,10 +104,20 @@
   .react-btn[aria-pressed="true"]{background:var(--cream);border-color:var(--laranja);color:var(--wine-dark);}
   .react-btn[aria-pressed="true"] .react-icon{fill:var(--laranja);}
   .react-btn[aria-pressed="true"] .react-count{color:var(--wine-dark);opacity:0.85;}
+  @media(max-width:720px){
+    .wordmark img{width:40px;}
+  }
 </style>
 </head>
 <body>
-<nav><div class="wrap"><a href="../index.html" class="wordmark">Eu Produtei</a></div></nav>
+<nav><div class="wrap">
+  <a href="../index.html" class="wordmark">
+    <picture>
+      <source media="(max-width:720px)" srcset="../assets/brand/EuProdutei_Logotiporeduzido_bordo.svg">
+      <img src="../assets/brand/EuProdutei_Logotipoprincipal_bordo.svg" alt="Eu Produtei">
+    </picture>
+  </a>
+</div></nav>
 <div class="wrap">
   <a href="../index.html#artigos" class="back-link">&larr; Voltar pros artigos</a>
   <div><span class="art-tag">Liderança</span><span class="art-date">JUL 2026</span></div>

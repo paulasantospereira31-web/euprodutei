@@ -37,7 +37,7 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
 
   | Variável             | Valor     | Onde é usada hoje |
   |----------------------|-----------|-------------------|
-  | `--wine`             | `#511527` | Bordô oficial. Fundo do hero, wordmark, títulos de seção, "Ver todos os artigos" do rodapé dos artigos, entre outros. |
+  | `--wine`             | `#511527` | Bordô oficial. Fundo do hero, títulos de seção, "Ver todos os artigos" do rodapé dos artigos, entre outros. (O logo do header não usa a variável — é um SVG com a cor embutida no arquivo.) |
   | `--laranja`          | `#B7622E` | Laranja oficial. Quatro usos, listados abaixo. |
   | `--off-white-marca`  | `#D4CDBE` | Off white oficial, pra fundos escuros e peças de marca. Existe como variável desde 2026-09-09 mas **ainda não está aplicado a nenhum elemento** do site. |
 
@@ -57,7 +57,7 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
      Hoje nenhum artigo tem link no corpo, então a regra está no CSS
      mas ainda não aparece na tela.
   2. `nav ul li a:hover` — hover do menu do topo (só em `index.html`;
-     as páginas de artigo não têm menu, só o wordmark).
+     as páginas de artigo não têm menu, só o logo).
   3. `.back-link` — o "← Voltar pros artigos" no topo de cada artigo:
      texto laranja e `border-bottom` laranja (era `--rose` até
      2026-09-09).
@@ -454,6 +454,73 @@ foram movidos pra lá):
 **Regra do manual da marca**: a proporção original dos logos não pode
 ser alterada. Ou seja, não se define `width` e `height` juntos em cima
 do logo — define-se só a largura e deixa a altura sair sozinha.
+
+#### O logo no header (desde 2026-09-17)
+
+Até essa data o header mostrava **"Eu Produtei" como texto**, com a
+classe `.wordmark` em Fraunces 21px. Isso foi substituído pelo logo em
+imagem nas 7 páginas. A classe `.wordmark` continua existindo, mas
+agora é só o contêiner do `<img>` — perdeu todas as propriedades de
+texto (`font-family`, `font-size`, `font-stretch`, `color`), e a regra
+`.wordmark span{color:var(--rose);}` do `index.html`, que pintava o
+espaço entre "Eu" e "Produtei", foi removida junto com o span.
+
+A troca de logo por tamanho de tela é feita com `<picture>`, não com
+dois `<img>` escondidos por CSS — assim o navegador baixa só o arquivo
+que vai usar:
+
+```html
+<a href="index.html" class="wordmark">
+  <picture>
+    <source media="(max-width:720px)" srcset="assets/brand/EuProdutei_Logotiporeduzido_bordo.svg">
+    <img src="assets/brand/EuProdutei_Logotipoprincipal_bordo.svg" alt="Eu Produtei">
+  </picture>
+</a>
+```
+
+E o CSS, que define **só a largura** (a altura sai da proporção do
+SVG, pela regra do manual acima):
+
+```css
+.wordmark{display:flex;align-items:center;}
+.wordmark img{display:block;width:200px;height:auto;}
+@media(max-width:720px){ .wordmark img{width:40px;} }
+```
+
+Pontos que valem registro, porque são decisões e não acaso:
+
+- **O logo é link para a home nas 7 páginas.** Nos artigos ele já era
+  (`../index.html`); no `index.html` ele era uma `<div>` sem link e
+  virou `<a href="index.html">` em 2026-09-17, pra ficar clicável em
+  todo lugar. O `alt` é `"Eu Produtei"` em todas.
+- **Breakpoint: 720px**, o mesmo que o `index.html` já usava pra
+  esconder o menu. As páginas de artigo **não tinham nenhuma media
+  query** antes disso — a delas é nova, mas de propósito com o mesmo
+  valor do index, pra não existirem dois breakpoints diferentes no
+  projeto.
+- **O header cresceu, e isso foi uma escolha deliberada.** O logo
+  principal tem 3:1, então nos 200px de largura mínima do manual ele
+  fica com ~67px de altura — o dobro dos 33,59px que a linha de texto
+  ocupava. Optou-se por deixar o header crescer em vez de reduzir o
+  logo abaixo do mínimo do manual ou apertar o espaçamento vertical. O
+  espaçamento (16px no index, 20px nos artigos) ficou intacto.
+
+  | Página | Antes | Depois |
+  |---|---|---|
+  | `index.html` desktop | 66,59px | **99,66px** |
+  | `index.html` mobile | 66,59px | **73px** |
+  | Artigo desktop | 74,59px | **107,66px** |
+  | Artigo mobile | 74,59px | **81px** |
+
+  Note que **o mobile também cresceu**, ainda que pouco: o logo
+  reduzido tem 40px de altura e a linha de texto que ele substituiu
+  tinha 33,59px — ou seja, 6,41px a mais. É contraintuitivo porque
+  "40px" parece menor que "21px de fonte", mas o que conta é a altura
+  da caixa de linha (21px × `line-height` 1.6 = 33,59px), não o
+  tamanho da fonte.
+- O `index.html` tem `nav{position:sticky;top:0}`, então esses ~100px
+  ficam fixos no topo durante toda a rolagem. Os artigos não têm
+  sticky, o header deles rola junto com a página.
 
 **Favicon**: declarado no `<head>` das 7 páginas, logo depois da meta
 `viewport`, em duas linhas:

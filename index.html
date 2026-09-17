@@ -85,8 +85,10 @@
     border-bottom:1px solid var(--paper-line);
   }
   nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;}
-  .wordmark{font-family:'Fraunces',serif;font-weight:700;font-size:21px;font-stretch:75%;color:var(--wine);}
-  .wordmark span{color:var(--rose);}
+  .wordmark{display:flex;align-items:center;}
+  /* só a largura é definida; a altura sai da proporção original do SVG,
+     que o manual da marca proíbe alterar (ver seção 3.10 da documentação) */
+  .wordmark img{display:block;width:200px;height:auto;}
   nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0;}
   nav ul li a{font-size:14px;font-weight:500;color:var(--wine-dark);opacity:0.75;transition:opacity .2s;}
   nav ul li a:hover{opacity:1;color:var(--laranja);}
@@ -368,6 +370,7 @@
 
   @media(max-width:720px){
     nav ul{display:none;}
+    .wordmark img{width:40px;}
     .about-grid{grid-template-columns:1fr;}
     .avatar{width:96px;height:96px;font-size:32px;}
     .article-row{grid-template-columns:1fr;gap:8px;}
@@ -381,7 +384,12 @@
 
 <nav>
   <div class="wrap">
-    <div class="wordmark">Eu<span> </span>Produtei</div>
+    <a href="index.html" class="wordmark">
+      <picture>
+        <source media="(max-width:720px)" srcset="assets/brand/EuProdutei_Logotiporeduzido_bordo.svg">
+        <img src="assets/brand/EuProdutei_Logotipoprincipal_bordo.svg" alt="Eu Produtei">
+      </picture>
+    </a>
     <ul>
       <li><a href="#sobre">Sobre</a></li>
       <li><a href="#artigos">Artigos</a></li>
