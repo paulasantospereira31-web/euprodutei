@@ -949,6 +949,32 @@ pessoal. O euprodutei.com.br é um site pessoal, mas é público e é uma
 marca; vale confirmar a licença com quem forneceu o arquivo antes de
 tratar esse uso como definitivo.
 
+### 3.12 Seção Contato (`#links`)
+
+Última seção da home, com fundo bordô (`.footer`) e quatro `.link-card`
+num grid (`.link-grid`), cada um com uma etiqueta em mono e um título:
+
+| Card | Etiqueta | `href` |
+|---|---|---|
+| LinkedIn | Rede | `https://www.linkedin.com/in/paulaprodrigues` (abre em nova aba, com `rel="noopener"`) |
+| Instagram | Em breve | `#` — placeholder, ainda sem conta |
+| E-mail | Contato | `mailto:euprodutei@gmail.com` |
+| Comunidade | Em breve | `#` — placeholder |
+
+**O e-mail de contato é `euprodutei@gmail.com`** (era
+`paulasantospereira31@gmail.com` até 2026-09-17). Ele aparece em
+**exatamente um lugar em todo o repositório**: o `href` desse
+`mailto:` no `index.html`. Não está em nenhuma meta tag, não é exibido
+como texto visível em nenhuma página (o card mostra "E-mail", não o
+endereço) e não aparece em nenhuma das outras 7 páginas. Ou seja, para
+trocar o e-mail no futuro basta editar essa única linha.
+
+Cuidado ao buscar: o repositório contém a string
+`paulasantospereira31-web`, que é o **nome da organização no GitHub**
+(seção 4), não o e-mail. Uma substituição cega por
+"paulasantospereira31" quebraria as referências ao repositório na
+documentação.
+
 ## 4. Deploy contínuo
 
 Fluxo hoje, na prática:
