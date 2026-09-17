@@ -49,6 +49,7 @@ inline/vanilla, sem build step, sem framework, sem gerenciador de pacotes.
   | `--wine`             | `#511527` | Bordô oficial. Fundo do hero, títulos de seção, "Ver todos os artigos" do rodapé dos artigos, entre outros. (O logo do header não usa a variável — é um SVG com a cor embutida no arquivo.) |
   | `--laranja`          | `#B7622E` | Laranja oficial. Sete usos, listados abaixo. |
   | `--rosa-escuro`      | `#942F4D` | Rosa escuro oficial. Um uso: a classe `.rose-word` (a palavra "Paula"), ver seção 3.7. Entrou em 2026-09-17 para substituir o `--rose` nesse componente, por contraste. |
+  | `--pessego`          | `#D9A27F` | Pêssego oficial. Um uso: fundo da seção Indicações (`.section-pessego`), ver seção 3.6. Entrou em 2026-09-17 no lugar do bege. |
   | `--off-white-marca`  | `#D4CDBE` | Off white oficial, pra fundos escuros e peças de marca. Existe como variável desde 2026-09-09 mas **ainda não está aplicado a nenhum elemento** do site. |
 
   **Tons auxiliares do site** (decisões de layout/leitura, não fazem
@@ -365,6 +366,48 @@ arquivos de `articles/`.
   tracejado (`.rec-empty`) enquanto as colunas estavam vazias; ele saiu
   do HTML quando as indicações reais entraram, e a regra CSS órfã foi
   removida em 2026-09-09 (ver seção 3.9).
+  - **Fundo pêssego (desde 2026-09-17)**: a seção usa
+    `.section-pessego{background:var(--pessego)}` (`#D9A27F`). Antes era
+    `.section-beige` (`#EFE2CE`); como a Indicações era a **única** seção
+    que ainda usava aquela classe (a outra, `#sobre`, saiu em
+    2026-09-17), a `.section-beige` foi substituída e não duplicada —
+    ela não existe mais. A variável `--beige` continua em uso em outros
+    lugares (nav das páginas de artigo, fundo de `blockquote`, estado
+    inativo dos botões de curtir).
+  - Os `.rec-card` **já tinham** `background:var(--cream)` desde que
+    foram criados. Não foi preciso mudar nada neles: como o creme é bem
+    mais claro que o pêssego, os cards passaram a se destacar **mais**
+    do que se destacavam do bege. A separação card/fundo saiu de 1,18:1
+    (praticamente invisível) para 2,05:1.
+  - **Título e subtítulo (desde 2026-09-17)**: o título é
+    "Esses eu empresto. (Na teoria.)" num `h2.section-title` comum,
+    exatamente o mesmo componente do "De produteira pra produteira" da
+    seção Artigos. Antes era um título "adesivo" com contorno, sombra e
+    rotação (`h2.sticker-title`), removido junto com suas 4 regras de
+    CSS (ver seção 3.9).
+  - **Contraste dentro da seção**: a troca do bege pelo pêssego escureceu
+    o fundo, então todos os textos perderam contraste. Medido:
+
+    | Texto | Fundo | Antes (bege) | Depois (pêssego) | Régua |
+    |---|---|---|---|---|
+    | `.eyebrow` ("INDICAÇÕES") | seção | 11,06:1 | 6,34:1 | 4,5:1 ✅ |
+    | `.section-title` | seção | 11,06:1 | 7,25:1 | 3:1 (texto grande) ✅ |
+    | `.section-sub` (`--wine-dark` com `opacity:0.72`) | seção | 5,75:1 | **4,12:1** | 4,5:1 ❌ |
+    | `.rec-col h3` ("LIVROS"/"PODCASTS") | seção | 11,06:1 | 6,34:1 | 4,5:1 ✅ |
+    | `.rec-title` | card creme | 14,88:1 | 14,88:1 | 4,5:1 ✅ |
+    | `.rec-author` (`--rose`) | card creme | 2,38:1 | **2,38:1** | 4,5:1 ❌ |
+    | `.rec-desc` (`--wine-dark` com `opacity:0.85`) | card creme | 9,66:1 | 9,66:1 | 4,5:1 ✅ |
+
+    **Dois pontos em aberto, mantidos de propósito à espera de decisão:**
+    o `.section-sub` caiu abaixo de 4,5:1 por causa do fundo novo (a
+    `opacity:0.72` do componente é o que o derruba; sem ela daria
+    7,25:1), e o `.rec-author` em `--rose` já estava em 2,38:1 **antes**
+    desta mudança, por estar sobre o creme do card, que não mudou. Se um
+    dia o autor precisar passar, o `--rosa-escuro` já existente daria
+    6,98:1 no mesmo lugar.
+  - A regra `.rec-meta` continua no CSS **sem nenhum elemento usando**.
+    Se um dia for usada, atenção: em `opacity:0.6` sobre o creme ela dá
+    4,30:1, abaixo de 4,5:1.
   - **Layout (`.rec-grid` e `.rec-cards`)**: no desktop, `.rec-grid`
     empilha as subseções "Livros" e "Podcasts" em largura total, uma
     embaixo da outra (`grid-template-columns:1fr`) — não ficam mais
@@ -505,7 +548,7 @@ rodapé, com o mesmo tratamento dos artigos.
 #### A chamada na home (`#quem-escreve`)
 
 Fica **entre Indicações e Contato**, e é a última seção antes do
-rodapé. Como a Indicações é `.section-beige`, a chamada fica no creme,
+rodapé. Como a Indicações tem fundo pêssego (`.section-pessego`), a chamada fica no creme,
 mantendo a alternância de fundo das seções.
 
 São três elementos: a foto pequena, uma linha de texto e o link.
@@ -652,6 +695,20 @@ que nenhum HTML e nenhum JS as referenciava:
 
 Nenhuma dessas remoções muda a aparência do site — todas eram regras
 sem elemento correspondente no HTML.
+
+**Segunda rodada, em 2026-09-17**, junto com a reforma da seção
+Indicações (seção 3.6). Estas **não** são regras que já estavam órfãs:
+ficaram órfãs por causa daquela mudança, e foram removidas na mesma
+hora para não virarem sobra.
+
+- `h2.sticker-title`, `h2.sticker-title .sticker-line`,
+  `h2.sticker-title .sticker-line.sticker-mid` e
+  `h2.sticker-title .sticker-accent` — as 4 regras do título "adesivo"
+  (contorno em `text-shadow` de 8 direções, sombra e rotação por linha).
+  Era o único uso dessa técnica que sobrava; a versão palavra a palavra,
+  do título colagem da seção Sobre, já tinha saído em 2026-09-17.
+- `.section-beige` — a Indicações era a última seção a usá-la, e passou
+  a `.section-pessego`.
 
 ### 3.10 Arquivos de marca e favicon
 
@@ -904,7 +961,7 @@ fontes:
 | Elemento | Antes | Depois | Diferença |
 |---|---|---|---|
 | `.link-title` (cards de contato) | 74,8px | 56,8px | **−24,1%** |
-| `h2.sticker-title` (Indicações) | 336,4px | 409,4px | **+21,7%** |
+| `h2.sticker-title` (título adesivo de Indicações, removido em 2026-09-17) | 336,4px | 409,4px | **+21,7%** |
 | `.rec-title` (indicações) | 73,3px | 57,7px | −21,3% |
 | `.about-greeting` | 261,0px | 214,7px | −17,7% |
 | `h2.collage-title` (título colagem do antigo bloco Sobre, removido em 2026-09-17) | 353,3px | 410,5px | **+16,2%** |
